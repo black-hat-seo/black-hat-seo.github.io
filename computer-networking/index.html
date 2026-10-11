@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>计算机网络 | 烟雨黑帽</title>
+<meta name="description" content="Term 术语 NAT NAT（Network Address Translation），也称网络地址转换。 3种实现方式： 静态转换Static Nat 、 动态转换Dynamic Nat 和 端口多路复用OverLoad 。 TTL(Time To Live) TTL是 Time To Live…">
+<meta name="keywords" content="计算机网络, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="计算机网络">
+<meta property="og:description" content="Term 术语 NAT NAT（Network Address Translation），也称网络地址转换。 3种实现方式： 静态转换Static Nat 、 动态转换Dynamic Nat 和 端口多路复用OverLoad 。 TTL(Time To Live) TTL是 Time To Live…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="计算机网络">
+<meta name="twitter:description" content="Term 术语 NAT NAT（Network Address Translation），也称网络地址转换。 3种实现方式： 静态转换Static Nat 、 动态转换Dynamic Nat 和 端口多路复用OverLoad 。 TTL(Time To Live) TTL是 Time To Live…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "计算机网络"}]}, {"@type": "TechArticle", "headline": "计算机网络", "description": "Term 术语 NAT NAT（Network Address Translation），也称网络地址转换。 3种实现方式： 静态转换Static Nat 、 动态转换Dynamic Nat 和 端口多路复用OverLoad 。 TTL(Time To Live) TTL是 Time To Live…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1 active"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>计算机网络</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>计算机网络</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#term">Term 术语</a>
+<ul>
+<li><a href="#nat">NAT</a>
+</li>
+<li><a href="#ttltime-to-live">TTL(Time To Live)</a>
+</li>
+<li><a href="#ptr">PTR</a>
+</li>
+</ul>
+</li>
+<li><a href="#_1">网络部署相关笔记</a>
+<ul>
+<li><a href="#_2">判断电脑能否上网的方法</a>
+</li>
+<li><a href="#_3">路由器与交换机的关系</a>
+</li>
+<li><a href="#tap">TAP和集线器</a>
+</li>
+<li><a href="#idsips">IDS和IPS的区别</a>
+</li>
+</ul>
+</li>
+<li><a href="#_4">常识</a>
+</li>
+<li><a href="#_5">标准内网地址</a>
+</li>
+<li><a href="#windows-cmd-ping">windows cmd 批量ping</a>
+</li>
+<li><a href="#_6">交换机工作原理</a>
+<ul>
+<li><a href="#_7">交换机转发原理</a>
+</li>
+<li><a href="#_8">交换机以太网接口的工作模式</a>
+</li>
+<li><a href="#_9">交换机以太网接口速率</a>
+</li>
+<li><a href="#_10">交换机配置</a>
+</li>
+<li><a href="#cisco">Cisco体系设备常用模式</a>
+</li>
+<li><a href="#ciscomac">Cisco查看交换的MAC地址表</a>
+</li>
+</ul>
+</li>
+<li><a href="#_11">路由器的原理与配置</a>
+</li>
+<li><a href="#_12">阅读推荐</a>
+</li>
+<li><a href="#_13">其它补充</a>
+<ul>
+<li><a href="#_14">企业组网网络划分</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="term">Term 术语</h2>
+<h3 id="nat">NAT</h3>
+<p>NAT（Network Address Translation），也称网络地址转换。</p>
+<p>3种实现方式：<code>静态转换Static Nat</code>、<code>动态转换Dynamic Nat</code>和<code>端口多路复用OverLoad</code>。</p>
+<h3 id="ttltime-to-live">TTL(Time To Live)</h3>
+<p>TTL是 Time To Live的缩写，该字段指定IP包被路由器丢弃之前允许通过的最大网段数量。</p>
+<p>TTL是IPv4报头的一个8 bit字段。</p>
+<p><img alt="TTL" src="***.com" /></p>
+<p>TTL与DNS TTL有区别:
+二者都是生存时间，前者指ICMP包的转发次数（跳数），后者指域名解析信息在DNS中的存在时间。</p>
+<h3 id="ptr">PTR</h3>
+<p>PTR (Pointer Record)，指针记录，是电子邮件系统中的一种数据类型，被互联网标准文件RFC1035所定义。</p>
+<p><code>PTR记录解析IP地址到域名</code>，是反向记录。</p>
+<h2 id="_1">网络部署相关笔记</h2>
+<h3 id="_2">判断电脑能否上网的方法</h3>
+<ul>
+<li>1.路由器WAN口与其连接的光猫互通，确保能够顺利拨号；</li>
+<li>2.确保电脑与路由器的LAN口互通;</li>
+</ul>
+<h3 id="_3">路由器与交换机的关系</h3>
+<pre><code>路由器是拥有路由、NAT、DHCP服务等多种功能的交换机。
+当路由器处于路由模式时，所有的lan口相当于一台交换机。
+
+当路由器处于路由模式时，所有功能都是开启的。
+但除了路由模式外，比如处于mesh子路由或者中继模式（AP模式）时，路由模式中的功能都会失效，此时，路由器的作用等同于一台交换机，wan口也就变为lan口了。
+
+保险起见，对于交换机同时连接wan口和lan口的情况，建议使用支持vlan的交换机。使用VLAN交换机，在交换机上将WAN和LAN进行隔离。
+</code></pre>
+<p>ref: ***.com</p>
+<h3 id="tap">TAP和集线器</h3>
+<pre><code>TAP和集线器都是充当流量复制器的作用，但TAP能处理的流量更大
+</code></pre>
+<p>ref: ***.com</p>
+<h3 id="idsips">IDS和IPS的区别</h3>
+<pre><code>IDS（入侵检测系统）旁路部署
+IPS（入侵防御系统）串行部署
+</code></pre>
+<p>ref: ***.com</p>
+<h2 id="_4">常识</h2>
+<h2 id="_5">标准内网地址</h2>
+<pre><code>10.0.0.0-10.255.255.255
+172.16.0.0-172.31.255.255
+192.168.0.0-192.168.255.255
+</code></pre>
+<h2 id="windows-cmd-ping">windows cmd 批量ping</h2>
+<pre><code>for /L %i in (11,1,255) do @ping 172.%i.0.1 -n 1| find &quot;TTL=25&quot;
+</code></pre>
+<ul>
+<li>FOR表示循环</li>
+<li>/L表示循环1次加上N，N由IN (11,1,255)中的第二个数字决定，此处为加上1</li>
+<li>%i IN (0,1,255)表示从11开始，每次加1，直到255</li>
+</ul>
+<p>后面的应该能直接看懂了，不一一解释了。</p>
+<h2 id="_6">交换机工作原理</h2>
+<p>交换机看的是二层的MAC地址</p>
+<p>实际通信中不会只靠MAC转发。</p>
+<p>如果A、C在不同网段（比如：A 192.168.3.1，B 192.168.100.1），在封装数据包时，因为C不在同一网段，A封装的MAC地址是网关的MAC地址。</p>
+<p>在同一网段通信，封装前会有个ARP过程，源MAC是自己的，目标MAC是目标主机的。</p>
+<h3 id="_7">交换机转发原理</h3>
+<ul>
+<li>初始状态</li>
+<li>MAC地址学习</li>
+<li>广播未知数据（广播帧FF:FF:FF:FF:FF:FF）</li>
+<li>接收方回应</li>
+<li>交换机实现单播通信</li>
+</ul>
+<p>交换机会维护一个Mac地址表，加入Mac地址表为空，A发送数据帧到交换机，交换机记录源MAC和所进入的接口，在交换机的MAC地址表中写入一个对应关系。</p>
+<p><img alt="switch1" src="../images/3a02a29155771411.jpg" /></p>
+<p>如果在MAC地址表中找不到目标MAC的对应关系，就会在除了接收该数据的接口以外，都以泛洪（广播）形式发送。</p>
+<p><img alt="switch2" src="../images/f8da5d74e5176f25.jpg" /></p>
+<p>交换机允许一个接口存多个MAC，所以容易被攻击。</p>
+<h3 id="_8">交换机以太网接口的工作模式</h3>
+<ul>
+<li>单工：两个数据站之间只能沿单一方向传输数据</li>
+<li>半双工：两个数据站之间可以双向数据传输，但不能同时进行</li>
+<li>全双工：两个数据站之间可双向且同时进行数据传输</li>
+</ul>
+<h3 id="_9">交换机以太网接口速率</h3>
+<ul>
+<li>接口连接时进行协商 （会按照最低速率，10M和100M就按10M进行）</li>
+<li>协商失败则无法正常通信</li>
+</ul>
+<p>ext: ARP
+与目标通信时一定会获取目标的IP地址，可能知道目标IP，但不知道目标的MAC地址。
+此时就通过ARP协议得知对方的MAC地址。发广播数据。</p>
+<h3 id="_10">交换机配置</h3>
+<ul>
+<li>Console电缆   （用Console线，winscp  协议：Serial）</li>
+<li>物理连接</li>
+<li>计算机COM口</li>
+<li>交换机/路由器Console口</li>
+<li>软件连接</li>
+<li>超级终端</li>
+<li>其他软件</li>
+</ul>
+<h3 id="cisco">Cisco体系设备常用模式</h3>
+<p>用户模式 -&gt; 特权模式 -&gt; 全局配置 -&gt; 接口模式</p>
+<ul>
+<li>用户模式 -&gt; 特权模式：en   （完整命令是enable）</li>
+<li>特权模式 -&gt; 全局配置：conf t    （完整命令是config terminal）</li>
+<li>全局配置 -&gt; 接口模式：int f0/1  (int的完整命令interface fastethernet 0/1)</li>
+<li>命令含义：<ul>
+<li>interface：关键字</li>
+<li>fastethernet:</li>
+</ul>
+</li>
+</ul>
+<p>f0/1：f代表百兆接口，0是模块号，1是表示FasterEthernet的端口号</p>
+<p>其他命令：
+<img alt="quit_cmd" src="***.com" /></p>
+<p>?类似linux中的Table补齐命令</p>
+<p><img alt="other_cmd" src="***.com" /></p>
+<h3 id="ciscomac">Cisco查看交换的MAC地址表</h3>
+<pre><code>Switch# show mac-address-table [dynamic]
+</code></pre>
+<p><img alt="show_mac" src="***.com" /></p>
+<h2 id="_11">路由器的原理与配置</h2>
+<p>路由器要进行跨网段通信</p>
+<p>全球网络把网络隔离成多个（小的）广播域，根据IP地址段进行区域划分，防止过多的广播地址在这里传输下去。
+（因为三层协议上有ttl，即time to live, 数据包的生存周期，每经过一个节点，ttl减1，所以三层的广播不会永久广播下去。但是二层协议不同，没有ttl，如ARP广播，有可能无止境传输下去）
+所以要用三层设备对广播域进行控制。三层设备有路由器，还有高于三层设备的防火墙，以及SDN模式服务器。</p>
+<p><img alt="路由器、交换机配置举例" src="***.com" /></p>
+<h2 id="_12">阅读推荐</h2>
+<ul>
+<li>计算机网络 （谢希仁，第7版，另有配套答案书一本，最近也出了一本配套实验书）—— 准备考研的必看这本</li>
+<li>计算机网络：自顶向下方法(第7版) —— 非考研向自学的推荐这本，能看英文原版的建议看原版</li>
+<li>《TCP/IP详解》第一卷 —— 要进阶和深入的看</li>
+<li>Web开发技术-HTTP</li>
+</ul>
+<h2 id="_13">其它补充</h2>
+<h3 id="_14">企业组网网络划分</h3>
+<p>通常划分为：<code>业务网（或办公网）</code>、<code>生产网（一般包含核心开发环境）</code>、<code>运维网</code>。 （P.S.：小企业可能是三网打通的）</p>
+<p>系统安全类日志一般都是在运维网区域，所以一般不会对外提供和暴露，如果确实需要，一般需要通过堡垒机访问相关网络环境。</p></div></article><nav class="pager"><a class="pg prev" href="../backend-learn-guide/"><span>上一篇</span><b>后端开发学习指南</b></a><a class="pg next" href="../os/"><span>下一篇</span><b>操作系统</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
