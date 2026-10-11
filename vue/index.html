@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vue.js | 烟雨黑帽</title>
+<meta name="description" content="现在Vue.js的使用范围很广，很多后端岗位也对Vue.js和React技能有要求。 入门学习重点关注 组件的定义和使用 方法的定义和使用 路由的定义和使用 状态管理的定义和使用 路由传参 vuex操作数据 父子组件传参 组件：是维护单一功能，可复用的单个个体。 node.js官网 ***.com …">
+<meta name="keywords" content="Vue.js, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Vue.js">
+<meta property="og:description" content="现在Vue.js的使用范围很广，很多后端岗位也对Vue.js和React技能有要求。 入门学习重点关注 组件的定义和使用 方法的定义和使用 路由的定义和使用 状态管理的定义和使用 路由传参 vuex操作数据 父子组件传参 组件：是维护单一功能，可复用的单个个体。 node.js官网 ***.com …">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vue.js">
+<meta name="twitter:description" content="现在Vue.js的使用范围很广，很多后端岗位也对Vue.js和React技能有要求。 入门学习重点关注 组件的定义和使用 方法的定义和使用 路由的定义和使用 状态管理的定义和使用 路由传参 vuex操作数据 父子组件传参 组件：是维护单一功能，可复用的单个个体。 node.js官网 ***.com …">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Vue.js"}]}, {"@type": "TechArticle", "headline": "Vue.js", "description": "现在Vue.js的使用范围很广，很多后端岗位也对Vue.js和React技能有要求。 入门学习重点关注 组件的定义和使用 方法的定义和使用 路由的定义和使用 状态管理的定义和使用 路由传参 vuex操作数据 父子组件传参 组件：是维护单一功能，可复用的单个个体。 node.js官网 ***.com …", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1 active"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Vue.js</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Vue.js</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">入门学习重点关注</a>
+</li>
+<li><a href="#nodejs">node.js官网</a>
+</li>
+<li><a href="#cnpm">安装cnpm</a>
+</li>
+<li><a href="#vuevue-cli">安装vue和vue-cli</a>
+</li>
+<li><a href="#_2">创建项目</a>
+</li>
+<li><a href="#_3">版本问题</a>
+</li>
+<li><a href="#_4">常用命令</a>
+<ul>
+<li><a href="#npmvue2">npm全局安装vue2</a>
+</li>
+<li><a href="#npmvue3">npm局部安装vue3</a>
+</li>
+<li><a href="#npmvue-cli">npm全局安装vue-cli最新版本</a>
+</li>
+<li><a href="#npm">npm卸载已安装模块</a>
+</li>
+<li><a href="#npm_1">使用npm镜像源</a>
+<ul>
+<li><a href="#_5">单次使用</a>
+</li>
+<li><a href="#_6">永久使用</a>
+</li>
+<li><a href="#_7">手动修改</a>
+</li>
+<li><a href="#_8">检测是否修改成功</a>
+</li>
+</ul>
+</li>
+<li><a href="#vue-cli">查看vue-cli版本号</a>
+</li>
+<li><a href="#vue">全局查看vue版本号</a>
+</li>
+<li><a href="#vue_1">局部（当前项目）查vue版本号</a>
+</li>
+<li><a href="#vue-cli_1">用vue-cli创建项目</a>
+</li>
+<li><a href="#vue2vue3">Vue2和Vue3共存(仅供参考)</a>
+</li>
+<li><a href="#element-ui">Element-UI的基本使用</a>
+<ul>
+<li><a href="#1">1.基于命令行方式手动安装</a>
+</li>
+<li><a href="#2">2.基于图形化界面自动安装</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_9">其它问题</a>
+<ul>
+<li><a href="#npm-s-d">npm安装包时-S和-D的区别</a>
+</li>
+</ul>
+</li>
+<li><a href="#_10">学习资源</a>
+</li>
+<li><a href="#_11">开源组件库</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>现在Vue.js的使用范围很广，很多后端岗位也对Vue.js和React技能有要求。</p>
+<h2 id="_1">入门学习重点关注</h2>
+<ul>
+<li>组件的定义和使用</li>
+<li>方法的定义和使用</li>
+<li>路由的定义和使用</li>
+<li>状态管理的定义和使用</li>
+<li>路由传参</li>
+<li>vuex操作数据</li>
+<li>
+<p>父子组件传参</p>
+</li>
+<li>
+<p>组件：是维护单一功能，可复用的单个个体。</p>
+</li>
+</ul>
+<h2 id="nodejs">node.js官网</h2>
+<ul>
+<li>***.com</li>
+</ul>
+<h2 id="cnpm">安装cnpm</h2>
+<p>npm install -g cnpm --registry=***.com</p>
+<h2 id="vuevue-cli">安装vue和vue-cli</h2>
+<p>cnpm i -g vue @vue/cli</p>
+<h2 id="_2">创建项目</h2>
+<p>vue create todolist</p>
+<h2 id="_3">版本问题</h2>
+<p>企业的旧项目用Vue.js 2.X的比较多，但现在新用Vue.js 3的已经越来越多。</p>
+<p>vue-cli安装最新的版本即可，不用安装以前的，因为新版本才支持<code>vue ui</code></p>
+<p>部署开发环境的话，目前一般需要Vue2和Vue3共存，所以建议一个版本全局部署，一个版本局部部署，以便需要时使用。</p>
+<p>但是vue-cli安装一个应该就可以了。</p>
+<p>如果要管理多版本node.js，非windows用nvm，Windows用nvm-windows</p>
+<h2 id="_4">常用命令</h2>
+<h3 id="npmvue2">npm全局安装vue2</h3>
+<pre><code>npm install vue -g --registry=***.com 
+
+-g 表示全局
+
+-registry 指定安装用的npm源，因为官方源在国内容易超时，其实国内也可以考虑用cnpm
+</code></pre>
+<h3 id="npmvue3">npm局部安装vue3</h3>
+<p>局部安装注意文件夹，且不要加 -g 参数，不加则表示<strong>安装到当前命令行所在目录</strong>，且不写入package.json</p>
+<pre><code>npm install vue@next --registry=***.com
+</code></pre>
+<h3 id="npmvue-cli">npm全局安装vue-cli最新版本</h3>
+<pre><code>npm install @vue/cli -g --registry=***.com
+</code></pre>
+<h3 id="npm">npm卸载已安装模块</h3>
+<pre><code>npm uninstall xxx
+
+npm uninstall -g xxx
+
+-g 表示全局
+</code></pre>
+<h3 id="npm_1">使用npm镜像源</h3>
+<p>众所周知的原因，国内使用npm一般需要镜像源</p>
+<h4 id="_5">单次使用</h4>
+<pre><code>npm install --registry=***.com
+</code></pre>
+<h4 id="_6">永久使用</h4>
+<pre><code>npm config set registry ***.com
+</code></pre>
+<h4 id="_7">手动修改</h4>
+<pre><code>1.打开.npmrc文件（C:\Program Files\nodejs\node_modules\npm\npmrc，没有的话可以使用git命令行建一个( touch .npmrc)，用cmd命令建会报错）
+2.增加 registry =***.com  即可。
+</code></pre>
+<h4 id="_8">检测是否修改成功</h4>
+<pre><code>npm config get registry
+</code></pre>
+<h3 id="vue-cli">查看vue-cli版本号</h3>
+<p><code>vue -V</code></p>
+<h3 id="vue">全局查看vue版本号</h3>
+<p><code>npm info vue</code></p>
+<p><img alt="全局查看vue版本号" src="***.com" /></p>
+<h3 id="vue_1">局部（当前项目）查vue版本号</h3>
+<p><code>npm list vue version</code></p>
+<h3 id="vue-cli_1">用vue-cli创建项目</h3>
+<pre><code># 1.基于交互式命令行，创建vue项目
+vue create project_name
+
+# 2.基于图形化界面，创建Vue项目
+vue ui(可视化安装) 
+
+# 启动vue项目
+npm run serve 
+</code></pre>
+<h3 id="vue2vue3">Vue2和Vue3共存(仅供参考)</h3>
+<p>ref: ***.com</p>
+<pre><code>0.全局安装Vue2（局部安装Vue3）
+
+1.新建文件夹，如：workspace_vue3/，局部安装vue3
+
+2.打开 ...\workspace_vue3\node_modules\.bin ，将目录下的vue与vue.cmd重命名为vue3与vue3.cmd
+
+3.在Win10中右键此电脑=&gt;高级系统设置=&gt;环境变量=&gt;系统变量=&gt;选PATH，然后新建将 ...\workspace_vue3\node_modules\.bin 的绝对路径添加到Path变量中，并点击“确定/应用”
+
+4.重启终端命令行
+</code></pre>
+<h3 id="element-ui">Element-UI的基本使用</h3>
+<p>样式编写没有太大的工作难度，主要是工作量大。</p>
+<p>Element-UI：一套为开发者、设计师和产品经理准备的基于Vue 2.x的桌面端组件库。</p>
+<p>官网：***.com</p>
+<h4 id="1">1.基于命令行方式手动安装</h4>
+<p>（1）安装依赖包 <code>npm i element-ui -S</code></p>
+<p>（2）导入 Element-UI 相关资源</p>
+<p>在 main.js 中写入以下内容：</p>
+<pre><code>import ElementUI from 'element-ui';    // 导入组件库      
+import 'element-ui/lib/theme-chalk/index.css';    // 导入组件相关样式
+
+// 配置Vue插件
+Vue.use(ElementUI);
+</code></pre>
+<p>以上代码便完成了 Element 的引入。需要注意的是，样式文件需要单独引入。</p>
+<h4 id="2">2.基于图形化界面自动安装</h4>
+<p>看视频4分钟开始吧：***.com</p>
+<p>vue ui启动图形化界面 -&gt; 选择项目 -&gt; 插件 -&gt; 搜 <code>vue-cli-plugin-element</code>并安装 -&gt; 配置插件，实现按需导入</p>
+<h2 id="_9">其它问题</h2>
+<h3 id="npm-s-d">npm安装包时-S和-D的区别</h3>
+<pre><code>1、npm install name --save 简写（npm install name -S） 自动把模块和版本号添加到package.json的dependencies。
+
+-S后，安装包会在package中的 dependencies 对象中。简称dep。dep是在生产环境中要用到的。
+</code></pre>
+<pre><code>2、npm install name --save-dev 简写（npm install name -D） 自动把模块和版本号添加到package.json的devDependencies。
+
+-D后，安装包会在package中的 devDependencies对象中。简称dev。dev是在开发环境中要用到的。
+</code></pre>
+<p>举个例子：</p>
+<p>构建工具：webpack是用来压缩代码，打包等需要的工具，程序实际运行的时候并不需要，就要放在dev中所以要用 -D。</p>
+<p>项目插件：例如bootstrap、mint-ui这种插件要在运行中使用的，就要放在dep中所以就用 -S。</p>
+<p><img alt="npm安装包时-S和-D的区别" src="***.com" /></p>
+<h2 id="_10">学习资源</h2>
+<ul>
+<li>Vue3 + vite + Ts + pinia + 实战 + 源码 + electron</li>
+<li>Vue3+TypeScript快速上手教程</li>
+<li>Vue官方文档 -- 官方中文文档详细且配视频，入门必看。</li>
+</ul>
+<h2 id="_11">开源组件库</h2>
+<ul>
+<li>Element UI -- Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库</li>
+<li>ANTD PRO VUE -- 开箱即用的中台前端/设计解决方案。</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../typescript/"><span>上一篇</span><b>TypeScript</b></a><a class="pg next" href="../react/"><span>下一篇</span><b>React</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

