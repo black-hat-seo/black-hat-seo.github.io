@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工控安全 | 烟雨黑帽</title>
+<meta name="description" content="一、专业术语 SCADA:Supervisory Control And Data Acquisition，即数据采集与监视控制系统，涉及到组态软件、数据传输链路（如：数传电台、GPRS等）。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工…">
+<meta name="keywords" content="工控安全, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="工控安全">
+<meta property="og:description" content="一、专业术语 SCADA:Supervisory Control And Data Acquisition，即数据采集与监视控制系统，涉及到组态软件、数据传输链路（如：数传电台、GPRS等）。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="工控安全">
+<meta name="twitter:description" content="一、专业术语 SCADA:Supervisory Control And Data Acquisition，即数据采集与监视控制系统，涉及到组态软件、数据传输链路（如：数传电台、GPRS等）。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "工控安全"}]}, {"@type": "TechArticle", "headline": "工控安全", "description": "一、专业术语 SCADA:Supervisory Control And Data Acquisition，即数据采集与监视控制系统，涉及到组态软件、数据传输链路（如：数传电台、GPRS等）。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1 active"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>工控安全</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>工控安全</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_2">一、专业术语</a>
+</li>
+<li><a href="#_3">二、协议和术语科普</a>
+<ul>
+<li><a href="#_4">工业控制网络的协议分类</a>
+</li>
+<li><a href="#1modbus">1.Modbus通讯协议</a>
+<ul>
+<li><a href="#modbus">Modbus协议</a>
+</li>
+<li><a href="#modbus-tcp">Modbus TCP</a>
+</li>
+<li><a href="#modbus-0x5a">Modbus 0x5a</a>
+</li>
+<li><a href="#ref">REF</a>
+</li>
+</ul>
+</li>
+<li><a href="#2siemens-s7">2.Siemens S7协议</a>
+</li>
+<li><a href="#21-s7comm">2.1 S7comm协议</a>
+</li>
+<li><a href="#3tpkt">3.TPKT</a>
+</li>
+<li><a href="#4cotp">4.COTP</a>
+</li>
+<li><a href="#_5">其他工控协议</a>
+</li>
+</ul>
+</li>
+<li><a href="#_6">三、威胁建模</a>
+<ul>
+<li><a href="#_7">安全故障分析模型（物理侧）</a>
+<ul>
+<li><a href="#fat">故障树分析法（FAT）</a>
+</li>
+<li><a href="#eta">事件树分析法（ETA）</a>
+</li>
+<li><a href="#stamp">STAMP</a>
+</li>
+</ul>
+</li>
+<li><a href="#_8">网络安全威胁模型（信息侧）</a>
+<ul>
+<li><a href="#1kill-chain">1.Kill Chain工控模型</a>
+</li>
+<li><a href="#2attck">2.ATT&amp;CK工控模型</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_9">四、威胁模式分析</a>
+</li>
+<li><a href="#_10">五、安全防御</a>
+</li>
+<li><a href="#_11">六、风险评估</a>
+</li>
+<li><a href="#_12">七、工控安全漏洞案例分析</a>
+</li>
+<li><a href="#_13">八、调查取证</a>
+</li>
+<li><a href="#_14">九、攻击分析</a>
+</li>
+<li><a href="#_15">十、工控安全分析</a>
+<ul>
+<li><a href="#_16">工控安全研究方向</a>
+<ul>
+<li><a href="#_17">固件分析思路</a>
+</li>
+<li><a href="#_18">固件分析工具</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_19">机构工控安全事件分析报告</a>
+</li>
+<li><a href="#_20">工控攻防演示设计</a>
+</li>
+<li><a href="#ref_1">REF</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="_2">一、专业术语</h2>
+<p>SCADA:Supervisory Control And Data Acquisition，即数据采集与监视控制系统，涉及到组态软件、数据传输链路（如：数传电台、GPRS等）。SCADA系统是以计算机为基础的DCS与电力自动化监控系统；它应用领域很广，可以应用于电力、冶金、石油、化工、燃气、铁路等领域的数据采集与监视控制以及过程控制等诸多领域。 在电力系统中，SCADA系统应用最为广泛，技术发展也最为成熟。它在远动系统中占重要地位,可以对现场的运行设备进行监视和控制，以实现数据采集、设备控制、测量、参数调节以及各类信号报警等各项功能,即我们所知的"四遥"功能.RTU(远程终端单元),FTU(馈线终端单元)是它的重要组成部分．在现今的变电站综合自动化建设中起了相当重要的作用。
+ICS:工业控制系统
+DCS:分布式控制系统/集散控制系统，是以微处理器为基础，采用控制功能分散、显示操作集中、兼顾分而自治和综合协调的设计原则的新一代仪表控制系统。 它采用控制分散、操作和管理集中的基本设计思想，采用多层分级、合作自治的结构形式。其主要特征是它的集中管理和分散控制。目前DCS在电力、冶金、石化等各行各业都获得了极其广泛的应用。
+PCS:过程控制系统ESD:应急停车系统
+PLC:Programmable Logic Controller，可编程序控制器。可编程逻辑控制器是种专门为在工业环境下应用而设计的数字运算操作电子系统。它采用一种可编程的存储器，在其内部存储执行逻辑运算、顺序控制、定时、计数和算术运算等操作的指令，通过数字式或模拟式的输入输出来控制各种类型的机械设备或生产过程。
+RTU:远程终端控制系统
+IED:智能监测单元HMI:人机界面(Human Machine Interface)
+MIS:管理信息系统(Management Information System)
+SIS:生产过程自动化监控和管理系统(Supervisory Information System)
+MES:制造执行管理系统
+HMI:人机界面
+上位机：可以直接发出操控命令的计算机，一般是PC/host computer/master computer/upper computer，屏幕上显示各种信号变化（液压，水位，温度等）。
+下位机：可以直接控制设备获取设备状况的计算机，一般是PLC/单片机single chip microcomputer/slave computer/lower computer之类的。
+IT：Information Technology，信息技术，用于检索或传输信息的硬件和软件。
+OT：Operation Technology，操作技术，是工厂内的自动化控制系统操作专员为自动化控制系统提供支持，确保生产正常进行的专业技术。</p>
+<h2 id="_3">二、协议和术语科普</h2>
+<h3 id="_4">工业控制网络的协议分类</h3>
+<ul>
+<li>传统控制网络：CCS（Coordinated Control System ，协调控制系统）、DCS（Distributed Control System，分布式控制系统）等。</li>
+<li>现场总线：CAN、DeviceNet、CCL-Link、Profibus-DP等。</li>
+<li>工业以太网：EtherNet/IP、EtherCAT、HSE、Pfofinet、EPA、PowerLink、Modbus、Tenet、Wnet等。</li>
+<li>工业无线网：IEEE 802.11(a/b/g/n)、Rfieldbus、ZigBee等。</li>
+</ul>
+<p>基于控制精度划分为：实时网络协议、非实时网络协议。</p>
+<h3 id="1modbus">1.Modbus通讯协议</h3>
+<p>Modbus(Modicon's BUS的简称)是一种串行通信协议，是Modicon公司（现在的施耐德电气Schneider Electric）于1979年为使用可编程逻辑控制器（PLC）通信而发表。是全球第一个真正用于工业现场的总线协议。Modbus已经成为工业领域通信协议的业界标准（De facto），并且现在是工业电子设备之间常用的连接方式。
+Modbus是一种应用层消息传输协议，位于OSI模型的第7层。通过此协议，控制器之间、控制器经由网络（如以太网）和其他设备之间可以通信。</p>
+<p>使用系统保留端口502访问Modbus，这也是TCP/IP协议唯一为工控系统协议保留的端口。</p>
+<p>Modbus比其他通信协议使用的更广泛的主要原因有：</p>
+<ul>
+<li>公开发表并且无版权要求</li>
+<li>易于部署和维护</li>
+<li>对供应商来说，修改移动本地的比特或字节没有很多限制</li>
+</ul>
+<p>Modbus允许多个 (大约240个) 设备连接在同一个网络上进行通信，举个例子，一个由测量温度和湿度的装置，并且将结果发送给计算机。在数据采集与监视控制系统（SCADA）中，Modbus通常用来连接监控计算机和远程终端控制系统（RTU）。</p>
+<h4 id="modbus">Modbus协议</h4>
+<p>Modbus的协议栈仅仅是在传统ISO/OSI模型的基础上对<code>数据链路层</code>和<code>应用层</code>做了定义。</p>
+<p>modbus是一种主从协议，主设备的一方向从设备的一方下达指令，从设备的一方根据指令做出反应并回复主设备，主设备可以有多个从设备。</p>
+<p>具体来说，工作人员的计算机可认为是master，而PLC之类的具体设备就是slave了。</p>
+<p>每个设备有自己的“代号”，主设备通过“代号”来找到某一个对应的设备，当然也可以使用广播的方式，代号0即为广播。</p>
+<p>modbus定义了自己的数据单元，功能码与具体的数据组成了PDU（协议数据单元 Protocol Data Unit），所谓的功能码也就是代表了主向从下达的指令是什么，这是很重要的一个知识，后面我们会具体讲功能码代指的功能，数据也就是这次指令要用到的“参数”。</p>
+<p>只有PDU并不够，我们还需要知道从设备的“代号”才能知道数据往哪发，还要想办法保证数据的完整性、一致性和可靠性。所以在PDU的基础上我们还需要添加一个地址，和一个差错校验，这就构成了ADU（Application Data Unit）。</p>
+<p>但要注意，由于三种Modbus在传输中存在差异，所以ADU，特别是校验部分会有不同。</p>
+<p><img alt="ADU和PDU" src="***.com" /></p>
+<p>功能码有效范围在1~255之间。其中大部分都是保留的，如128-255为异常响应保留。</p>
+<h4 id="modbus-tcp">Modbus TCP</h4>
+<p>1997年施耐德推出了基于TCP/IP的Modbus TCP。</p>
+<p>可以通过wireshark对Modbus的流量包进行抓取进而观察Modbus TCP的数据格式</p>
+<pre><code>Transaction identifier ： 事务标识符
+Protocol identifier ： 默认为0
+Length : 数据的长度
+Unit identifier ： 从机地址，因为使用了TCP/IP所以用ip地址来标识从机，所以该位可忽视，或者做进一步分发
+Function code ： modbus的功能码
+Data ：具体的数据
+</code></pre>
+<h4 id="modbus-0x5a">Modbus 0x5a</h4>
+<p>DEF CON 25 - Ics Village - Arnaud Soullié - Fun With Modbus 0x5a Nothing New Still Relevant? 
+展示过的fun with 0x5a，这个0x5a的功能码是由施耐德自己实现的非标准的功能码，该功能码实现了Modbus标准未允许的功能。在defcon中大佬为我们展示了以下几项：
+- 获取项目和PLC信息
+- 开启、停止PLC
+- 下载程序
+- 更改程序</p>
+<p>fun-with-modbus-0x5a
+video
+Fun with Modbus 0x5A</p>
+<h4 id="ref">REF</h4>
+<ul>
+<li>工控安全入门（一）—— Modbus协议</li>
+<li>ModbusTCP协议解析 —— 利用Wireshark对报文逐字节进行解析详细解析Modbus所含功能码以及模拟器</li>
+<li>Modbus协议及其攻防</li>
+<li>使用Python攻击Modbus协议</li>
+</ul>
+<h3 id="2siemens-s7">2.Siemens S7协议</h3>
+<p>属于第7层（应用层）的协议,用于西门子设备之间进行交换数据,通过TSAP,可加载MPI,DP,以太网等不同物理结构总线或网络上,PLC一般可以通过封装好的通讯功能块实现。</p>
+<p>S7以太网协议本身也是TCP/IP协议簇的一员，S7协议在OSI中的位置相当于将物理层和数据链路层之上的协议进行了定义，S7comm的协议栈修改程度更高，在应用层组织的数据经过COTP协议、TPKT协议的进一步处理后，最终通过TCP进行传输</p>
+<p>更多关于S7协议详细介绍见这里 工控协议——S7通讯协议</p>
+<h3 id="21-s7comm">2.1 S7comm协议</h3>
+<p>S7comm的结构主要分为三部分：</p>
+<ul>
+<li>Header：主要是数据的描述性信息，包含长度信息，PDU参考和消息类型常量，最重要的是要表明PDU的类型</li>
+<li>Parameter：参数，随着不同类型的PDU会有不同的参数</li>
+<li>Data：数据，该数据是一个可选字段来携带数据，例如存储器值，块代码，固件数据等。</li>
+</ul>
+<p><img alt="S7comm抓包" src="***.com" /></p>
+<h3 id="3tpkt">3.TPKT</h3>
+<p>Transport Service ontop of the TCP，简写：TPKT，通过TCP的传输服务。介于TCP和COTP之间。属于传输服务类的协议，它为上层的COTP和下层TCP进行了过渡。功能为在COTP和TCP之间建立桥梁，其内容包含了上层协议数据包的长度。一般与COTP一起发送，当作Header段。我们常用的RDP协议（remote desktop protocol，windows的远程桌面协议）也是基于TPKT的，TPKT的默认TCP端口为102（RDP为3389）</p>
+<h3 id="4cotp">4.COTP</h3>
+<p>Connection-Oriented Transport Protocol，即面向连接的传输协议，它的传输必然是依赖于连接的，所以在传输数据前必然有类似TCP握手建立链接的操作。</p>
+<h3 id="_5">其他工控协议</h3>
+<p>IEC 60870-5-104、EtherNet/IP、Tridium Niagara Fox、Crimson V3、OMRON FINS、PCWorx、ProConOs、MELSEC-Q。按需求自行查阅资料。</p>
+<h2 id="_6">三、威胁建模</h2>
+<h3 id="_7">安全故障分析模型（物理侧）</h3>
+<p>现有的分析评价方法主要包括：故障树分析法、事件树分析法、可靠性框图法、马尔可夫分析法、GO-FLOW法、多层流模型、贝叶斯网络等。</p>
+<h4 id="fat">故障树分析法（FAT）</h4>
+<p>Fault Tree Analysis</p>
+<h4 id="eta">事件树分析法（ETA）</h4>
+<p>Event Tree Analysis</p>
+<h4 id="stamp">STAMP</h4>
+<p>System-Theoretic Accident Model and Process，系统理论模型和流程分析法</p>
+<h3 id="_8">网络安全威胁模型（信息侧）</h3>
+<p>常见的威胁建模方法：</p>
+<p>工控领域主流威胁模型：Kill Chain工控模型、ATT&amp;CK工控模型。</p>
+<h4 id="1kill-chain">1.Kill Chain工控模型</h4>
+<h4 id="2attck">2.ATT&amp;CK工控模型</h4>
+<h2 id="_9">四、威胁模式分析</h2>
+<p>主要分析要素：威胁目标对象、威胁向量、威胁影响。</p>
+<h2 id="_10">五、安全防御</h2>
+<p><img alt="工业互联网安全实施框架" src="***.com" /></p>
+<h2 id="_11">六、风险评估</h2>
+<h2 id="_12">七、工控安全漏洞案例分析</h2>
+<ul>
+<li>震网攻击：通过改变PLC控制器运行命令，控制离心机异常运行，同时伪造离心机的运行数据，导致SCADA系统的故障诊断功能无法正常运行，最终损坏离心机。</li>
+<li>BlackEnergy3：在通过控制断路器切断输电线路的同时，使用DoS攻击电力服务系统。</li>
+</ul>
+<h2 id="_13">八、调查取证</h2>
+<h2 id="_14">九、攻击分析</h2>
+<p>因为工控圈信息相对封闭，所以目前公开信息最全的就是西门子（SIEMENS）公司的 PLC s7 - 300/400 启动攻击漏洞，自己实践学习这个工控协议漏洞算是相对容易的。</p>
+<p>参考复现资料：
+- S7-300 启停实验
+- 西门子S7通信过程及重放攻击分析
+- 西门子S7comm协议解析 —— 利用Wireshark对报文逐字节进行解析详细解析S7comm所含功能码以及UserData功能（path1）
+- 西门子S7comm协议解析 —— 利用Wireshark对报文逐字节进行解析详细解析S7comm所含功能码以及UserData功能（path2）
+- 西门子S7comm协议解析 —— 利用Wireshark对报文逐字节进行解析详细解析S7comm所含功能码以及UserData功能（path3）
+- 工控协议——S7通讯协议
+- Industrial Exploitation Framework</p>
+<h2 id="_15">十、工控安全分析</h2>
+<h3 id="_16">工控安全研究方向</h3>
+<ul>
+<li>协议分析：工控私有协议分析，挖掘通信过程中的协议安全漏洞；</li>
+<li>固件分析：分析工控设备固件系统安全，挖掘设备系统的安全漏洞；</li>
+<li>应用分析：分析具体工控设备应用程序，包括各种语言的代码审计、二进制逆向、VxWorks固件逆向等；</li>
+</ul>
+<h4 id="_17">固件分析思路</h4>
+<p>1、解压固件，获取文件系统；</p>
+<p>2、查看系统中相关组件、服务配置及敏感文件（/etc/passwd、/usr/bin、/usr/sbin等）；</p>
+<p>3、逆向分析固件文件，查看是否存在版本漏洞；</p>
+<p>4、查找固件应用目录；</p>
+<p>5、分析固件应用服务等默认配置安全问题；</p>
+<p>6、对固件应用进行反编译或者解密；</p>
+<p>7、逆向分析固件应用安全问题；</p>
+<p>8、结合实际设备进行综合性安全测试；</p>
+<p>REF: 
+- 【工控安全】从固件逆向看工控安全 - 以施耐德NOE 771固件为例进行固件逆向分析讲解
+- 工控漏洞挖掘方法之固件逆向分析 - ***.com</p>
+<h4 id="_18">固件分析工具</h4>
+<ul>
+<li>binwalk</li>
+<li>Ghrida</li>
+<li>ubi_reader</li>
+<li>yaffshiv</li>
+<li>jefferson</li>
+<li>Ida_pro</li>
+<li>jd-gui</li>
+<li>LuacGUI</li>
+</ul>
+<h2 id="_19">机构工控安全事件分析报告</h2>
+<h2 id="_20">工控攻防演示设计</h2>
+<p>实际上目前公开的西门子PLC漏洞，最好用的还是s7-300的启停攻击。</p>
+<p>Modbus的启动攻击/拒绝服务器也比较好复现。</p>
+<ul>
+<li>工控攻防演示——从外网到内网控制系统设备的入侵</li>
+</ul>
+<h2 id="ref_1">REF</h2>
+<ul>
+<li>工业互联网安全：架构与防御</li>
+<li>工业控制网络安全技术与实践</li>
+<li>工业控制系统网络安全实战</li>
+<li>工业互联网安全百问百答（科普向）</li>
+<li>纵横网络靶场社区</li>
+<li>灯塔实验室</li>
+<li>工控安全Wiki - Tide安全团队</li>
+<li>工控安全入门系列 1-10</li>
+<li>公众号：湘雪尘奕（视频挺多的，入门友好，也有后续深入的内容）</li>
+<li>公众号SupCERT，工控协议标签</li>
+<li>如何入门工控安全</li>
+<li>基于智能学习与业务感知的工控安全监测体系建设</li>
+<li>一种针对工控系统攻击的远程检测方案（工控系统安全）</li>
+<li>工控蜜罐Conpot部署和入门指南</li>
+<li>Industrial Cybersecurity Efficiently monitor the cybersecurity posture of your ICS environment,2nd Edition</li>
+<li>Pentesting Industrial Control Systems：An ethical hackers guide to analyzing, compromising, mitigating and securing</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../device-sec/"><span>上一篇</span><b>路由设备安全</b></a><a class="pg next" href="../5g-sec/"><span>下一篇</span><b>5g安全</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
