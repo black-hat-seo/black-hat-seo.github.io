@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后端开发学习指南 | 烟雨黑帽</title>
+<meta name="description" content="后端开发栏目汇总页，汇集了后端开发方向的核心笔记，并整合了性能优化、eBPF、GraphQL、RPC、高并发、C、Java、Perl、代理、大数据、Vim等11篇相关短篇笔记。">
+<meta name="keywords" content="后端开发学习指南, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="后端开发学习指南">
+<meta property="og:description" content="后端开发栏目汇总页，汇集了后端开发方向的核心笔记，并整合了性能优化、eBPF、GraphQL、RPC、高并发、C、Java、Perl、代理、大数据、Vim等11篇相关短篇笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="后端开发学习指南">
+<meta name="twitter:description" content="后端开发栏目汇总页，汇集了后端开发方向的核心笔记，并整合了性能优化、eBPF、GraphQL、RPC、高并发、C、Java、Perl、代理、大数据、Vim等11篇相关短篇笔记。">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "后端开发学习指南"}]}, {"@type": "TechArticle", "headline": "后端开发学习指南", "description": "后端开发栏目汇总页，汇集了后端开发方向的核心笔记，并整合了性能优化、eBPF、GraphQL、RPC、高并发、C、Java、Perl、代理、大数据、Vim等11篇相关短篇笔记。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1 active"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>后端开发学习指南</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>后端开发学习指南</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_2">基础学习</a>
+</li>
+<li><a href="#_3">刷题</a>
+</li>
+<li><a href="#_4">关于数据结构和算法</a>
+</li>
+<li><a href="#_5">消息订阅系统</a>
+<ul>
+<li><a href="#_6">发布与订阅消息系统的概念</a>
+</li>
+<li><a href="#message">消息(Message)</a>
+</li>
+<li><a href="#message-queue-middleware">消息队列中间件(Message Queue Middleware)</a>
+<ul>
+<li><a href="#2">2种传递模式</a>
+</li>
+</ul>
+</li>
+<li><a href="#_7">常用开源消息中间件</a>
+</li>
+</ul>
+</li>
+<li><a href="#_8">搜索引擎相关</a>
+</li>
+<li><a href="#_9">负载均衡算法</a>
+<ul>
+<li><a href="#_10">分布式系统常见负载均衡算法</a>
+</li>
+<li><a href="#nginx">Nginx负载均衡算法</a>
+</li>
+</ul>
+</li>
+<li><a href="#rpc">RPC</a>
+</li>
+<li><a href="#feed">Feed</a>
+</li>
+<li><a href="#_11">面试准备</a>
+</li>
+<li><a href="#_12">阅读摘录</a>
+</li>
+<li><a href="#_13">其它</a>
+<ul>
+<li><a href="#web">常见web后端组合</a>
+</li>
+<li><a href="#_14">新语言十步法</a>
+</li>
+</ul>
+</li>
+<li><a href="#ide-tips">IDE Tips</a>
+<ul>
+<li><a href="#pycharmvs-code">PyCharm/VS code全局检查代码中是否含有中文的最快捷方式</a>
+</li>
+<li><a href="#term">常用术语Term</a>
+</li>
+<li><a href="#_15">定位后端开发的书籍推荐</a>
+</li>
+<li><a href="#debugging">Debugging</a>
+</li>
+<li><a href="#_16">常用实践型学习方式</a>
+</li>
+<li><a href="#_17">关于发布的版本</a>
+</li>
+<li><a href="#_18">其他推荐</a>
+</li>
+<li><a href="#jetbrains">Jetbrains系列产品重置试用</a>
+</li>
+<li><a href="#_19">你的编程能力从什么时候开始突飞猛进？</a>
+</li>
+</ul>
+</li>
+<li><a href="#sec-performance-optimization">性能优化</a></li>
+<li><a href="#sec-ebpf">eBPF</a></li>
+<li><a href="#sec-graphql">GraphQL</a></li>
+<li><a href="#sec-rpc">RPC</a></li>
+<li><a href="#sec-high-concurrency">高并发</a></li>
+<li><a href="#sec-backend-c">C</a></li>
+<li><a href="#sec-java">Java</a></li>
+<li><a href="#sec-perl">Perl</a></li>
+<li><a href="#sec-proxy">代理</a></li>
+<li><a href="#sec-big-data">大数据</a></li>
+<li><a href="#sec-vim">Vim</a></li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>简单记录一下，以后再充实内容，资料再多也只是占网盘/硬盘空间，关键还是看你能否坚持学下去，能否顺利消化吸收新的知识。</p>
+<p>后端开发语言很多，原则上，并不推荐投入太多精力在学习各种不同的语言上，建议先精通一门，触类旁通，要注意提高使用算法和设计模式的能力。</p>
+<h2 id="_2">基础学习</h2>
+<ul>
+<li><code>leetcode探索</code> - leetcode的一个专题，内容很丰富，值得学习。***.com</li>
+</ul>
+<h2 id="_3">刷题</h2>
+<ul>
+<li><code>leetcode</code> - 已经有中文网站***.com</li>
+<li><code>剑指Offer</code> - 其实是一本书，不过牛客网可以在线刷题。***.com</li>
+<li><code>程序员面试金典</code> - CC150（《Cracking the Coding Interview程序员面试金典》）一书配套在线练习***.com</li>
+<li><code>浙大PTA</code>  -  浙大公开课辅助教学平台，这个是刷题模块。***.com</li>
+</ul>
+<p>也有其它平台可以刷题，不过正常情况下，能把这两个平台上的题刷好已经需要相当时间了。</p>
+<h2 id="_4">关于数据结构和算法</h2>
+<p>详细内容见 笔记。</p>
+<h2 id="_5">消息订阅系统</h2>
+<h3 id="_6">发布与订阅消息系统的概念</h3>
+<p>数据（消息）的发送者（发布者）不会直接把消息发送给接收者，这是发布与订阅消息系统的一个特点。</p>
+<p>发布者以某种方式对消息进行分类，接收者（订阅者）订阅它们，比便接收特定类型的消息。</p>
+<p>发布与订阅系统一般会有一个broker，即发布消息的中心点。</p>
+<h3 id="message">消息(Message)</h3>
+<p>定义：在应用间传送的数据。(简单的如文本字符串、json等，复杂的如内嵌对象。)</p>
+<h3 id="message-queue-middleware">消息队列中间件(Message Queue Middleware)</h3>
+<p>简称MQ，是指 利用高效可靠的消息传递机制 进行与平台无关的数据交流，并基于数据通信来进行分布式系统的集成。</p>
+<p>通过提供消息传递和消息排队模型，它可以在分布式环境下扩展进程间的通信。</p>
+<h4 id="2">2种传递模式</h4>
+<p>消息队列中间件，也称为<code>消息队列</code>或<code>消息中间件</code>。一般有2种传递模式<code>点对点(P2P, Point-to-Point)模式</code>和<code>发布/订阅(Pub/Sub)模式</code>。</p>
+<h3 id="_7">常用开源消息中间件</h3>
+<ul>
+<li><a href="../rabbitmq/">RabbitMQ</a></li>
+<li><a href="../kafka/">Kafka</a></li>
+</ul>
+<h2 id="_8">搜索引擎相关</h2>
+<p>主要是关于Sphinx、ElasticSearch相关的笔记，<a href="../search-engine/">详见此处</a></p>
+<h2 id="_9">负载均衡算法</h2>
+<p>(待补充)</p>
+<h3 id="_10">分布式系统常见负载均衡算法</h3>
+<h3 id="nginx">Nginx负载均衡算法</h3>
+<h2 id="rpc">RPC</h2>
+<p>RPC: Remote Procedure Call，即远程过程调用。</p>
+<p><a href="#sec-rpc">详见此处</a></p>
+<h2 id="feed">Feed</h2>
+<ul>
+<li>feed是将用户主动订阅的若干消息源组合在一起形成内容聚合器，帮助用户持续地获取最新的订阅源内容。</li>
+<li>feed流即<strong>持续更新并呈现给用户内容的信息流</strong>。</li>
+</ul>
+<h2 id="_11">面试准备</h2>
+<p>一般公司面试时对知识点的广度和深度都有一定要求，虽然完全要掌握会花费大量时间，但是面试毕竟也是在有限时间内，且面试中高频被问到的知识点也是在有限范围内，故可以参考二八法则，集中利用20%的知识点去掌握好80%的知识。</p>
+<ul>
+<li>一文帮你理清面试知识点</li>
+<li>coding-interview-university -- A complete computer science study plan to become a software engineer.</li>
+</ul>
+<h2 id="_12">阅读摘录</h2>
+<ul>
+<li>成为优秀程序员的必要条件之一：可以根据应用场景选择最合适的算法。</li>
+</ul>
+<h2 id="_13">其它</h2>
+<h3 id="web">常见web后端组合</h3>
+<p>php + laravel/thinkphp</p>
+<p>java + spring boot</p>
+<p>python + django/flask</p>
+<p>go + gin/beego</p>
+<p>ruby on rails</p>
+<h3 id="_14">新语言十步法</h3>
+<p>(by PegasusWang)</p>
+<ul>
+<li>1.安装并且搭建开发环境。</li>
+<li>2.基础类型和符合类型。基础类型，符合类型。</li>
+<li>3.控制流语句。判断、循环、选择。</li>
+<li>4.函数。定义方式，传值和返回值。</li>
+<li>5.面向对象。数据和方法，组合and继承。</li>
+<li>6.内置库（文件、网络、时间、日志等）。</li>
+<li>7.找一个广泛使用的第三方库开始写（抄）项目。</li>
+<li>8.边写边查，常用代码片段总结成文档。比如 golang 里边各种转换。</li>
+<li>9.第三方库快速编写 demo。</li>
+<li>10.最佳实践：遇到的坑；代码分层；单元测试；静态检查。</li>
+</ul>
+<h2 id="ide-tips">IDE Tips</h2>
+<h3 id="pycharmvs-code">PyCharm/VS code全局检查代码中是否含有中文的最快捷方式</h3>
+<p>以PyCharm为例:</p>
+<pre><code>1. 开全局搜索，快捷键为：Ctrl + Shift + F
+2. 点击&quot;.*&quot;开启正则表达式搜索匹配
+3. 输入下面的正则表达式：
+
+[\u4e00-\u9fa5]+
+</code></pre>
+<p>这样搜索结果会将所有中文匹配出来并显示</p>
+<h3 id="term">常用术语Term</h3>
+<ul>
+<li>序列化 Serialization：<code>对象 -&gt; 字节序列</code>，是将对象的状态信息转换为可以存储或传输的形式的过程。对应Encode，编码的过程</li>
+<li>反序列化 Deserialization：<code>字节序列 -&gt; 对象</code>， 是将可以存储或传输的形式转换为对象的状态信息的过程。对应Decode，解码的过程</li>
+</ul>
+<h3 id="_15">定位后端开发的书籍推荐</h3>
+<p>ref: 定位后端开发的书籍推荐</p>
+<p>1.算法和数据结构。基础，无论校招还是社招。</p>
+<pre><code>大厂社招又不太一样，因为除了要准备算法和数据结构以外，还得准备有项目经验、了解操作系统原理、熟悉网络通信、了解数据库、熟悉要求的各种开源框架和技术等等，实在太多了，即使再怎么准备也不一定能一举拿下。
+</code></pre>
+<p>2.操作系统</p>
+<p>Tanenbaum.A.S 《现代操作系统》，当然，我的建议是这种书毕竟流于理论知识，也不一定要看完，但一定将一些基础概念，如进程线程内存模式等基础概念看懂理解。</p>
+<p>如果还有时间强烈推荐看看俞甲子的 《程序员的自我修养:链接、装载与库》，这本书同时涉及到了 Windows 和 Linux 两个操作系统平台，用各种辅助工具剖析了程序从源码到二进制文件再到装载到进程地址空间里面的各个细节，甚至连进程地址空间中的堆结构、栈结构也分析得清清楚楚，同时也分析了 C Runtime（CRT）、glibc 这样的操作系统接口库的原理和执行逻辑，是一本实实在在难得的帮你实战操作系统原理的一本好书。</p>
+<pre><code>“CPU体系结构、汇编、C语言（包括C++）和操作系统，永远都是编程大师们的护身法宝，就如同少林寺的《易筋经》，是最为上乘的武功；学会了《易筋经》，你将无所不能，任你创造武功；学会了编程“易筋经”，大师们可以任意开发操作系统、编译器，甚至是开发一种新的程序设计语言！“
+</code></pre>
+<p>3.一门编程语言</p>
+<p>你只有熟练使用一门编程语言，你才能将你的想法变成现实。</p>
+<p>首推 C/C++
+- 《C 语言程序设计:现代方法》。
+- 如果你想掌握好 C++，《深度探索 C++ 对象模型》是一定要看的</p>
+<p>4.计算机网络</p>
+<ul>
+<li>《计算机网络：自顶向下方法》 你一定要看懂而不是看完。比如三次握手和四次挥手的细节，你一定要很清楚。</li>
+<li>韩国人尹圣雨写的这本《TCP/IP 网络编程》，初级水平，强烈建议看看这本书。</li>
+</ul>
+<p>5.Linux系统编程
+-  Robert Love 的《Linux 系统编程》、《Linux 内核设计与实现》</p>
+<p>强调一下，如果你是快毕业的学生，面临着找工作的压力，应该以算法和数据结构为主。如果你是大一大二或研一这个阶段的学生，我上面推荐的书，你还是可以考虑好好咀嚼一下,标准是看懂而不是看完。</p>
+<p>6.汇编</p>
+<ul>
+<li>王爽老师的《汇编语言(第 3 版)》（有第4版了）</li>
+<li>《老码识途：从机器码到框架的系统观逆向修炼之路》</li>
+</ul>
+<h3 id="debugging">Debugging</h3>
+<p>Debugging推荐书籍：
+1.软件调试修炼之道
+2.Effective Debugging: 软件和系统调试的66个有效方法</p>
+<p>常见错误类型：</p>
+<p>语法错误、运行时错误、逻辑错误。</p>
+<p>代码调试流程：</p>
+<p>复现 -&gt; 定位 -&gt; 修复 -&gt; 验证  ==&gt; 复盘（记录下犯过的错误并归类，加入没通过的单元测试用例）</p>
+<p>定位问题的方法：</p>
+<ul>
+<li>看日志，加关键日志（如：ELK/Sentry）</li>
+<li>命令行断点调试 （如：gdb或ipdb）</li>
+<li>IDE调试</li>
+<li>小黄鸭调试（审查：请别人帮忙审查代码或自己详细地向小黄鸭解释每行代码）</li>
+</ul>
+<h3 id="_16">常用实践型学习方式</h3>
+<pre><code>学习基本知识点 -&gt; 明确需求 -&gt; 动手写代码 -&gt; 遇到难题 -&gt; 通过百度/Google寻找解决方案 -&gt; 不断的测试实践发现Bug 
+-&gt; 验证解决思路 -&gt; 寻找更好的实现方案（有精力最好代码实现并验证） -&gt; 思考更深入的问题（很多人做不到这步）
+</code></pre>
+<h3 id="_17">关于发布的版本</h3>
+<ul>
+<li><code>RC=Release Candidate, 发布候选版</code>，是<code>最终版(RTM=Release To Manufacture)</code>之前的最后一个版本。</li>
+</ul>
+<p>广义上对测试有三个传统的称呼：alpha、beta、gamma，用来标识测试的阶段和范围。</p>
+<pre><code>alpha 是指内测，即CB，指开发团队内部测试的版本或者有限用户体验测试版本。
+
+beta 是指公测，即针对所有用户公开的测试版本。
+
+gamma (这个不常听见)，beta测试后做过一些修改，成为正式发布的候选版本时叫做RC（Release Candidate）。
+</code></pre>
+<h3 id="_18">其他推荐</h3>
+<ul>
+<li>工程师应该怎么学习  -- 若对自我提升不得其法，推荐仔细阅读</li>
+<li>程序员的7堂职场课 -- 本人是利用租约优惠免费看的，没想到内容真的还不错，内容偏向软技能，建议对自己职业生涯规划不足和陷入迷茫的程序员阅读</li>
+<li>技术人如何快速且深入地学习一门新技术？</li>
+</ul>
+<h3 id="jetbrains">Jetbrains系列产品重置试用</h3>
+<p>2021.2.3之后的版本已失效</p>
+<pre><code>0x1. 如何安装
+
+1). 插件市场安装：
+在Settings/Preferences... -&gt; Plugins 内手动添加第三方插件仓库地址：***.com
+搜索：IDE Eval Reset插件进行安装。如果搜索不到请注意是否做好了上一步？网络是否通畅？
+插件会提示安装成功。
+
+2). 下载安装：
+点击这个链接(v2.3.5)下载插件的zip包（macOS可能会自动解压，然后把zip包丢进回收站）
+通常可以直接把zip包拖进IDE的窗口来进行插件的安装。如果无法拖动安装，你可以在Settings/Preferences... -&gt; Plugins 里手动安装插件（Install Plugin From Disk...）
+插件会提示安装成功。
+
+0x2. 如何使用
+
+一般来说，在IDE窗口切出去或切回来时（窗口失去/得到焦点）会触发事件，检测是否长时间（25天）没有重置，给通知让你选择。（初次安装因为无法获取上次重置时间，会直接给予提示）
+也可以手动唤出插件的主界面：
+如果IDE没有打开项目，在Welcome界面点击菜单：Get Help -&gt; Eval Reset
+如果IDE打开了项目，点击菜单：Help -&gt; Eval Reset
+唤出的插件主界面中包含了一些显示信息，2个按钮，1个勾选项：
+按钮：Reload 用来刷新界面上的显示信息。
+按钮：Reset 点击会询问是否重置试用信息并重启IDE。选择Yes则执行重置操作并重启IDE生效，选择No则什么也不做。（此为手动重置方式）
+勾选项：Auto reset before per restart 如果勾选了，则自勾选后每次重启/退出IDE时会自动重置试用信息，你无需做额外的事情。（此为自动重置方式）
+如果你的IDE已经过了试用打不开，可以运行这个临时重置脚本（注意选择对应系统版本），它可以让你暂时进入IDE进行上述操作。（登录试用版本不适用，见下文）
+</code></pre>
+<ul>
+<li>Jetbrains系列产品重置试用方法(仅限2021.2.3之前的版本)</li>
+<li>ide-eval-resetter-2.3.5</li>
+<li>tmp reset</li>
+</ul>
+<h3 id="_19">你的编程能力从什么时候开始突飞猛进？</h3>
+<p>转自知乎：口天师兄  的回答</p>
+<pre><code>百度多了
+
+你就明白：它也许有用，但它封印了你精进计算机英语的机会。
+
+Google多了
+
+你就明白：各地大佬们的文章很Nice，但它们仅是你技术知识体系的精华补充。
+
+开始读书了
+
+你就明白：你以往东拼西凑几十篇烂文才明白的事，书上那几页纸都写着，而且详细的很。
+
+接触到国外大社的书后
+
+你就明白：国内那些21天宝典，7周速成，都是些什么玩意，误人子弟！
+
+图灵牛逼，动物牛逼，Manning牛逼。
+
+好书读多了
+
+你就明白：技术是一环扣一环的，有牢固的技术知识体系，学啥都事半功倍。
+
+多做业务
+
+你就明白：所学的技术该用在哪。
+
+多做用户量大的业务
+
+你就明白：光会用技术，和用好技术是两码子事。
+
+多找第三方开源
+
+你就明白：原来工作摸鱼不是梦。
+
+太随便用第三方
+
+你就明白：某天需求一变，它兼顾不到，可以把你往死里坑，坑到你得去看源码。
+
+第一次看完源码
+
+你就明白：开始还是很讨厌的，等全盘搞明白了，发现“咦~有点意思”。
+
+源码看多了
+
+你就明白：自己的查克拉莫名的增多了。而且吐槽文档不全的习惯也渐渐少了，一个不服就跑去观摩别人的源码，顺便偷个师。
+
+再往后，或许你的技术确实突飞猛进了，然而你却只会觉得编程本来就是这个样子的。
+
+因为，但凡通过点滴付出，累积出来的结果，都是平淡无声的。
+</code></pre>
+<section class="merged-article" id="sec-performance-optimization">
+<h2>性能优化</h2>
+
+<h3 id="sec-performance-optimization-_1">问题列表</h3>
+<h4 id="sec-performance-optimization-1">[1]关于性能优化问题如何下手解决？</h4>
+<ol>
+<li>时空折中：
+       时间time、空间space</li>
+</ol>
+<p>（在时间复杂度和空间复杂度之间做取舍和平衡）</p>
+<ol>
+<li>
+<p>模块间的中间件：<code>内存</code>、<code>文件</code>、<code>数据库</code>（需要考虑网络带来的瓶颈）。</p>
+</li>
+<li>
+<p>内存：
+      速度快、空间小、临时存储、可以直接操作包含的数据对象、价格贵、单进程、复杂结构 </p>
+</li>
+<li>
+<p>文件：
+      速度慢、空间大、持久化存储、不可直接操作包含的数据对象、价格便宜、可执行、文件名</p>
+<p>（PS：一个面试题：不用数据库，只用文件如何做去重？）</p>
+</li>
+<li>
+<p>数据库：
+      速度中、空间中、持久化存储or临时存储（内存型），可以直接操作包含的数据对象，价格中、多进程、复杂结构</p>
+</li>
+</ol>
+<p>（不同类型数据库的特性不同。内存型数据库，内存多进程）</p>
+<ol>
+<li>遇到一个技术需求：理清何时使用 <code>内存/文件/数据库/消息系统</code> ，做好取舍。</li>
+</ol>
+<h3 id="sec-performance-optimization-_2">阅读推荐</h3>
+<ul>
+<li>性能之巅：洞悉系统、企业与云计算</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-ebpf">
+<h2>eBPF</h2>
+
+<h3 id="sec-ebpf-ebpf_1">什么是eBPF</h3>
+<p>eBPF(extend Berkeley Packet Filter)，让Kernel内核实现可编程化。</p>
+<h3 id="sec-ebpf-ebpf_2">为什么需要eBPF</h3>
+<p><img alt="ebpf_overview.png" src="../images/a0baa14ff291c5e4.png" /></p>
+<p>可以把ebpf程序放到内核中动态的执行，实际是一个sandbox环境，不会改变内核本身。</p>
+<p>内核中的验证器(图verification)会检验ebpf程序是否安全。</p>
+<p>程序能运行且不需要重启。</p>
+<h3 id="sec-ebpf-user-spacekernel-space">用户空间（User Space）和内核空间（Kernel Space）</h3>
+<p>1.用户空间（User Space）是<strong>所有应用程序运行</strong>的地方</p>
+<p>2.内核空间（Kernel Space）位于 用户空间（User Space）和 物理硬件（Physical Hardware）之间。</p>
+<p>用户空间中的应用程序无法直接访问硬件，它们会向内核发出系统调用，然后由内核再访问硬件。</p>
+<p><img alt="kernel_space.png" src="../images/5d11c35010ca8e1f.png" /></p>
+<h3 id="sec-ebpf-ebpf_3">eBPF工作原理</h3>
+<p><img alt="ebpf工作原理.png" src="***.com" /></p>
+<ol>
+<li>基于事件驱动，在特定事件发生时触发Hooks，调用eBPF程序来获取数据。</li>
+<li>Hooks可以在用户空间和内核空间，也可以是静态和动态的。</li>
+<li>静态的Hooks一般是内核开发人员预定义的一些事件。</li>
+<li>动态的Hooks，比如<code>kprobes</code>和<code>uprobes</code>是最常用的。</li>
+</ol>
+<h3 id="sec-ebpf-ebpf_4">eBPF程序可挂载的事件</h3>
+<p><img alt="eBPF程序可挂载的事件" src="../images/33bac04e63ebefae.png" /></p>
+</section>
+<section class="merged-article" id="sec-graphql">
+<h2>GraphQL</h2>
+
+</section>
+<section class="merged-article" id="sec-rpc">
+<h2>RPC</h2>
+<h3 id="sec-rpc-rpc">RPC概念讲解</h3>
+<p>RPC: Remote Procedure Call，即远程过程调用。</p>
+<p>是分布式系统常见的一种通信方式，从跨进程到物理机已经有几十年历史。</p>
+<ul>
+<li>跨进程交互形式：RESTful、WebService、HTTP、基于DB做数据交换、基于MQ做数据交换，以及RPC。</li>
+</ul>
+<h3 id="sec-rpc-_1">现有框架对比</h3>
+<h3 id="sec-rpc-_2">原理剖析</h3>
+<h3 id="sec-rpc-_3">技术栈介绍</h3>
+</section>
+<section class="merged-article" id="sec-high-concurrency">
+<h2>高并发</h2>
+
+<h3 id="sec-high-concurrency-_2">如何设计高并发方案</h3>
+<h4 id="sec-high-concurrency-1">1.减少单次请求时间</h4>
+<h5 id="sec-high-concurrency-_3">如何减少单次请求时间？</h5>
+<ul>
+<li>代码优化</li>
+<li>算法优化</li>
+<li>业务流程优化</li>
+<li>使用缓存<ul>
+<li>本地缓存</li>
+<li>分布式缓存</li>
+<li>客户端缓存</li>
+<li>CDN (如：可用性、性能、监控、多CDN、动态调度)</li>
+</ul>
+</li>
+</ul>
+<h4 id="sec-high-concurrency-2">2.有效使用更多资源</h4>
+<h5 id="sec-high-concurrency-_4">如何有效使用更多的资源？</h5>
+<ul>
+<li>分库分表，读写分离</li>
+<li>应用拆分</li>
+<li>服务拆分</li>
+<li>分布式服务<ul>
+<li>2PC: 二阶段提交(Two-phaseCommit)是指，在计算机网络以及数据库领域内，为了使基于分布式系统架构下的所有节点在进行事务提交时保持一致性而设计的一种算法(Algorithm)。</li>
+<li>3PC: 三阶段提交又称3PC，其在两阶段提交的基础上增加了CanCommit阶段，并引入了超时机制。一旦事务参与者迟迟没有收到协调者的Commit请求，就会自动进行本地commit，这样相对有效地解决了协调者单点故障的问题。</li>
+<li>TCC: TCC（Try-Confirm-Cancel）又称补偿事务。其核心思想是："针对每个操作都要注册一个与其对应的确认和补偿（撤销操作）"。</li>
+<li>基于本地消息表</li>
+<li>基于消息队列</li>
+</ul>
+</li>
+</ul>
+<h3 id="sec-high-concurrency-_5">解决高并发问题有哪些方法?</h3>
+<h4 id="sec-high-concurrency-_6">难点</h4>
+<ul>
+<li>复杂</li>
+<li>涉及多方面知识</li>
+<li>偶发</li>
+</ul>
+<h4 id="sec-high-concurrency-_7">方法</h4>
+<ul>
+<li>自上而下：从现象和代码推演原因</li>
+<li>
+<p>工具： 日志、监控、tcpcopy
+  <img alt="构建立体化全链路监控" src="***.com" /></p>
+</li>
+<li>
+<p>自下而上：从原理推演原因</p>
+</li>
+<li>工具：系统工具、语言工具
+  <img alt="Linux性能测试工具" src="***.com" /></li>
+</ul>
+<h3 id="sec-high-concurrency-_8">如何提升解决高并发问题的能力</h3>
+<ul>
+<li>夯实基础</li>
+<li>多参与、多分析</li>
+<li>多思考，多总结</li>
+</ul>
+<h3 id="sec-high-concurrency-ref">REF</h3>
+<ul>
+<li>设计高并发方案的技巧</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-backend-c">
+<h2>C</h2>
+
+<p>不是底层和嵌入式开发，是C不是必学的，但是这是二进制逆向的基本功之一，绕不卡要学的。</p>
+<h3 id="sec-backend-c-_1">学习推荐</h3>
+<h4 id="sec-backend-c-book">book</h4>
+<ol>
+<li>Learn C the Hard Way 笨办法学C</li>
+<li>The C Programming Language C语言程序设计第2版 K&amp;R 另有一本解答版也有中文版</li>
+</ol>
+<h4 id="sec-backend-c-video">video</h4>
+<ol>
+<li>learn c the hard way - 中文字幕配套视频 -- 0基础入门，MacOS C</li>
+<li>实用C 语言教程 -- Linux C，也是根据1做的，如果看完1课略过。需要一定编程基础的快速入门</li>
+<li>【极安御信】二进制安全 | PC逆向 C++基础系列课程 163集 -- Windows C, 二进制基础，对新手比较友好</li>
+<li>极安御信C&amp;汇编训练营（第零期直播） -- 和3对比下，内容可能有重复，优先学3</li>
+</ol>
+<h3 id="sec-backend-c-ide">IDE</h3>
+<h4 id="sec-backend-c-visual-studio">Visual Studio</h4>
+<p>除非有key，不然默认选择community版，Windows C开发首选</p>
+<h5 id="sec-backend-c-_2">最新版本</h5>
+<p>默认下载的是联网安装包</p>
+<pre><code>***.com
+</code></pre>
+<h5 id="sec-backend-c-_3">利用最新版本在线安装包下载离线完整安装包</h5>
+<pre><code>打开CMD，进入在线安装VisualStudioSetup.exe所在目录E:\win10software\visualstudio，新建目录complete。
+执行如下命令：
+E:\win10software\visualstudio&gt; VisualStudioSetup.exe --layout E:\win10software\visualstudio\complete --all --includeRecommended --includeOptional --lang zh-CN
+</code></pre>
+<h5 id="sec-backend-c-_4">历史版本</h5>
+<p>PS:会被强制跳转页面</p>
+<pre><code>***.com
+</code></pre>
+<h4 id="sec-backend-c-clion">CLion</h4>
+<p>JetBrain全家桶之一，Linux C开发推荐</p>
+</section>
+<section class="merged-article" id="sec-java">
+<h2>Java</h2>
+
+<p>后端老大哥地位不可动摇。</p>
+<h3 id="sec-java-java-se-download">Java SE Download</h3>
+<p>Oracle管网下载，因为漏洞复现经常需要历史版本，所以给一个官方历史版本下载地址</p>
+<h3 id="sec-java-_1">学习推荐</h3>
+<p>Java秘籍一本 -- 每天半小时到一小时， 一年精通Java。</p>
+<h3 id="sec-java-java_1">java打包</h3>
+<h4 id="sec-java-pctest">命令行打包名为pctest的项目</h4>
+<pre><code>jar -cvf 1.jar .
+
+java -jar 1.jar    # 如果提示没有主属性，可以用解压软件打开1.jar文件，修改META-INF/MANIFEST.MF内容，指定主类。比如加上: Main-Class: com.company.Main
+</code></pre>
+<h4 id="sec-java-jvm">jvm性能调优工具</h4>
+<pre><code>jps   类似于linux的ps命令,但是它只列出系统中所有的Java应用程序
+</code></pre>
+</section>
+<section class="merged-article" id="sec-perl">
+<h2>Perl</h2>
+
+<p>国外旧设备用Perl做后端的居然不少，稍微记录一些笔记</p>
+<h3 id="sec-perl-common-issue">Common Issue</h3>
+<h4 id="sec-perl-perlpmpl">perl语言中的.pm文件和.pl文件区别</h4>
+<p>按照惯例:</p>
+<pre><code>.pm 应该保存 Perl Module，也就是 Perl 模块。例如 Socket.pm
+.pl 应该保存 Perl Library，也就是 Perl 库文件。例如 ***.com
+.plx 应该保存 Perl 脚本。
+</code></pre>
+<p>实际上大家都习惯用 .pl 来保存 Perl 脚本。</p>
+<p>另外，use语句会自动搜索后缀为.pm的文件，因此如果你想要写一个模块，那么最好还是以.pm做后缀好了。</p>
+<p>加载方式：</p>
+<pre><code>.pm文件通常用use module;来加载
+.pl文件通常用require ***.com;来加载
+</code></pre>
+</section>
+<section class="merged-article" id="sec-proxy">
+<h2>代理</h2>
+
+<p>一般提到代理，大多会想到科学上网用的梯子，不过这篇笔记不会专门说这个。这里主要记录'正向代理'和'反向代理'，辅之说明下'透明代理'。</p>
+<h3 id="sec-proxy-forward-proxy">正向代理 Forward Proxy</h3>
+<p>正常情况下，现在应该很少用了吧。</p>
+<h3 id="sec-proxy-reverse-proxy">反向代理 Reverse Proxy</h3>
+<p>做过后端开发的朋友应该不陌生。一般网站的Nginx配置大多站点都使用的反向代理。</p>
+<h3 id="sec-proxy-_1">透明代理</h3>
+<p>todo</p>
+<h3 id="sec-proxy-_2">两者区别</h3>
+<p>虽然网上有一堆资料做详细说明，但个人认为记住以下内容最重要：</p>
+<p>两者的区别在于代理的对象不同：<code>正向代理 代理的对象是客户端，反向代理 代理的对象是服务端</code></p>
+<p>换言之，<code>正向代理隐藏真实客户端，反向代理隐藏真实服务端</code></p>
+<h3 id="sec-proxy-_3">踩坑笔记</h3>
+<pre><code>Tips:
+
+因为v2是和caddy一起部署的，所以，要注意，如果要用nginx配置站点，需要停掉caddy，不先停掉caddy，则nginx无法启动
+
+systemctl status caddy    # 查看caddy运行状态
+systemctl stop caddy    # 停掉caddy
+
+然后，执行命令启动 nginx
+systemctl start nginx   # 启动nginx
+
+</code></pre>
+<h3 id="sec-proxy-_4">浏览器代理插件</h3>
+<p>本来proxy switchy omega用着还挺好，但因为原作者因不可抗力不能继续更新后，经过Google和Firefox的各种更新后，老版本插件已无法正常安装使用。</p>
+<p>替代方式是在附加组件市场搜索：<code>ZeroOmega</code>，这个插件据说是发布者基于proxy switchy omega的开源版本修改的，使用方式一致，可无缝备份切换配置，关键是能在最新版本的Google和Firefox浏览器上使用。</p>
+<pre><code>Firefox -&gt; ZeroOmega
+Chrome -&gt; Proxy SwitchyOmega 3 (ZeroOmega)
+</code></pre>
+</section>
+<section class="merged-article" id="sec-big-data">
+<h2>大数据</h2>
+
+<p>Hadoop3的3大组件（从Hadoop2.X开始）：
+<code>分布式数据存储、分布式计算、集群的资源管理</code></p>
+<p>Spark、Flink都只是计算框架，不负责海量数据存储，都依赖于Hadoop的数据存储。</p>
+<p>一般大数据的分析结果由BI同时进行展现。</p>
+<h3 id="sec-big-data-_1">开发技术栈要求</h3>
+<ul>
+<li>Linux基本操作</li>
+<li>Shell脚本基础</li>
+<li>JavaSE内容</li>
+<li>IDEA开发工具</li>
+<li>MySQL数据的基本使用</li>
+</ul>
+<h3 id="sec-big-data-hadoop-30">Hadoop 3.0</h3>
+<p>Hadoop是一个适合海量数据存储和计算的平台，它已经成为大数据的代名词。</p>
+<h3 id="sec-big-data-kafka">Kafka</h3>
+<h3 id="sec-big-data-flume">Flume</h3>
+<p>Flume是Cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统。Flume基于流式架构灵活简单。</p>
+<p>Flume视频</p>
+<h3 id="sec-big-data-term">Term 术语</h3>
+<h4 id="sec-big-data-oltp">OLTP 联机事务处理</h4>
+<p>业务类系统主要供基层人员使用，进行一线业务操作，通常被称为OLTP（On-Line Transaction Processing，联机事务处理）。</p>
+<h4 id="sec-big-data-olap">OLAP 联机分析处理</h4>
+<p>数据分析的目标则是探索并挖掘数据价值，作为企业高层进行决策的参考，通常被称为OLAP（On-Line Analytical Processing，联机分析处理）。</p>
+<h4 id="sec-big-data-clickhouse">ClickHouse</h4>
+<p>ClickHouse是近年来备受关注的开源列式数据库，主要用于数据分析（OLAP）领域。</p>
+<p>ref: ClickHouse深度揭秘</p>
+</section>
+<section class="merged-article" id="sec-vim">
+<h2>Vim</h2>
+<h3 id="sec-vim-vim">Vim 快捷操作</h3>
+<p>一般来说，线上开发环境大家都习惯用命令行修改，故基本的Vim快捷操作还是要熟悉的。</p>
+<h3 id="sec-vim-_1">一般模式</h3>
+<h4 id="sec-vim-u">按小写u键为撤销上一步操作</h4>
+<h4 id="sec-vim-ctrlr">按ctrl+r则为反撤销操作</h4>
+<h3 id="sec-vim-vim_1">Vim 批量注释</h3>
+<h4 id="sec-vim-1">方法1（常用）</h4>
+<pre><code>1.ctrl+v 进入列编辑模式，向下或向上移动光标，把需要注释的行的开头标记起来。
+2.按大写的I(shift+i),再插入注释符,比如&quot;//&quot;。
+3.再按Esc,就会在选中的行前面都插入&quot;//&quot;，即全部注释了。
+</code></pre>
+<h4 id="sec-vim-2">方法2 (利用全局替换)</h4>
+<h5 id="sec-vim-_2">行首添加注释</h5>
+<p>使用下面命令在指定的行首添加注释：</p>
+<p><code>:起始行号,结束行号s/^/注释符/g</code></p>
+<h5 id="sec-vim-_3">取消注释</h5>
+<p><code>:起始行号,结束行号s/^注释符//g</code></p>
+<pre><code>1.在10 - 20行添加 // 注释
+
+:10,50s#^#//#g
+
+2.在10 - 20行删除 // 注释
+
+:10,20s#^//##g
+</code></pre>
+<h3 id="sec-vim-_4">清空文件内容</h3>
+<p>在命令模式下：</p>
+<pre><code class="language-shell">先执行：gg 跳至文件首行 
+
+再执行：dG 清空整个文件 
+</code></pre>
+</section></div></article><nav class="pager"><a class="pg prev" href="../scrum/"><span>上一篇</span><b>Scrum</b></a><a class="pg next" href="../computer-networking/"><span>下一篇</span><b>计算机网络</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

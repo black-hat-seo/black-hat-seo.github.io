@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5g安全 | 烟雨黑帽</title>
+<meta name="description" content="5g特点 2020-2021年左右的热门安全方向，3GPP提出的5G网络拥有下列3个特点（工作场景）： - 超大频宽（eMBB） - 超低延迟（URLLC） - 超大连接数（mMTC） 5G网络总体架构 总体架构：TS 38.401 NG-RAN， NG-RAN总体架构，包括NG、Xn和F1接口以及…">
+<meta name="keywords" content="5g安全, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="5g安全">
+<meta property="og:description" content="5g特点 2020-2021年左右的热门安全方向，3GPP提出的5G网络拥有下列3个特点（工作场景）： - 超大频宽（eMBB） - 超低延迟（URLLC） - 超大连接数（mMTC） 5G网络总体架构 总体架构：TS 38.401 NG-RAN， NG-RAN总体架构，包括NG、Xn和F1接口以及…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="5g安全">
+<meta name="twitter:description" content="5g特点 2020-2021年左右的热门安全方向，3GPP提出的5G网络拥有下列3个特点（工作场景）： - 超大频宽（eMBB） - 超低延迟（URLLC） - 超大连接数（mMTC） 5G网络总体架构 总体架构：TS 38.401 NG-RAN， NG-RAN总体架构，包括NG、Xn和F1接口以及…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "5g安全"}]}, {"@type": "TechArticle", "headline": "5g安全", "description": "5g特点 2020-2021年左右的热门安全方向，3GPP提出的5G网络拥有下列3个特点（工作场景）： - 超大频宽（eMBB） - 超低延迟（URLLC） - 超大连接数（mMTC） 5G网络总体架构 总体架构：TS 38.401 NG-RAN， NG-RAN总体架构，包括NG、Xn和F1接口以及…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1 active"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>5g安全</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>5g安全</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#5g_1">5g特点</a>
+</li>
+<li><a href="#5g_2">5G网络总体架构</a>
+<ul>
+<li><a href="#_1">网元和接口</a>
+<ul>
+<li><a href="#5gngc">5G核心网：NGC</a>
+</li>
+<li><a href="#ng-ran">NG-RAN无线接入网</a>
+</li>
+<li><a href="#_2">接口</a>
+</li>
+</ul>
+</li>
+<li><a href="#_3">功能划分</a>
+<ul>
+<li><a href="#gnb5gng-enb4g-lte">gNB（5G基站）或ng-eNB（4G LTE基站）</a>
+</li>
+<li><a href="#amf-mobility-management-function">AMF, Mobility Management Function</a>
+</li>
+<li><a href="#upf-user-plane-function">UPF, User Plane Function</a>
+</li>
+<li><a href="#smf-session-management-function">SMF, Session Management Function</a>
+</li>
+<li><a href="#ng">NG接口</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#5g_3">5G通信架构</a>
+</li>
+<li><a href="#ue">UE的初始接入</a>
+</li>
+<li><a href="#5g_4">5G接入网面临的安全风险</a>
+<ul>
+<li><a href="#5g_5">5G接入网安全架构</a>
+</li>
+<li><a href="#_4">启动认证程序和选择认证方法</a>
+</li>
+</ul>
+</li>
+<li><a href="#5g_6">5G无线协议栈</a>
+</li>
+<li><a href="#5g_7">5G核心网网络功能</a>
+</li>
+<li><a href="#cve-info">CVE info</a>
+</li>
+<li><a href="#brainstorm">BrainStorm</a>
+</li>
+<li><a href="#term">Term</a>
+<ul>
+<li><a href="#pfcp">PFCP</a>
+</li>
+<li><a href="#bfd">BFD</a>
+</li>
+<li><a href="#gnb">gNB</a>
+</li>
+<li><a href="#ng-enb">ng-eNB</a>
+</li>
+</ul>
+</li>
+<li><a href="#free5gc">Free5GC</a>
+</li>
+<li><a href="#uav">UAV</a>
+</li>
+<li><a href="#other-term">other term</a>
+</li>
+<li><a href="#5gc">5GC核心网初始注册流程详解</a>
+</li>
+<li><a href="#5g_8">5G网络咨安学习笔记</a>
+</li>
+<li><a href="#boofuzz">关于boofuzz的实现</a>
+</li>
+<li><a href="#ref">REF</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="5g_1">5g特点</h2>
+<p>2020-2021年左右的热门安全方向，3GPP提出的5G网络拥有下列3个特点（工作场景）：
+- 超大频宽（eMBB）
+- 超低延迟（URLLC）
+- 超大连接数（mMTC）</p>
+<h2 id="5g_2">5G网络总体架构</h2>
+<p><img alt="5G总体架构" src="../images/32aaf48c40e81d30.png" /></p>
+<p>总体架构：TS 38.401 NG-RAN， NG-RAN总体架构，包括NG、Xn和F1接口以及它们与空中接口的交互。</p>
+<p>补充说明：
+- UE：用户终端，比如：5g手机。 （UE通过5G接入网接入5g系统，UE部分通过UU口接入。3个工作场景：eMBB，URLLC，mMTC）
+- gNB（5G基站），eNB（4G基站）
+- 5G接入网通过 NG接口 接入5G核心网， NG接口起于gNB，止于UPF和AMF</p>
+<p>其它模拟测试5G环境的架构方案样例：
+<img alt="5G架构模拟测试" src="../images/0ed9173009d00736.png" /></p>
+<h3 id="_1">网元和接口</h3>
+<p><img alt="5G总体架构2" src="../images/faeb49d1f2ce106c.png" /></p>
+<h4 id="5gngc">5G核心网：NGC</h4>
+<p>三个主要功能模块：AMF、UPF、SMF（Session Management Function）</p>
+<h4 id="ng-ran">NG-RAN无线接入网</h4>
+<p>包含：gNB（5G基站）或ng-eNB（4G LTE基站）节点</p>
+<h4 id="_2">接口</h4>
+<ul>
+<li>Xn: 基站和基站之间通过Xn接口相互连接</li>
+<li>NG： 基站和核心网之间通过NG接口相互连接</li>
+<li>NG-C：gNB和ng-eNB通过NG-C接口连接到AMF</li>
+<li>NG-U：gNB和ng-eNB通过NG-U接口连接到UPF</li>
+<li>F1-C: gNB-DU和gNB-CU之间的信令  （DU数据单元 CU控制单元）</li>
+<li>F1-U: gNB-DU和gNB-CU之间的数据流</li>
+</ul>
+<h3 id="_3">功能划分</h3>
+<h4 id="gnb5gng-enb4g-lte">gNB（5G基站）或ng-eNB（4G LTE基站）</h4>
+<ul>
+<li>小区间无线资源管理（RRM，Inter Cell Radio Resource Management）</li>
+<li>无线承载控制（RB，Radio Bear Control）</li>
+<li>连接移动性控制（Connection Mobility Control）</li>
+<li>测量配置与规定（Measurement Configuration and Provision）</li>
+<li>动态资源分配（Dynamic Resource Allocation）</li>
+</ul>
+<h4 id="amf-mobility-management-function">AMF, Mobility Management Function</h4>
+<ul>
+<li>NAS安全，Non-Access Stratum Security</li>
+<li>空闲模式下移动性管理，Idle State Mobility Handling</li>
+</ul>
+<h4 id="upf-user-plane-function">UPF, User Plane Function</h4>
+<ul>
+<li>移动性描点管理，Mobility Anchoring</li>
+<li>PDU处理（与Internet连接），PDU Handling</li>
+</ul>
+<h4 id="smf-session-management-function">SMF, Session Management Function</h4>
+<ul>
+<li>UE IP地址分配和管理</li>
+<li>UP 功能的选择和控制</li>
+<li>控制策略执行和QoS的一部分</li>
+<li>下行链路数据通知</li>
+</ul>
+<h4 id="ng">NG接口</h4>
+<p>NG接口能力如下图所示：
+<img alt="NG接口" src="../images/f36dd528f3ffb4f2.png" /></p>
+<p>NG RAN分为RNL（Radio Network Layer，无线网络层）和TNL（Transport Network Layer，传输网络层）;
+NG-RAN的架构（如NG-RAN节点和节点间的接口）属于RNL部分。</p>
+<h2 id="5g_3">5G通信架构</h2>
+<p><img alt="5G通信系统架构总览" src="../images/3848b8b18f093462.png" /></p>
+<p>关于图上的网元介绍（实际情况可能更复杂）</p>
+<p>1）SMF（Session Management Function）</p>
+<pre><code>功能：SMF负责用户会话管理，处理数据面的用户数据传输。
+作用：管理会话的建立、修改、释放，以及UE的用户面数据流的路由。
+</code></pre>
+<p>2）UPF（User Plane Function）</p>
+<pre><code>功能：UPF处理用户数据面的数据包传输。
+作用：负责数据包的转发、分片、重组等操作，实现用户数据的高效传输。
+</code></pre>
+<h2 id="ue">UE的初始接入</h2>
+<p>在线视频</p>
+<p>5G用户终端UE通过gNB接入5G网络的信令流程， 如下图所示：</p>
+<p><img alt="TS38.401 NG-RAN, architecture description" src="../images/6f4460801d2dd5d5.png" /></p>
+<p>总共18步。</p>
+<p>5g_sec_issue.png</p>
+<p>from ai:</p>
+<p>5G用户终端（UE, User Equipment）通过gNB (Next Generation NodeB，即5G基站) 接入5G网络的信令流程主要包括以下步骤from ai：</p>
+<pre><code>1.搜索小区: UE开机后开始搜索可用的5G小区。
+2.小区选择和重选: UE根据信号的强度、质量等决定加入最适合的小区。
+3.随机接入过程 (RACH, Random Access Channel): UE向gNB发送随机接入请求信号，这通常包括一个随机选择的RA-RNTI (Random Access-Radio Network Temporary Identifier)。
+4.随机接入响应: gNB接收到随机接入请求后，会返回一个随机接入响应，这个响应包含时间校准信息和一个临时的C-RNTI (Cell-Radio Network Temporary Identifier)。
+5.初始建立连接: UE使用响应中的校准信息，通过PDCCH (Physical Downlink Control Channel) 和PUSCH (Physical Uplink Shared Channel) 发送RRC (Radio Resource Control) 建立请求。
+6.RRC建立完成: gNB回复RRC建立完成消息，这标志着UE和gNB之间的连接已经建立。
+7.登录过程: UE发送NAS (Non-Access Stratum) 层的请求，进行核心网的认证和安全模式设置。
+8.安全控制: 核心网将安全命令发送至UE通过gNB，UE回复确认消息。
+9.注册接受: 一旦安全过程完成，UE将被网络允许进入5G网络，核心网发送注册接受消息，UE被分配一个GUTI (Globally Unique Temporary Identifier)，用于后续交互中标识UE。
+10.会话建立: UE发送会话建立请求，请求建立数据连接，网络配置用户的QoS参数和安排资源。
+11.上下文设置: 一旦会话建立请求被核心网接受，UE与网络的上下文被建立完毕，UE可以开始数据发送和接收。
+</code></pre>
+<p>这个信令流程高度简化了通信过程，它保证了UE可以安全、有效地接入5G网络。实际的流程可能因网络配置、制造商和软件实现方式的不同而有所差异。此外，随着网络状态的变化，UE可能还需要进行额外的流程，如断线重连、移动性管理等。</p>
+<h2 id="5g_4">5G接入网面临的安全风险</h2>
+<p><img alt="安全风险" src="../images/f640cf8173455f47.png" /></p>
+<h3 id="5g_5">5G接入网安全架构</h3>
+<p>TS 33.501</p>
+<p><img alt="5G接入网安全架构" src="../images/b20896ffd854ca9f.png" /></p>
+<h3 id="_4">启动认证程序和选择认证方法</h3>
+<p><img alt="启动认证程序和选择认证方法" src="../images/d5e8f750e9e2c061.png" /></p>
+<h2 id="5g_6">5G无线协议栈</h2>
+<ol>
+<li>
+<p>User Plane
+<img alt="用户平面协议栈" src="../images/18eb136238e0a526.png" /></p>
+</li>
+<li>
+<p>Control Plane
+<img alt="控制平面协议栈" src="../images/a714c9bf80fb3848.png" /></p>
+</li>
+<li>
+<p>5G端到端控制面协议栈
+<img alt="5G端到端控制面协议栈" src="../images/07ff96728ad61fcf.png" /></p>
+</li>
+<li>
+<p>5G端到端用户面协议栈
+<img alt="5G端到端用户面协议栈" src="../images/94810b349e47a27f.png" /></p>
+</li>
+</ol>
+<h2 id="5g_7">5G核心网网络功能</h2>
+<p><img alt="5G核心网功能" src="../images/b808fd81793c8448.png" /></p>
+<p>更详细内容见视频</p>
+<hr />
+<h2 id="cve-info">CVE info</h2>
+<ul>
+<li>CVE-2021-41794 Open5GS Stack Buffer Overflow During PFCP Session Establishment on UPF  -- Open5GS的漏洞</li>
+<li>CVE-2023-47345 to CVE-2023-47347 通过Fuzzing技术挖掘Free5GC中PFCP协议的安全漏洞 --  Free5GC的，直接涉及漏洞挖掘这个主题的。CVE-2023-47345 to CVE-2023-47347 POC估计是这个：***.com </li>
+</ul>
+<h2 id="brainstorm">BrainStorm</h2>
+<p>5G的技术堆栈可能为用户和运营商网络的攻击打开了大门。 此类攻击可以从国际漫游网络、运营商网络或提供服务访问的合作伙伴网络执行。</p>
+<ul>
+<li>用于建立订阅者连接的 PFCP 存在潜在缺陷，包括拒绝服务、切断订阅者对互联网的访问以及将流量重定向到攻击者。 正确的架构配置可以阻止这些类型的攻击。</li>
+<li>HTTP/2 协议负责在 5G 网络上注册和存储配置文件的重要网络功能 (NF)，该协议包含多个漏洞，可能使黑客能够获取 NF 配置文件并使用身份验证状态、当前状态等详细信息来冒充任何网络服务。 位置以及网络访问的订户设置。 攻击者还可以删除 NF 配置文件，这可能会导致经济损失并损害用户信任。</li>
+</ul>
+<hr />
+<h2 id="term">Term</h2>
+<h3 id="pfcp">PFCP</h3>
+<p>PFCP是在3GPP的5G核心网络标准中定义的，用于控制用户平面功能（UPF）上的数据流转发。<a href="../protocol-sec/#pfcp">详见PFCP笔记</a></p>
+<p>协议的漏洞挖掘，多集中于对该协议的利用。</p>
+<h3 id="bfd">BFD</h3>
+<p>Bidirectional Forwarding Detection，是一个网络协议，用于快速速检测线路和转发路径的故障。比如：快速检测、监控网络中链路或IP路由转发连通状况。 
+BFD可在各种网络环境中使用，从物理链路到虚拟链路均可。</p>
+<p><a href="../protocol-sec/#bfd">详见BFD笔记</a></p>
+<h3 id="gnb">gNB</h3>
+<p>在5G网络术语中，gNB是下一代基站（Next Generation NodeB）的简称，是5G网络中的基站，负责无线信号的传输和处理。</p>
+<h3 id="ng-enb">ng-eNB</h3>
+<p>在5G网络术语中，ng-eNB是指适应5G网络架构的4G LTE基站，它通过5G核心网（5GC）的新接口NG连接。</p>
+<h2 id="free5gc">Free5GC</h2>
+<p>Free5GC是一个开源的5G核心网络实现项目，旨在提供一个完整的5G核心网络解决方案，包括多个关键组件，以支持5G通信网络的部署、测试和研究。</p>
+<p>e.g. 聚焦于Free5GC中的SMF和UPF节点，运用Fuzzing技术对PFCP协议进行深入测试，以发现潜在的未知漏洞和安全问题。</p>
+<h2 id="uav">UAV</h2>
+<p>Unmanned Aerial Vehicle，即无人机。UAV通信指的是无人机与控制站之间或无人机与其他系统之间的通信。</p>
+<h2 id="other-term">other term</h2>
+<pre><code>AMF：负责UE（UserEquipment，用户终端）的注册、连接、访问验证授权、移动性和可达性管理，在UE和SMF（SessionManagementfunction，会话管理功能）之间提供SM（SessionManagement，会话管理）消息的传输，UE和SMSF（ShortMessageServiceFunction，短消息服务功能）之间提供SMS（ShortMessageService，短信息服务）消息的传输，提供UE和LMF（LocationManagementFunction，定位管理功能）之间以及RAN（RadioAccessNetwork，无线局域网）和LMF之间的位置服务消息的传输等。
+
+AUSF（AuthenticationServerFunction，认证服务器功能）：负责对3GPP和非3GPP的UE的接入进行认证。
+
+SMF：负责与分离的数据面交互，根据自身配置或与PCF（PolicyControlFunction，策略控制功能）交互来制定策略和流模板，为会话选择和控制UPF和SSC（SessionandServiceContinuity，会话和服务连续性）模式，管理会话的建立、更新和释放以及维护着PDU（ProtocolDataUnit，协议数据单元）会话状态、群组管理、控制和协调UPF的收费数据收集和流量控制等。负责UE的IP分配管理，具备DHCP、ARP代理或IPv6邻居请求代理功能。
+
+UPF：响应SMF请求，作为移动基础设施RAN和DN之间的互连点，PDU会话锚点负责完成用户平面上GTP-U协议的封装和解封装、分组路由和转发、数据包检查、QoS流映射等网络用户面的处理。完成用户平面部分策略规则实施，例如门控、重定向和流量转向。为计费以及合法拦截提供用户流量收集接口以及流量使用报告。
+
+PCF：负责用户的策略管理和实施，包括会话的策略、移动性策略等。
+
+UDM（UnifiedDataManagement，统一数据管理）：存储和管理用户数据和配置文件。
+
+UDR（UnifiedDataRepository，统一数据存储库）：支持UDM订阅数据、PCF策略数据和应用程序数据等的存储和检索。
+
+UDSF（UnstructuredDataStorageFunction，非结构化数据存储功能）：NF可在UDSF中存储和检索其未在3GPP规范中定义其结构的非结构化数据。
+
+NSSF（NetworkSliceSelectionFunction，网络切片选择功能）：选择服务于UE的网络切片实例的集合。
+
+NRF（NetworkRepositoryFunction，网络功能注册功能）：负责网络功能实例及配置文件的注册、更新、注销，使各NF可以相互发现选择并通过API进行通信。
+
+NEF：作为外部用户接入的API网关，负责将5G网络的能力开放给外部网元，同时网络内的NF可通过NEF向其他NF公开功能和事件，NEF完成网络能力的收集、分析和重组。
+
+N3IWF（Non-3GPPInterWorkingFunction，非3GPP互通功能）：负责将不可信的非3GPP接入网（如Wi-Fi）接入到5G核心网。UE与N3IWF建立一个IPsec隧道，N3IWF分别通过N2接口和N3接口接入5G核心网的控制面和用户面。
+
+UCMF（UEradioCapabilityManagementFunction，UE无线能力管理功能）：存储UE无线功能ID。AMF可以订阅UCMF获得分配的UE无线电功能ID的新值，并在本地缓存它们。
+
+CHF（ChargingFunction，计费功能）：负责用户计费、配额授信等，也支持融合的在线和离线计费。
+
+LMF：负责向5GC注册或访问的UE的定位所需资源的整体调度和协调，还可以计算或验证最终位置、速度和精度。5G可基于无线、终端以及用户面等多种手段提供定位能力，但定位方法因访问类型而异，定位精度也很大一部分取决于接入网所作的增强。
+
+SMSF：用于提供NAS（non-access-stratum，非接入层）短信服务。
+
+5G-EIR（5G-EquipmentIdentityRegister，5G设备身份注册）：检查PEI（PermanentEquipmentIdentifier，永久设备标识符）的状态，例如检查其是否未列入黑名单。
+
+NWDAF（NetworkDataAnalyticsFunction，网络数据分析功能）：NWDAF用人工智能技术从网络功能、OAM（OperationAdministrationandMaintenance，运维管理系统）和应用层获取的数据，进行分析，以生成需要的数据结果。NF、OAM或AF可以利用NWDAF的分析结果进行不同的优化操作。
+
+SCP（ServiceCommunicationProxy，服务通信代理）：在间接通信模式下，业务功能和网络路由功能分离，NF服务使用者通过用SCP使用请求的NF。从而各NF可专心于业务功能的实现，路由控制等功能统一由SCP来实现。
+
+SEPP（SecurityEdgeProtectionProxy，安全边缘保护代理）：用于5G用户国际漫游，与他网运营商的5G互通，负责PLMN间控制平面接口上的消息过滤和策略管理。
+
+NWDAF用人工智能技术从网络功能、OAM（OperationAdministrationandMaintenance，运维管理系统）和应用层获取的数据，进行分析，以生成需要的数据结果。NF、OAM或AF可以利用NWDAF的分析结果进行不同的优化操作。
+
+SCP（ServiceCommunicationProxy，服务通信代理）：在间接通信模式下，业务功能和网络路由功能分离，NF服务使用者通过用SCP使用请求的NF。从而各NF可专心于业务功能的实现，路由控制等功能统一由SCP来实现。
+
+SEPP（SecurityEdgeProtectionProxy，安全边缘保护代理）：用于5G用户国际漫游，与他网运营商的5G互通，负责PLMN间控制平面接口上的消息过滤和策略管理。
+
+</code></pre>
+<h2 id="5gc">5GC核心网初始注册流程详解</h2>
+<p>5G终端在核心网一侧的2个基本流程。5G设备开机后和5G核心网之间注册交互的信令过程。</p>
+<p><img alt="5G终端核心网注册初始流程导图" src="../images/7f0c9f08ee8fea0d.png" /></p>
+<h2 id="5g_8">5G网络咨安学习笔记</h2>
+<ul>
+<li>一個人的5G網路與資安小圈圈系列</li>
+</ul>
+<p>3GPP提出的5G网络拥有下列3个特点（工作场景）：
+- 超大频宽（eMBB）
+- 超低延迟（URLLC）
+- 超大连接数（mMTC）</p>
+<p>5G网路架构如下：</p>
+<p>各元件的功能:</p>
+<p>首先要先讲到UE以及RAN。</p>
+<pre><code>UE为User Equipment 也就是使用者装置 最简单的称呼为(手机)，当然可能不只有手机可使用SIM卡透过基地台连接至无线网路这些设备都统称为UE。
+
+RAN(Radio Access Network)无线电连接网路，这边可以明显的发现，无线网路中只有一个装置会发送无线电波，也就是基地台，因此RAN就是代指基地台。（也就是基站）
+
+</code></pre>
+<p>介绍完除了5G网路以外的元件，接下来介绍5G网路中的各元件。</p>
+<p>5G网路分成 控制平面(Control Plane) 与 使用者平面(User Plane)，这边统一进行介绍:</p>
+<pre><code>NRF(Network Repository Function): 负责让各5G网路功能进行注册，5G网路功能间互相通讯都须透过NRF找寻目标的位址
+
+AMF(Access and Mobility Management Function): 负责让使用者可连接进5G网路，并协助使用者认证身分
+
+Ausf(Authentication Server Function): 负责使用者的认证，检查像是SIM卡的资料是否有在这个核心网路中
+
+Nssf(Network Slice Selection Function): 负责验证使用者是否可使用当前网路切片，网路切片为何之后再解释
+
+SMF(Session Management Function): 负责协助使用者建立与使用者平面的Session
+
+UDM(Unified Data Management): 负责管理5G网路中的数据，一般来说为使用者认证资讯
+
+PCF(Policy Control Function): 负责让如网路服务营运商可动态调整5G网路的政策的功能
+
+UDR(Unified Data Repository): 负责储存5G网路中的资料，简单来说就是资料库
+
+NEF(Network Exposure Function): 可将5G网路功能开放出来给使用者进行连线，可让使用者透过AF对5G网路内部的部分功能进行调整或查看
+
+UPF(user plane function): 负责将使用者的资料转发至DN(一般情况上来讲为外网，但可进行设定)
+
+基本上来讲5G核心网路就分为这10项功能，后续介绍5G网路中各元件的传输流程与通讯协定。
+</code></pre>
+<p>todo day2</p>
+<h2 id="boofuzz">关于boofuzz的实现</h2>
+<ul>
+<li>Fuzzing TKIP &amp; CCMP</li>
+<li>fuzzowski</li>
+</ul>
+<h2 id="ref">REF</h2>
+<ul>
+<li>Exploit the Fuzz – Exploiting Vulnerabilities in 5G Core Networks</li>
+<li>The Challenges of Fuzzing 5G Protocols</li>
+<li>对5G协议的漏洞挖掘研究 -- 上面那篇的中文版</li>
+<li>5GC核心网初始注册流程详解</li>
+<li>5GC之PFCP会话解读学习 -- 讲PFCP</li>
+<li>5GC核心网会话PCFP创建流程学习 -- 必学</li>
+<li>5G通信系统与安全第六讲：5G网络接入与安全</li>
+<li>Free5GC源码解析</li>
+<li>Threatening the 5G core via PFCP DoS attacks: the case of blocking UAV communications</li>
+<li>5G Security &amp; Smart Environments</li>
+<li>5GC_PFCP_Intrusion_Detection_Dataset</li>
+</ul>
+<p>环境搭建参考：</p>
+<ul>
+<li>【Free5GC】环境安装搭建</li>
+<li>【Free5GC】***.com脚本测试流程</li>
+<li>Free5GC官方视频</li>
+<li>Free5gc + ueransim模拟5G网络</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../ic-sec/"><span>上一篇</span><b>工控安全</b></a><a class="pg next" href="../iov-sec/"><span>下一篇</span><b>车联网安全</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

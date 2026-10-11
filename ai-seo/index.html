@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI SEO：面向生成式 AI 搜索的优化（AEO / GEO） | 烟雨黑帽</title>
+<meta name="description" content="AI SEO 指南：讲清生成式 AI 搜索时代 SEO 为何依然重要，解析 RAG 与查询扇出（query fan-out）原理，说明 AEO/GEO 的本质仍是 SEO，并给出内容层、技术层、电商场景与效果衡量的做法，同时破除 llms.txt、内容分块等常见误区。">
+<meta name="keywords" content="AI SEO, AEO, GEO, 生成式AI优化, RAG, 查询扇出, Google AI 概览, 生成式AI内容, 答案引擎优化">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="AI SEO：面向生成式 AI 搜索的优化（AEO / GEO）">
+<meta property="og:description" content="AI SEO 指南：讲清生成式 AI 搜索时代 SEO 为何依然重要，解析 RAG 与查询扇出（query fan-out）原理，说明 AEO/GEO 的本质仍是 SEO，并给出内容层、技术层、电商场景与效果衡量的做法，同时破除 llms.txt、内容分块等常见误区。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI SEO：面向生成式 AI 搜索的优化（AEO / GEO）">
+<meta name="twitter:description" content="AI SEO 指南：讲清生成式 AI 搜索时代 SEO 为何依然重要，解析 RAG 与查询扇出（query fan-out）原理，说明 AEO/GEO 的本质仍是 SEO，并给出内容层、技术层、电商场景与效果衡量的做法，同时破除 llms.txt、内容分块等常见误区。">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "AI SEO"}]}, {"@type": "TechArticle", "headline": "AI SEO：面向生成式 AI 搜索的优化（AEO / GEO）", "description": "AI SEO 指南：讲清生成式 AI 搜索时代 SEO 为何依然重要，解析 RAG 与查询扇出（query fan-out）原理，说明 AEO/GEO 的本质仍是 SEO，并给出内容层、技术层、电商场景与效果衡量的做法，同时破除 llms.txt、内容分块等常见误区。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1 active"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>AI SEO</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>AI SEO</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#still-matters">一、AI 时代，SEO 还重要吗</a>
+</li>
+<li><a href="#how-ai-search-works">二、理解生成式 AI 搜索：RAG 与查询扇出</a>
+</li>
+<li><a href="#aeo-geo">三、AEO / GEO 的本质仍是 SEO</a>
+</li>
+<li><a href="#content">四、内容层：什么内容更容易被引用</a>
+</li>
+<li><a href="#technical">五、技术层：让内容可被发现与理解</a>
+</li>
+<li><a href="#local-commerce">六、本地商家与电商</a>
+</li>
+<li><a href="#myths">七、破除误区：这些做法并没有用</a>
+</li>
+<li><a href="#measure">八、如何衡量 AI 带来的效果</a>
+</li>
+<li><a href="#agents">九、面向智能体（Agent）的体验</a>
+</li>
+<li><a href="#references">参考资料</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>越来越多的用户开始向 AI 助手提问，并直接获得一段汇总好的答案——有时不再点击任何网页。这让不少人产生疑问：SEO 是不是要"过时"了？答案恰恰相反。Google 官方给出明确态度：就搜索而言，<b>针对生成式 AI 体验做优化，本质上仍然是在做 SEO</b>。本文梳理其原理与可落地的做法，并点出那些看起来新奇、实则无效的"AI SEO 技巧"。</p>
+<h2 id="still-matters">一、AI 时代，SEO 还重要吗</h2>
+<p>生成式 AI 功能（如 AI 概览、AI 模式）并没有取代搜索，它建立在同一套抓取与索引体系之上：AI 需要先"找到并理解"你的内容，才可能在回答里引用它。因此，扎实的技术结构、清晰的内容表达与良好的网页体验，依然是获得可见度的前提。<b>把基本功做好，就是最有性价比的"AI SEO"。</b></p>
+<p>换句话说，与其追逐所谓"AI 专属优化"，不如回到白帽 SEO 的基本面：让内容独特、有用、可信，让页面可被顺利抓取和理解。</p>
+<h2 id="how-ai-search-works">二、理解生成式 AI 搜索：RAG 与查询扇出</h2>
+<p>要理解优化方向，先理解 AI 搜索大致如何工作：</p>
+<ul>
+<li><b>检索增强生成（RAG，Retrieval-Augmented Generation）</b>：AI 并不是凭记忆作答，而是先从索引中"检索"一批相关网页，再基于这些网页"生成"答案。这意味着——<b>能被检索到，才可能被引用到</b>。</li>
+<li><b>查询扇出（Query Fan-out）</b>：面对一个复杂问题，系统会把用户查询拆解、扩展成多个子查询分别检索，再把结果综合成一段答案。一个用户问题，可能触达你多个不同页面。</li>
+</ul>
+<p>这两点带来一个重要推论：内容的<b>覆盖面与深度</b>会影响被引用的概率。同一主题下，能系统回答多个相关子问题的页面，更容易在扇出检索中被命中。但这不是鼓励"堆砌关键词"，而是鼓励真正把一个主题讲透。</p>
+<h2 id="aeo-geo">三、AEO / GEO 的本质仍是 SEO</h2>
+<p>业界常把面向 AI 的新型优化称为 AEO（Answer Engine Optimization，答案引擎优化）或 GEO（Generative Engine Optimization，生成式引擎优化）。就 Google 搜索而言，这些概念<b>并没有跳出现有 SEO 的范畴</b>：AI 概览所依据的，仍旧是已经建立起来的抓取、索引与排名系统。</p>
+<p>因此，不存在一套与 SEO 割裂的"另一套排名规则"。把 AEO/GEO 视为"用更清晰的表达帮助机器与用户理解内容"，就更接近事实。</p>
+<h2 id="content">四、内容层：什么内容更容易被引用</h2>
+<p>AI 倾向引用那些能直接、可靠回答问题的内容。要让内容具备"可被引用性"，可以从以下几点入手：</p>
+<ul>
+<li><b>提供独到见解，而非同质化内容</b>：经过原创研究、一手经验或独特数据的观点，比到处可见的转述更有价值；</li>
+<li><b>紧扣用户真实需求，不要用力过猛</b>：围绕用户想解决的问题组织内容，而不是为"讨好 AI"硬凑话题；</li>
+<li><b>方便阅读与理解</b>：结构清晰、段落分明、标题准确；用高质量的文字与图片把问题讲明白；</li>
+<li><b>AI 辅助须合规</b>：可以用 AI 提升效率，但要遵守生成式 AI 内容规范——核查准确性、披露使用情况、避免规模化生成低价值网页。</li>
+</ul>
+<p>这些要求与《白帽SEO》中"以用户为中心"和 E-E-A-T 的要求高度一致——<b>面向 AI 的优化，与面向用户的优化，是同一件事。</b></p>
+<h2 id="technical">五、技术层：让内容可被发现与理解</h2>
+<p>再好的内容，若机器无法顺利获取与理解，也无从被引用。技术层需要做到：</p>
+<ul>
+<li>符合搜索技术要求，遵循抓取与索引最佳实践；</li>
+<li>使用语义化 HTML，让结构与含义清晰可辨；</li>
+<li>做好 JavaScript SEO，确保关键内容不因依赖脚本而丢失；</li>
+<li>关注网页体验（性能、稳定性、移动端）；</li>
+<li>减少重复内容，避免同一内容分散到多个网址。</li>
+</ul>
+<h2 id="local-commerce">六、本地商家与电商</h2>
+<p>如果你的业务涉及本地或商品销售，还有额外的抓手：本地商家可完善 <b>Google 商家资料</b>，让地址、营业时间、联系方式等信息准确一致；电商则可使用 <b>Merchant Center</b>，把商品数据以规范格式提供给 Google，提升在购物相关体验中出现的概率。</p>
+<h2 id="myths">七、破除误区：这些做法并没有用</h2>
+<p>AI 热潮之下，出现了不少被过度吹捧的"技巧"。以下做法对 Google 搜索<b>没有实际帮助</b>：</p>
+<table>
+<thead>
+<tr><th>常见说法</th><th>实际情况</th></tr>
+</thead>
+<tbody>
+<tr><td>添加 <code>llms.txt</code> 等特殊标记文件</td><td>并不是 Google 搜索所使用或被认可的机制</td></tr>
+<tr><td>把内容切成"便于 AI 读取"的小块</td><td>Google 能理解你的内容，无需为此刻意"分块"</td></tr>
+<tr><td>专门针对 AI 重写一遍内容</td><td>面向 AI 与面向用户的优化是同一件事，重复改写没有额外收益</td></tr>
+<tr><td>刻意制造大量"提及"或虚假引用</td><td>无法带来真实价值，且可能触碰垃圾内容政策</td></tr>
+<tr><td>过度堆砌结构化数据</td><td>结构化数据有恰当用途，但不是"做得越多排名越好"</td></tr>
+</tbody>
+</table>
+<p>与其把预算花在这些噱头上，不如把精力投入到内容质量与网站基本功——那才是决定能否被引用的根本。</p>
+<h2 id="measure">八、如何衡量 AI 带来的效果</h2>
+<p>优化需要反馈，否则只是盲猜。Google 在 <b>Search Console</b> 提供了"生成式 AI 效果报告"，可用于观察内容在相关体验中的表现。建议把它与常规的抓取、索引、查询数据结合，形成对站点健康度的整体判断，再据此迭代内容与技术细节。</p>
+<h2 id="agents">九、面向智能体（Agent）的体验</h2>
+<p>搜索引擎之外的智能体（browser agent）也正在成为访问网站的一类"用户"。它们会读取页面、执行操作、完成下单等任务。Google 正在推进的相关举措（如面向智能体购物的协议方向），意味着未来的优化对象不只是"人和爬虫"，还包括"帮人办事的智能体"。对网站而言，保持页面结构清晰、信息准确、交互可靠，就是为这种趋势做的最好准备。</p>
+<h2 id="references">参考资料</h2>
+<ul>
+<li><a href="https://developers.google.cn/search/docs/fundamentals/ai-optimization-guide?hl=zh-cn" target="_blank" rel="noopener">针对生成式 AI 功能优化网站 — Google 搜索中心</a></li>
+<li><a href="https://developers.google.cn/search/docs/fundamentals/using-gen-ai-content?hl=zh-cn" target="_blank" rel="noopener">生成式 AI 内容指南 — Google 搜索中心</a></li>
+<li><a href="https://developers.google.cn/search/docs/fundamentals/creating-helpful-content?hl=zh-cn" target="_blank" rel="noopener">创建实用、可靠、以用户为中心的内容 — Google 搜索中心</a></li>
+<li><a href="https://developers.google.cn/search/docs/fundamentals/get-started?hl=zh-cn" target="_blank" rel="noopener">网站的 SEO 维护 — Google 搜索中心</a></li>
+<li><a href="https://developers.google.cn/search/docs/essentials/spam-policies?hl=zh-cn" target="_blank" rel="noopener">网络垃圾政策（Spam Policies） — Google 搜索中心</a></li>
+</ul>
+</div></article><nav class="pager"><a class="pg prev" href="../whitehat-seo/"><span>上一篇</span><b>白帽SEO</b></a><a class="pg next" href="../blackhat-seo/"><span>下一篇</span><b>黑帽SEO</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

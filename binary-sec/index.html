@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二进制安全 | 烟雨黑帽</title>
+<meta name="description" content="什么是二进制漏洞？ 二进制漏洞是可执行文件（PE、ELF文件等）因编码时考虑不周，造成的软件执行了非预期的功能。由于二进制漏洞大都涉及到系统层面，所以危害程度比较高。 比如经典的office栈溢出漏洞（CVE-2012-0158）、（CVE-2017-11882）以及（CVE-2017-11882）…">
+<meta name="keywords" content="二进制安全, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="二进制安全">
+<meta property="og:description" content="什么是二进制漏洞？ 二进制漏洞是可执行文件（PE、ELF文件等）因编码时考虑不周，造成的软件执行了非预期的功能。由于二进制漏洞大都涉及到系统层面，所以危害程度比较高。 比如经典的office栈溢出漏洞（CVE-2012-0158）、（CVE-2017-11882）以及（CVE-2017-11882）…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="二进制安全">
+<meta name="twitter:description" content="什么是二进制漏洞？ 二进制漏洞是可执行文件（PE、ELF文件等）因编码时考虑不周，造成的软件执行了非预期的功能。由于二进制漏洞大都涉及到系统层面，所以危害程度比较高。 比如经典的office栈溢出漏洞（CVE-2012-0158）、（CVE-2017-11882）以及（CVE-2017-11882）…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "二进制安全"}]}, {"@type": "TechArticle", "headline": "二进制安全", "description": "什么是二进制漏洞？ 二进制漏洞是可执行文件（PE、ELF文件等）因编码时考虑不周，造成的软件执行了非预期的功能。由于二进制漏洞大都涉及到系统层面，所以危害程度比较高。 比如经典的office栈溢出漏洞（CVE-2012-0158）、（CVE-2017-11882）以及（CVE-2017-11882）…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1 active"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>二进制安全</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>二进制安全</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_2">什么是二进制漏洞？</a>
+</li>
+<li><a href="#_3">常见二进制漏洞分类</a>
+</li>
+<li><a href="#_4">二进制漏洞挖掘常用工具</a>
+</li>
+<li><a href="#_5">基础知识</a>
+<ul>
+<li><a href="#_6">为什么调试器能调试？</a>
+</li>
+<li><a href="#_7">大端序和小端序</a>
+<ul>
+<li><a href="#big-endian">大端序（Big-Endian）：</a>
+</li>
+<li><a href="#little-endian">小端序（Little-Endian）：</a>
+</li>
+<li><a href="#_8">重要性和影响</a>
+</li>
+</ul>
+</li>
+<li><a href="#0x120x34">为什么0x12是高位字节，0x34是低字节位</a>
+</li>
+<li><a href="#0x120x34_1">大端序中，为什么0x12是低地址，而0x34是高地址</a>
+</li>
+<li><a href="#_9">为什么在大端序中，高位字节存储在低地址位置？</a>
+</li>
+</ul>
+</li>
+<li><a href="#_10">常用命令</a>
+<ul>
+<li><a href="#elf">查看ELF的导入/导出符号</a>
+<ul>
+<li><a href="#_11">查看动态符号</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_12">重要的基础概念</a>
+<ul>
+<li><a href="#peva">PE文件与虚拟内存（VA）之间的映射关系</a>
+<ul>
+<li><a href="#1file-offset">1.文件偏移地址（File Offset）</a>
+</li>
+<li><a href="#2image-base">2.装载基址（Image Base，又称镜像基址，映射基址）</a>
+</li>
+<li><a href="#3virtual-addressva">3.虚拟内存地址（Virtual Address，VA）</a>
+</li>
+<li><a href="#4relative-virtual-address-rva">4.相对虚拟地址（Relative Virtual Address, RVA）</a>
+</li>
+<li><a href="#vaimage-baserva">VA、Image Base、RVA关系</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_13">近期的二进制阅读规划</a>
+<ul>
+<li><a href="#_14">基础部分</a>
+</li>
+<li><a href="#_15">细分方向部分</a>
+</li>
+</ul>
+</li>
+<li><a href="#_16">二进制漏洞分析模板</a>
+</li>
+<li><a href="#_17">其它资料</a>
+<ul>
+<li><a href="#windows-freebuf">如何在Windows系统下进行二进制安全学习 - Freebuf有视频</a>
+<ul>
+<li><a href="#1">1. 游戏安全入门</a>
+</li>
+<li><a href="#2">2. 破解技术入门</a>
+</li>
+<li><a href="#3">3. 恶意代码入门</a>
+</li>
+<li><a href="#4">4. 病毒分析入门</a>
+</li>
+<li><a href="#5">5. 壳与脱壳入门</a>
+</li>
+</ul>
+</li>
+<li><a href="#windows">Windows逆向工程入门指南</a>
+</li>
+</ul>
+</li>
+<li><a href="#ref">REF</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="_2">什么是二进制漏洞？</h2>
+<p>二进制漏洞是可执行文件（PE、ELF文件等）因编码时考虑不周，造成的软件执行了非预期的功能。由于二进制漏洞大都涉及到系统层面，所以危害程度比较高。</p>
+<p>比如经典的office栈溢出漏洞（CVE-2012-0158）、（CVE-2017-11882）以及（CVE-2017-11882）的补丁绕过漏洞（CVE-2018-0802）等，都是危险程度极高的0day和1day漏洞。</p>
+<p>所以，二进制漏洞的挖掘和分析就显得尤为重要，本篇文章将对常见的二进制漏洞进行简要的介绍和分析。逆向工程是二进制分析的基础能力。</p>
+<h2 id="_3">常见二进制漏洞分类</h2>
+<ul>
+<li>
+<p>栈溢出漏洞（Stack-Overflow）</p>
+</li>
+<li>
+<p>堆溢出漏洞（Heap-Overflow）</p>
+</li>
+<li>
+<p>释放后重引用漏洞（Use-After-Free）</p>
+</li>
+<li>
+<p>双重释放漏洞（Double-Free）</p>
+</li>
+<li>
+<p>越界访问漏洞（Out-of-bounds）</p>
+</li>
+</ul>
+<h2 id="_4">二进制漏洞挖掘常用工具</h2>
+<ul>
+<li>GDB: Linux调试中必要用到的</li>
+<li>gdb-peda、pwndbg、gef: GDB调试插件</li>
+<li>pwntools：写exp和poc的利器</li>
+<li>libc-databases：可以通过泄露的libc的某个函数地址查出远程系统是用的哪个libc版本</li>
+<li>checksec：可以很方便的知道elf程序的安全性和程序的运行平台</li>
+<li>objdump ：可以很快的知道elf程序中的关键信息</li>
+<li>readelf：可以很快的知道elf程序中的关键信息</li>
+<li>ida pro：反汇编工具</li>
+<li>ROPgadget：强大的rop利用工具</li>
+<li>one_gadget：可以快速的寻找libc中的调用exec('bin/sh')的位置</li>
+</ul>
+<h2 id="_5">基础知识</h2>
+<p>都是基础知识，建议理解清楚，否则会影响相关书籍的阅读理解。</p>
+<h3 id="_6">为什么调试器能调试？</h3>
+<p>学习调试器的基本原理。</p>
+<h3 id="_7">大端序和小端序</h3>
+<p>大端序（Big-Endian）和小端序（Little-Endian）是数据在内存中存储的两种不同的顺序。这两种顺序定义了多字节数据类型（如整数、浮点数）中每个字节的排列方式。</p>
+<h4 id="big-endian">大端序（Big-Endian）：</h4>
+<p>在大端序中，一个数的最高位字节（即“大端”）存储在内存的低地址处，其后的字节按照数值逐渐减小的顺序存放。
+例如，假设我们有一个16位的数字0x1234（十六进制表示），在大端序的系统中，内存的存储布局将会是：</p>
+<pre><code class="language-plaintext">低地址 --&gt; 0x12  | 高位字节
+高地址 --&gt; 0x34  | 低位字节
+</code></pre>
+<p>此种排列方式与我们人类阅读数字的习惯一致，即从左至右读取。</p>
+<h4 id="little-endian">小端序（Little-Endian）：</h4>
+<p>在小端序中，一个数的最低位字节（即“小端”）存储在内存的低地址处，其后的字节按照数值逐渐增大的顺序存放。
+同样是16位的数字0x1234，在小端序的系统中，其在内存中的存储布局则是：</p>
+<pre><code class="language-plaintext">低地址 --&gt; 0x34  | 低位字节
+高地址 --&gt; 0x12  | 高位字节
+</code></pre>
+<p>此种排列方式与人类阅读习惯相反，即我们需要从右至左读取，才能得到正确的数值。</p>
+<h4 id="_8">重要性和影响</h4>
+<ul>
+<li>交互性问题: 当不同的计算机系统需要互相通信时，字节序可能会成为一个重要问题。如果两端的系统采用不同的字节序，那么在数据传输过程中必须进行转换，否则接收端会得到错误的数据。</li>
+<li>性能问题: 有时候在某些特定运算中，小端序可能会有微小的性能优势，因为它的低位字节在低地址位置，这与算数运算的操作顺序相符。但这种差别通常可以忽略不计。</li>
+<li>跨平台开发: 编程时一定要考虑到字节序的问题。特别是在网络编程和文件格式设计时，通常会选用网络字节序（即大端序），即使平台本身采用的是小端序。</li>
+</ul>
+<h3 id="0x120x34">为什么0x12是高位字节，0x34是低字节位</h3>
+<p>数字0x1234是一个16位的十六进制数，在内存中存储时会分为两个字节。在这里，“0x12”和“0x34”代表了两个不同的字节。</p>
+<p>十六进制数“0x1234”可以被拆分为两部分：“0x12”是高位字节，而“0x34”是低位字节。</p>
+<p>解释起来：
+- “高位字节”指的是数值中占用更高数值位的字节。在这个例子中，两个字节构成的数值0x1234中，“0x12”部分占据了更高的数值位置，即千百位。
+- “低位字节”指的是数值中占用更低数值位的字节。在同一个数值中，“0x34”占据了较低的数值位置，即十个位。</p>
+<p>当我们将这个十六进制数表示为二进制时，0x1234对应的是：</p>
+<pre><code class="language-plaintext">0001 0010 0011 0100
+</code></pre>
+<p>从二进制的角度看，左边的“0001 0010”是更高的位，即“高位”，对应十六进制的“0x12”。右边的“0011 0100”是更低的位，即“低位”，对应十六进制的“0x34”。
+而在计算机存储和处理数值时，通常是由低位到高位依次存储和计算的。在不同的系统中，这些位的存储顺序是由大端序还是小端序决定的，如我之前解释的那样。
+希望这能清楚地解释为何在十六进制数0x1234中，“0x12”是高位字节，“0x34”是低位字节。</p>
+<h3 id="0x120x34_1">大端序中，为什么0x12是低地址，而0x34是高地址</h3>
+<p>在大端序（Big-Endian）中，数值的高位字节（即数值大小上处于更为重要的位置的那部分）存储在低地址的位置，而数值的低位字节（大小上相对次要的位置）则存储在高地址的位置。</p>
+<p>为什么在大端序中 0x12 是低地址位？</p>
+<p>在大端序的表示法中，如果我们有 0x1234 这个数值，那么：</p>
+<p>“0x12”是这个数值的高位字节，因为它代表的是数值中的较大部分（即2^8以上的部分）。
+“0x34”是低位字节，因为它代表的是数值中的较小部分（即2^8以下的部分）。</p>
+<p>根据大端序的定义，我们将“0x12”（高位字节）放在低地址位上，此时数值的最重要的部分（最高位）就位于内存的起始部分。
+紧接着，内存地址递增，“0x34”（低位字节）就被放在高地址位上。这种存储方式类似于我们阅读文字时从左至右的顺序，数字和文档通常也是这样的表现方式。</p>
+<p>例如，如果有两个连续的内存地址位置是0x01和0x02，那么在大端序下：</p>
+<pre><code class="language-plaintext">内存地址 0x01 --&gt; 0x12 (数值的高位字节)
+内存地址 0x02 --&gt; 0x34 (数值的低位字节)
+</code></pre>
+<p>所以，在大端序中，“0x12”（作为高位字节）存储于低地址，“0x34”（作为低位字节）存储于高地址，这是一种按照数值重要性排序字节的表现形式。</p>
+<h3 id="_9">为什么在大端序中，高位字节存储在低地址位置？</h3>
+<p>在大端序中，高位字节存储在低地址位置主要是一种设计决策，它是数据存储的一种约定，源自网络通信和早期的计算机架构设计。</p>
+<h2 id="_10">常用命令</h2>
+<h3 id="elf">查看ELF的导入/导出符号</h3>
+<p>-速查手册</p>
+<h4 id="_11">查看动态符号</h4>
+<pre><code>objdump -CT &lt;ELF&gt;
+nm -CD &lt;ELF&gt;
+readelf -W --dyn-syms --demangle &lt;ELF&gt;
+</code></pre>
+<p>若已知导入/导出符号名，grep上述命令的输出即可。</p>
+<p>Windows中可以查看PE的导入表:
+dumpbin /imports <PE></p>
+<ol>
+<li>命令 nm -D，如下所示：</li>
+</ol>
+<p><code>nm -D ***.com &gt; listdevs.txt　　//列出 ***.com 的函数 输出到 listdevs.txt 文本文件里面</code></p>
+<ol>
+<li>命令 objdump -tT，如下所示：</li>
+</ol>
+<p><code>objdump -tT ***.com &gt; listdevs.txt　　//列出 ***.com 的函数 输出到 listdevs.txt 文本文件里面</code></p>
+<h2 id="_12">重要的基础概念</h2>
+<h3 id="peva">PE文件与虚拟内存（VA）之间的映射关系</h3>
+<p>from 0day安全 1.2.3</p>
+<h4 id="1file-offset">1.文件偏移地址（File Offset）</h4>
+<p>数据在PE文件中的地址叫文件偏移地址。（这是文件在磁盘上存放时相对于文件开始处0字节的偏移。）</p>
+<h4 id="2image-base">2.装载基址（Image Base，又称镜像基址，映射基址）</h4>
+<p>PE装入内存时的基地址。</p>
+<pre><code>默认情况下:
+EXE文件在内存中的基地址是0x00400000
+DLL文件在内存中的基地址是0x10000000
+
+这些位置可以通过修改编译选项更改。
+可以先用LoadPE之类的软件检查下exe
+</code></pre>
+<h4 id="3virtual-addressva">3.虚拟内存地址（Virtual Address，VA）</h4>
+<p>PE文件中的指令被装入内存后的地址。</p>
+<h4 id="4relative-virtual-address-rva">4.相对虚拟地址（Relative Virtual Address, RVA）</h4>
+<p>内存地址相对于映射基址的偏移量。</p>
+<h4 id="vaimage-baserva">VA、Image Base、RVA关系</h4>
+<p>VA = Image Base + RVA</p>
+<h2 id="_13">近期的二进制阅读规划</h2>
+<h3 id="_14">基础部分</h3>
+<p>主要需要学习的语言：C、C++、Python以及汇编。（总共4门，C和C++属于一脉相承可以算一门半语言，那也有3.5门）</p>
+<p>PS：动态分析中没有任何一款工具可以把代码还原成伪代码执行，所以动态分析过程中所接触的全都是汇编代码。</p>
+<p>语言基础：<code>C语言入门经典书籍随便选一本，王爽 汇编语言 第4版</code> --&gt; 逆向基础：<code>逆向工程核心原理</code>，再看<code>加密与解密 第4版</code>。</p>
+<p>PS：
+这里有另一套语言基础学习方案：
+- 《C Primer Plus》：有中文版，详尽的说明了C语言语法你所需要了解的一切。推荐花30天时间简单学习。
+- 《C++ Primer》：有中文版，推荐花30天时间简单学习。
+- 《算法导论》：数学系底子要好，跟不上就要找其他零基础学算法的。的推荐学习时长为60天。
+- 《Python核心编程》：7天熟悉基础语法，后续库使用可以需要用时再查。
+- 《汇编语言 基于x86处理器》：容易理解，也有人是用王爽的汇编语言入门，都可以。学完之后就是学习系统编程。
+- 《Windows核心编程》：主要讲的是Win32 API编程，需要好好了解一下，因为Windows下的恶意代码一类的，万变不离其宗，最后还是要走API这条路。学习时间是90天。</p>
+<p>学习完系统编程，学习的是Windows下的文件结构，也就是PE（Portable Executable）结构，这个结构对于我们分析病毒还是漏洞都有着至关重要的作用，因此需要详细了解，讲解这个结构的书非常多，
+- 《Windows PE权威指南》：既学习了PE结构，又复习了汇编语言。推荐时长30天。</p>
+<p>然后学习逆向：
+- 《C++反汇编与逆向分析技术揭秘》,软件逆向看这一本书就够了，但是看完之后建议看一些综合类的实战书籍，比如《加密与解密4》，然后我们还需要对Windows的调试原理有些了解，这里使用《Windows高级调试》以及《软件调试》来学习。</p>
+<h3 id="_15">细分方向部分</h3>
+<ul>
+<li>
+<p>恶意代码分析：恶意代码分析实战。</p>
+</li>
+<li>
+<p>漏洞挖掘：0day安全：软件漏洞分析技术 第2版（入门）、漏洞战争（进阶）。</p>
+</li>
+<li>
+<p>shellcoder编程揭秘：了解漏洞利用中的奇淫技巧。</p>
+</li>
+</ul>
+<p>上述学习阶段建议学习时长90天。</p>
+<p>以上内容学完应该能够踏入二进制安全的正轨，后续就是在工作中不断精进，不断成长。</p>
+<h2 id="_16">二进制漏洞分析模板</h2>
+<p>推荐看雪的这个模板 二进制漏洞分析文章模板</p>
+<h2 id="_17">其它资料</h2>
+<h3 id="windows-freebuf">如何在Windows系统下进行二进制安全学习 - Freebuf有视频</h3>
+<h4 id="1">1. 游戏安全入门</h4>
+<ul>
+<li>游戏安全的本质：控制游戏内外部风险，使得其游戏环境健康可持续，游戏内金融体系不崩溃。</li>
+<li>游戏安全通常从哪些方向下手？<ol>
+<li>风险控制</li>
+<li>原生游戏漏洞
+<img alt="原生游戏漏洞举例" src="***.com" /></li>
+<li>人为外挂风险</li>
+</ol>
+</li>
+</ul>
+<h4 id="2">2. 破解技术入门</h4>
+<h4 id="3">3. 恶意代码入门</h4>
+<h4 id="4">4. 病毒分析入门</h4>
+<h4 id="5">5. 壳与脱壳入门</h4>
+<h3 id="windows">Windows逆向工程入门指南</h3>
+<p>Win32汇编在Linux系统上是不适用的。</p>
+<p>此外，rkvir在B站有一些列 windows逆向入门视频 ，入门推荐先学习。</p>
+<h2 id="ref">REF</h2>
+<ul>
+<li>二进制各种漏洞原理实战分析总结 --  如何学习二进制安全 这部分的原作者应该是 rkvir</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../fuzzing/"><span>上一篇</span><b>模糊测试</b></a><a class="pg next" href="../device-sec/"><span>下一篇</span><b>路由设备安全</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
