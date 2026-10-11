@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Information Gathering (Reconnaissance) - 信息收集 | 烟雨黑帽</title>
+<meta name="description" content="信息收集栏目汇总页，汇集了信息收集方向的核心笔记，并整合了收集域名信息、Whois 查询、备案信息查询、信用信息查询、IP反查站点的站、浏览器插件、收集子域名信息、在线平台、ssl与证书透明度、DNS历史解析、C段探测、JS文件域名&amp;ip探测、搜索引擎&amp;情报社区、威胁情报、钟馗之眼、收集相关应用信息、微信公众号&amp;微博、APP收集&amp;反编译、收集常用端口信息、网络空间引擎搜索等34篇相关短篇笔记。">
+<meta name="keywords" content="Information Gathering (Reconnaissance), 信息收集, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Information Gathering (Reconnaissance)">
+<meta property="og:description" content="信息收集栏目汇总页，汇集了信息收集方向的核心笔记，并整合了收集域名信息、Whois 查询、备案信息查询、信用信息查询、IP反查站点的站、浏览器插件、收集子域名信息、在线平台、ssl与证书透明度、DNS历史解析、C段探测、JS文件域名&amp;ip探测、搜索引擎&amp;情报社区、威胁情报、钟馗之眼、收集相关应用信息、微信公众号&amp;微博、APP收集&amp;反编译、收集常用端口信息、网络空间引擎搜索等34篇相关短篇笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Information Gathering (Reconnaissance)">
+<meta name="twitter:description" content="信息收集栏目汇总页，汇集了信息收集方向的核心笔记，并整合了收集域名信息、Whois 查询、备案信息查询、信用信息查询、IP反查站点的站、浏览器插件、收集子域名信息、在线平台、ssl与证书透明度、DNS历史解析、C段探测、JS文件域名&amp;ip探测、搜索引擎&amp;情报社区、威胁情报、钟馗之眼、收集相关应用信息、微信公众号&amp;微博、APP收集&amp;反编译、收集常用端口信息、网络空间引擎搜索等34篇相关短篇笔记。">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "信息收集"}]}, {"@type": "TechArticle", "headline": "Information Gathering (Reconnaissance)", "alternativeHeadline": "信息收集", "description": "信息收集栏目汇总页，汇集了信息收集方向的核心笔记，并整合了收集域名信息、Whois 查询、备案信息查询、信用信息查询、IP反查站点的站、浏览器插件、收集子域名信息、在线平台、ssl与证书透明度、DNS历史解析、C段探测、JS文件域名&ip探测、搜索引擎&情报社区、威胁情报、钟馗之眼、收集相关应用信息、微信公众号&微博、APP收集&反编译、收集常用端口信息、网络空间引擎搜索等34篇相关短篇笔记。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0 active"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>信息收集</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>信息收集</h1><p class="cn-title">Information Gathering (Reconnaissance)</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#sec-keep-list">独立专题</a></li>
+<li><a href="#sec-domain-information-gathering">收集域名信息</a></li>
+<li><a href="#sec-whois-lookup">Whois 查询</a></li>
+<li><a href="#sec-icp-filing-beian-lookup">备案信息查询</a></li>
+<li><a href="#sec-credit-information-lookup">信用信息查询</a></li>
+<li><a href="#sec-reverse-ip-domain-lookup">IP反查站点的站</a></li>
+<li><a href="#sec-browser-extensions-recon">浏览器插件</a></li>
+<li><a href="#sec-subdomain-enumeration">收集子域名信息</a></li>
+<li><a href="#sec-online-subdomain-platforms">在线平台</a></li>
+<li><a href="#sec-ssl-certificate-transparency">ssl与证书透明度</a></li>
+<li><a href="#sec-dns-historical-resolution">DNS历史解析</a></li>
+<li><a href="#sec-class-c-network-scanning">C段探测</a></li>
+<li><a href="#sec-js-file-domain-ip-discovery">JS文件域名&amp;ip探测</a></li>
+<li><a href="#sec-search-engines-threat-intel-communities">搜索引擎&amp;情报社区</a></li>
+<li><a href="#sec-threat-intelligence">威胁情报</a></li>
+<li><a href="#sec-zoomeye-cyberspace-search">钟馗之眼</a></li>
+<li><a href="#sec-gathering-application-information">收集相关应用信息</a></li>
+<li><a href="#sec-wechat-weibo-osint">微信公众号&amp;微博</a></li>
+<li><a href="#sec-mobile-app-recon-decompilation">APP收集&amp;反编译</a></li>
+<li><a href="#sec-common-port-information-gathering">收集常用端口信息</a></li>
+<li><a href="#sec-cyberspace-search-engines">网络空间引擎搜索</a></li>
+<li><a href="#sec-browser-extensions-port-scanning">浏览器插件</a></li>
+<li><a href="#sec-sensitive-information-gathering">收集敏感信息</a></li>
+<li><a href="#sec-source-code-leakage">源码泄露</a></li>
+<li><a href="#sec-directory-admin-panel-scanning">目录&amp;后台扫描</a></li>
+<li><a href="#sec-public-cloud-drive-leaks">公网网盘</a></li>
+<li><a href="#sec-historical-asset-discovery">历史资产</a></li>
+<li><a href="#sec-fingerprint-waf-cdn-detection">指纹&amp;WAF&amp;CDN识别</a></li>
+<li><a href="#sec-web-fingerprinting">指纹识别</a></li>
+<li><a href="#sec-waf-detection">WAF识别</a></li>
+<li><a href="#sec-vulnerability-resources-social-engineering">漏洞资源和社工</a></li>
+<li><a href="#sec-public-vulnerability-databases">漏洞公共资源库</a></li>
+<li><a href="#sec-social-engineering">社会工程</a></li>
+<li><a href="#sec-asset-inventory">资产梳理</a></li>
+<li><a href="#sec-useful-penetration-testing-platforms">各种对渗透有帮助的平台</a></li>
+</ul>
+</div>
+</details><div class="article-body"><p>本页为「信息收集」栏目汇总页，汇集了信息收集方向的核心笔记。以下为独立专题，其后为整合进来的相关短篇笔记。</p>
+<h2 id="sec-keep-list">独立专题</h2>
+<ul>
+<li><a href="../subdomain-enumeration-tools/">工具枚举</a></li>
+<li><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li>
+<li><a href="../google-hacking-dorks/">google黑客</a></li>
+<li><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li>
+<li><a href="../port-scanning-tools/">扫描工具</a></li>
+<li><a href="../nmap-scanning-guide/">nmap扫描</a></li>
+<li><a href="../email-information-gathering/">邮箱信息收集</a></li>
+<li><a href="../cdn-detection/">CDN识别</a></li>
+<li><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li>
+</ul>
+<section class="merged-article" id="sec-domain-information-gathering">
+<h2>收集域名信息</h2>
+<p>知道目标域名之后，我们要做的第一件事情就是获取域名的注册信息，包括该域名的DNS服务器信息和注册人的联系信息等。</p>
+</section>
+<section class="merged-article" id="sec-whois-lookup">
+<h2>Whois 查询</h2>
+<p>Whois 简单来说，就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商、域名注册日期和过期日期、DNS等）。通过域名Whois服务器查询，可以查询域名归属者联系方式，以及注册和到期时间。</p>
+<ul>
+<li>Kali下whois查询</li>
+<li>域名Whois查询 - 站长之家</li>
+<li>Whois 爱站</li>
+<li>ip138</li>
+<li>Whois Lookup</li>
+<li>ICANN Lookup</li>
+<li>域名信息查询 - 腾讯云</li>
+<li>nicolasbouliane</li>
+<li>新网 whois信息查询</li>
+<li>IP WHOIS查询 - 站长工具</li>
+</ul>
+<p><img alt="" src="../images/f7d9b2369f0c68de.png" /></p>
+</section>
+<section class="merged-article" id="sec-icp-filing-beian-lookup">
+<h2>备案信息查询</h2>
+<p>国内网站注册需要向国家有关部门申请备案，防止网站从事非法活动，而国外网站不需要备案2333。</p>
+<ul>
+<li>ICP备案查询网</li>
+<li>CP备案查询和反查</li>
+<li>ICP备案查询-站长工具</li>
+<li>SEO综合查询-爱站</li>
+<li>批量查询-站长工具</li>
+<li>工业和信息化部ICP/IP/域名信息备案管理</li>
+<li>美国企业备案查询</li>
+</ul>
+<p><img alt="" src="../images/db22ac3a68bbdd22.png" /></p>
+</section>
+<section class="merged-article" id="sec-credit-information-lookup">
+<h2>信用信息查询</h2>
+<ul>
+<li>国家企业信用信息公示系统</li>
+<li>悉知-全国企业信息查询</li>
+<li>信用中国-个人信用查询搜索-企业信息查询搜索-统一社会信用代码查询</li>
+</ul>
+<p><img alt="" src="../images/386a04b0edbf13ed.png" /></p>
+</section>
+<section class="merged-article" id="sec-reverse-ip-domain-lookup">
+<h2>IP反查站点的站</h2>
+<p>同服IP查询:***.com</p>
+<h4 id="sec-reverse-ip-domain-lookup-_1">在线网站</h4>
+<h5 id="sec-reverse-ip-domain-lookup-dnslytics">Dnslytics</h5>
+<ul>
+<li>Dnslytics地址：***.com</li>
+</ul>
+<p>利用Dnslytics反查IP可以得到如下信息</p>
+<pre><code class="language-bash">IP information
+Network information
+Hosting information
+SPAM database lookup
+Open TCP/UDP ports
+Blocklist lookup
+Whois information
+Geo information
+Country information
+Update information
+</code></pre>
+<p>利用Dnslytics反查域名可以得到如下信息</p>
+<pre><code>Domain and Ranking Information
+Hosting Information{
+    A / AAAA Record
+    NS Record
+    MX Record
+    SPF Record
+}
+Web Information
+Whois Information
+</code></pre>
+</section>
+<section class="merged-article" id="sec-browser-extensions-recon">
+<h2>浏览器插件</h2>
+<p>通过Google、FireFox等插件的使用，收集域名信息</p>
+<h4 id="sec-browser-extensions-recon-myipms">myip.ms</h4>
+<p><img alt="" src="../images/4ceeb6bfc0cb47bc.png" /></p>
+<h4 id="sec-browser-extensions-recon-tcpiputils">TCPIPUTILS</h4>
+<p><img alt="" src="../images/4ccfd4c653d7d473.png" /></p>
+<h4 id="sec-browser-extensions-recon-dnslytics">DNSlytics</h4>
+<p><img alt="" src="../images/72c00a2c34c610d9.png" /></p>
+</section>
+<section class="merged-article" id="sec-subdomain-enumeration">
+<h2>收集子域名信息</h2>
+<p>子域名也就是二级域名，是指顶级域名下的域名。假设我们的目标网络规模比较大，直接从主域入手显然是很不理智的，因为对于这种规模的目标，一般其主域都是重点防护区域，所以不如先进入目标的某个子域，然后再想办法迂回接近真正的目标，这无疑是个比较好的选择。那么问题来了，怎样才能尽可能多地搜集目标的高价值子域呢？常用的方法有以下这几种。</p>
+</section>
+<section class="merged-article" id="sec-online-subdomain-platforms">
+<h2>在线平台</h2>
+<div class="toc">
+<ul>
+<li><a href="#sec-online-subdomain-platforms-_1">在线平台</a><ul>
+<li><a href="#sec-online-subdomain-platforms-_2">第三方平台查询</a></li>
+<li><a href="#sec-online-subdomain-platforms-_3">权重综合查询</a></li>
+<li><a href="#sec-online-subdomain-platforms-_4">全国政府网站基本数据库</a></li>
+<li><a href="#sec-online-subdomain-platforms-ip">IP反查绑定域名网站</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h4 id="sec-online-subdomain-platforms-_2">第三方平台查询</h4>
+<p>主要是一些第三方网站和一些博主提供的服务</p>
+<ul>
+<li>ip138    </li>
+<li>站长工具    </li>
+<li>hackertarget    </li>
+<li>phpinfo    </li>
+<li>t1h2ua    </li>
+<li>dnsdumpster    </li>
+<li>chinacycc    </li>
+<li>zcjun</li>
+</ul>
+<h4 id="sec-online-subdomain-platforms-_3">权重综合查询</h4>
+<ul>
+<li>
+<p>爱站</p>
+</li>
+<li>
+<p>站长工具</p>
+</li>
+</ul>
+<p><img alt="" src="../images/1edd0149a8f7168e.png" /></p>
+<h4 id="sec-online-subdomain-platforms-_4">全国政府网站基本数据库</h4>
+<ul>
+<li>Address Link</li>
+</ul>
+<p><img alt="" src="../images/5a4fed9168d38ec1.png" /></p>
+<h4 id="sec-online-subdomain-platforms-ip">IP反查绑定域名网站</h4>
+<p>IP关联域名，大部分网站一个IP多个域名</p>
+<ul>
+<li>chinaz</li>
+<li>aizhan</li>
+<li>***.com</li>
+<li>***.com
+非常牛逼的IP记录站，还能分析内链之类找出可能的IP地址，此外还会记录历史。</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-ssl-certificate-transparency">
+<h2>ssl与证书透明度</h2>
+<div class="toc">
+<ul>
+<li><a href="#sec-ssl-certificate-transparency-ssl">SSL证书</a></li>
+<li><a href="#sec-ssl-certificate-transparency-_1">证书透明度公开日志枚举</a><ul>
+<li><a href="#sec-ssl-certificate-transparency-_2">在线第三方平台查询</a></li>
+<li><a href="#sec-ssl-certificate-transparency-_3">工具枚举查询</a><ul>
+<li><a href="#sec-ssl-certificate-transparency-findomain">Findomain</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="sec-ssl-certificate-transparency-ssl">SSL证书</h3>
+<p>通过查询SSL证书，获取的域名存活率很高，这应该也是不错的思路。
+SSL证书在线检测工具：***.com</p>
+<h3 id="sec-ssl-certificate-transparency-_1">证书透明度公开日志枚举</h3>
+<p>证书透明度(Certificate Transparency, CT)是证书授权机构(CA) 的一个项目，证书授权机构会将每个SSL/TLS证书发布到公共日志中。一个SSL/TLS证书通常包含域名、子域名和邮件地址， 这些也经常成为攻击者非常希望获得的有用信息。查找某个域名所属证书的最简单的方法就是使用搜索引擎搜索一些公开的CT日志。</p>
+<h4 id="sec-ssl-certificate-transparency-_2">在线第三方平台查询</h4>
+<ul>
+<li>***.com</li>
+<li>censys</li>
+<li>myssl</li>
+</ul>
+<p><strong>***.com</strong>
+<img alt="" src="../images/3ddc6686b91c54a5.png" /><img alt="" src="../images/62f91c783c16394d.png" /></p>
+<p><strong>censys:</strong>
+<img alt="" src="../images/48c663124175e001.png" /></p>
+<h4 id="sec-ssl-certificate-transparency-_3">工具枚举查询</h4>
+<p>通过工具可以调用各个证书接口进行域名查询
+常用工具</p>
+<pre><code>Findomain
+Sublist3r（SSL Certificates）等
+</code></pre>
+<h5 id="sec-ssl-certificate-transparency-findomain">Findomain</h5>
+<p>Findomain不使用子域名寻找的常规方法，而是使用证书透明度日志来查找子域，并且该方法使其工具更加快速和可靠。该工具使用多个公共API来执行搜索：</p>
+<pre><code class="language-bash">Certspotter
+***.com
+Virustotal
+Sublist3r
+Facebook 
+Spyse (CertDB)
+Bufferover
+Threadcrow
+Virustotal with apikey
+</code></pre>
+<p>项目地址：<code>***.com</code></p>
+<p>子域名收集：<code>findomain -t ***.com</code></p>
+<p>使用所有API搜索子域并将数据导出到CSV文件：<code>findomain -t ***.com -a -o csv</code></p>
+</section>
+<section class="merged-article" id="sec-dns-historical-resolution">
+<h2>DNS历史解析</h2>
+<ol>
+<li>dnsdb
+全球DNS搜索引擎</li>
+<li>
+<p>***.com
+令站长十分蛋疼的DNS历史记录网站，记录了几年内的更改记录。</p>
+</li>
+<li>
+<p>***.com
+庞大的DNS历史数据库，我试了下可以查出几年内网站用过的IP、机房信息等，非常可怕。</p>
+</li>
+</ol>
+<p>在线网站查询</p>
+<ul>
+<li>
+<p>dnsdb</p>
+</li>
+<li>
+<p>NETCRAFT</p>
+</li>
+<li>
+<p>viewdns</p>
+</li>
+<li>
+<p>threatbook</p>
+</li>
+<li>
+<p>securitytrails</p>
+</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-class-c-network-scanning">
+<h2>C段探测</h2>
+<h3 id="sec-class-c-network-scanning-c">搜索C段</h3>
+<p><strong>什么是C段：</strong>
+比如在：127.127.127.4 这个IP上面有一个网站，他是一个非常大的站几乎没什么漏洞！但是在他同C段 <code>127.127.127.1~127.127.127.255</code> 这 1~255 上面也有服务器而且也有网站并且存在漏洞,那么我们就可以来渗透 1~255任何一个站，之后提权来嗅探得到127.4 这台服务器的密码</p>
+<ol>
+<li>方法一：参考GoogleHack用法</li>
+<li>方法二：用k8工具，前提条件记得注册bing接口</li>
+</ol>
+<h4 id="sec-class-c-network-scanning-_1">在线查询</h4>
+<p>***.com
+<img alt="" src="../images/f38df982cb35d107.png" /></p>
+<h4 id="sec-class-c-network-scanning-_2">工具</h4>
+<p><code>K8_C段旁注工具6.0</code>、<code>nmap</code>、<code>IISPutScanner</code>、<code>小米范WEB查找器</code>等
+<code>小米范WEB查找器</code>：***.com</p>
+<p><img alt="" src="../images/75bb7535b11ba811.png" /></p>
+<h4 id="sec-class-c-network-scanning-_3">网络资产搜索引擎</h4>
+<p>Fofa、Shodan、ZoomEye
+利用这些网络空间资产搜索引擎来搜索暴露在外的端口信息
+利用语法搜索C段信息</p>
+<p><img alt="" src="../images/b781f072c4c9a1ad.png" /></p>
+</section>
+<section class="merged-article" id="sec-js-file-domain-ip-discovery">
+<h2>JS文件域名&amp;ip探测</h2>
+<h3 id="sec-js-file-domain-ip-discovery-js">JS获取敏感接口</h3>
+<h4 id="sec-js-file-domain-ip-discovery-jsfinder">JSFinder</h4>
+<p>JSFinder是一款用作快速在网站的js文件中提取URL，子域名的工具。</p>
+<ul>
+<li>安装</li>
+</ul>
+<pre><code>pip3 install requests bs4
+git clone ***.com
+
+</code></pre>
+<ul>
+<li>使用</li>
+</ul>
+<pre><code>python3 JSFinder.py -u ***.com
+python3 JSFinder.py -u ***.com -d
+
+</code></pre>
+<p><img alt="" src="../images/c757c025cae73559.png" /></p>
+<h4 id="sec-js-file-domain-ip-discovery-linkfinder">LinkFinder</h4>
+<p>该工具通过网站中的JS文件来发现服务端、敏感信息、隐藏控制面板的URL链接等有用信息，可最大化地提高URL发现效率</p>
+<ul>
+<li>安装</li>
+</ul>
+<pre><code>git clone ***.com
+cd LinkFinder
+python2 setup.py install
+
+</code></pre>
+<ul>
+<li>使用</li>
+</ul>
+<p>在线JavaScript文件中查找端点的最基本用法，并将结果输出到results.html：</p>
+<pre><code>python linkfinder.py -i ***.com -o results.html
+
+</code></pre>
+<p>CLI输出（不使用jsbeautifier，这使得它非常快）：</p>
+<pre><code>pyhon linkfinder.py -i ***.com -o cli
+
+</code></pre>
+<p>分析整个域及其JS文件：</p>
+<pre><code>python linkfinder.py -i ***.com -d
+
+</code></pre>
+<p>Burp输入（在目标中选择要保存的文件，右键单击，Save selected items将该文件作为输入）：</p>
+<pre><code>python linkfinder.py -i burpfile -b
+
+</code></pre>
+<p>枚举JavaScript文件的整个文件夹，同时查找以/ api /开头的终结点，并最终将结果保存到results.html：</p>
+<pre><code>python linkfinder.py -i 'Desktop/*.js' -r ^/api/ -o results.html
+
+</code></pre>
+<p><img alt="" src="../images/3e076548dab616fa.png" /></p>
+</section>
+<section class="merged-article" id="sec-search-engines-threat-intel-communities">
+<h2>搜索引擎&amp;情报社区</h2>
+<h3 id="sec-search-engines-threat-intel-communities-_1">资产搜索引擎</h3>
+<p>google、shodan、FOFA、zoomeye</p>
+</section>
+<section class="merged-article" id="sec-threat-intelligence">
+<h2>威胁情报</h2>
+<h4 id="sec-threat-intelligence-_1">微步在线：</h4>
+<p>***.com
+国内的一个工具网站，功能也是十分强大！</p>
+<h4 id="sec-threat-intelligence-fofa">FOFA语法查询</h4>
+<ul>
+<li>***.com
+官方详细文档; ***.com</li>
+</ul>
+<pre><code>domain=&quot;***.com&quot;
+domain=&quot;&quot;||ip=&quot;&quot;||host=&quot;&quot;||title=&quot;&quot;||header=&quot;&quot;
+protocol=“https”        #搜索指定协议类型
+app=&quot;phpinfo&quot;           #搜索某些组件相关系统
+host=&quot;***.com/&quot;   #搜索包含有特定字符的URL
+title=“powered by” &amp;&amp; os==windows   #搜索网页标题中包含有特定字符并且系统是windows的网页
+</code></pre>
+<p><img alt="" src="../images/3c97b2f6d32d97b1.png" /></p>
+<ul>
+<li>华为安全情报： ***.com</li>
+<li>360威胁情报中心：***.com</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-zoomeye-cyberspace-search">
+<h2>钟馗之眼</h2>
+<p>钟馗之眼： ***.com</p>
+<p>语法举例：</p>
+<pre><code class="language-bash">#例1：搜索使用iis6.0主机：
+app:&quot;Microsoft-IIS&quot; ver&quot;6.0&quot;
+
+#例2：搜索使weblogic主机：
+app:&quot;weblogic httpd&quot; port:7001
+
+#例3：查询开放3389端口的主机：
+port:3389
+
+#例4：查询操作系统为Linux系统的服务器:
+os:linux
+
+#例5：查询公网摄像头：
+service:”routersetup”
+
+#例6：搜索美国的 Apache 服务器：
+app:Apache country:US
+
+#例7：搜索指定ip信息，
+ip:121.42.173.26
+
+#例8：查询有关taobao.com域名的信息，
+site:***.com
+
+#例9：搜索标题中包含该字符的网站，
+title:weblogic
+</code></pre>
+</section>
+<section class="merged-article" id="sec-gathering-application-information">
+<h2>收集相关应用信息</h2>
+<ul>
+<li>天眼查</li>
+<li>企查查</li>
+<li>七麦数据</li>
+<li>AppStore</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-wechat-weibo-osint">
+<h2>微信公众号&amp;微博</h2>
+<p>企业的另一通道，渗透相关公众号，绝对会有意外收获：不少漏洞+域名，有关Burp如何抓取微信公众号数据可参考 Burp APP抓包</p>
+<h4 id="sec-wechat-weibo-osint-_2">天眼查</h4>
+<ul>
+<li>天眼查-商业安全工具</li>
+</ul>
+<p>根据前面获取的企业名称可以获取目标企业的微信公众号、微博、备案站点、软件著作权等信息。</p>
+<p><img alt="" src="../images/75ece8dabb16a33d.png" /></p>
+<p>微信公众号</p>
+<p><img alt="" src="../images/2e4f4ae85600afbb.png" /></p>
+<p>微博</p>
+<p><img alt="" src="../images/8947253b708897cf.png" /></p>
+</section>
+<section class="merged-article" id="sec-mobile-app-recon-decompilation">
+<h2>APP收集&amp;反编译</h2>
+<h3 id="sec-mobile-app-recon-decompilation-app">APP</h3>
+<h4 id="sec-mobile-app-recon-decompilation-_1">七麦数据</h4>
+<ul>
+<li>七麦数据</li>
+</ul>
+<p>通过当前APP查询同开发商应用，得到目标所有APP应用</p>
+<p><img alt="" src="../images/d5de420f9977840d.png" /></p>
+<h4 id="sec-mobile-app-recon-decompilation-appstore">AppStore</h4>
+<ul>
+<li>AppStore</li>
+</ul>
+<p>通过当前APP查询同开发商应用，得到目标所有APP应用</p>
+<p><img alt="" src="../images/aad6c53088b21133.png" /></p>
+<h4 id="sec-mobile-app-recon-decompilation-app_1">APP反编译</h4>
+<p>反编译APP进行提取相关IP地址，此外在APP上挖洞的时候，可以发现前面招式找不到的域名，在APP里面有大量的接口IP和内网 IP，同时可获取不少安全漏洞。</p>
+<p>推荐反编译安卓app，用工具：<strong>Android Killer</strong></p>
+</section>
+<section class="merged-article" id="sec-common-port-information-gathering">
+<h2>收集常用端口信息</h2>
+<p>在对目标进行漏洞挖掘的过程中，对端口信息的收集是一个很重要的过程， 通过扫描服务器开放的端口以及从该端口判断服务器上存在的服务，就可以对症下药，便于我们渗透目标服务器。</p>
+<p>所以在端口渗透信息的收集过程中，我们需要关注常见应用的默认端口和在端口上运行的服务。</p>
+<p>端口一般是指TCP/IP协议中的端口，端口号的范围是从0-65535。</p>
+</section>
+<section class="merged-article" id="sec-cyberspace-search-engines">
+<h2>网络空间引擎搜索</h2>
+<p>shodan、FOFA、zoomeye</p>
+<p>FOFA为例</p>
+<ul>
+<li>***.com</li>
+</ul>
+<p><img alt="" src="../images/c84076cb2e345765.png" /></p>
+</section>
+<section class="merged-article" id="sec-browser-extensions-port-scanning">
+<h2>浏览器插件</h2>
+<p>通过Google、FireFox等插件的使用，收集主机端口开放信息</p>
+<h4 id="sec-browser-extensions-port-scanning-shodan">Shodan</h4>
+<p><img alt="" src="../images/66d15a2eb20450f1.png" /></p>
+<h4 id="sec-browser-extensions-port-scanning-tcpiputils">TCPIPUTILS</h4>
+<p><img alt="" src="../images/4a4f2aa1e78ca701.png" /></p>
+<h4 id="sec-browser-extensions-port-scanning-dnslytics">DNSlytics</h4>
+<p><img alt="" src="../images/93846a400ed549fe.png" /></p>
+<h4 id="sec-browser-extensions-port-scanning-fofa-view">fofa-view</h4>
+<p><img alt="" src="../images/76024e34a0615f60.png" /></p>
+</section>
+<section class="merged-article" id="sec-sensitive-information-gathering">
+<h2>收集敏感信息</h2>
+<p>对应站点和应用敏感信息收集的越多，后续攻击利用突破口越多。
+通过工具暴破相关Web源代码泄露，流程如下：
+<img alt="在这里插入图片描述" src="../images/9c69cd2241025d85.png" /></p>
+<h4 id="sec-sensitive-information-gathering-_2">信息泄露收集可能会用到如下地址：</h4>
+<blockquote>
+<p>网盘搜索：***.com 或 ***.com 
+网盘密码破解：***.com
+社工信息泄露：***.com、***.com
+源码搜索：***.com、***.com、***.com、***.com
+钟馗之眼： ***.com
+天眼查： ***.com  这个有破解使用企业版查询的办法
+佛法：***.com 帮助文档：***.com
+微步在线：***.com
+360情报中心：***.com
+在线查毒：***.com</p>
+</blockquote>
+<p>其他小方法
+* 越权查询
+遍历uid获得身份信息等
+* whois&amp;备案查询
+通过Whois和备案查询得到网站的注册人、手机号、邮箱等（对后续的密码生成和社工很有帮助）
+* Google Hacking获取公开文件
+    <code>site:***.com filetype:.doc | .docx | .xls | .xlsx | .ppt | .pptx | .odt | .pdf | .rtf | .sxw | .psw | .csv</code></p>
+</section>
+<section class="merged-article" id="sec-source-code-leakage">
+<h2>源码泄露</h2>
+<h4 id="sec-source-code-leakage-_2">常见源码泄露</h4>
+<pre><code>/.bzr/
+/CVS/Entries
+/CVS/Root
+/.DS_Store  MacOS自动生成
+/.hg/
+/.svn/ (/.svn/entries)
+/.git/
+/WEB-INF/src/
+/WEB-INF/lib/
+/WEB-INF/classes/
+/WEB-INF/database.properties
+/WEB-INF/web.xml
+
+Robots.txt
+</code></pre>
+<p>上述源码泄露在Github上都可以找到相应的利用工具</p>
+<h4 id="sec-source-code-leakage-a">A 网页扫描</h4>
+<p>通过扫描器扫描web站点，看是否有源码相关目录被泄漏，如有，再通过特殊工具恢复</p>
+<p>工具如：<strong>破壳web扫描器</strong>、<strong>御剑扫描器</strong></p>
+<h4 id="sec-source-code-leakage-b-github">B github类信息泄漏</h4>
+<p>GitHub敏感信息泄露一直是企业信息泄露和知识产权泄露的重灾区，安全意识薄弱的同事经常会将公司的代码、各种服务的账户等极度敏感的信息『开源』到github中，github也是黑、白帽子、安全工程师的必争之地。</p>
+<p><strong>全自动监控github</strong>：***.com 
+<strong>GitHub敏感信息泄露监控</strong>：GSIL、Github-Monitor
+在GitHub中一般通过搜索网站域名、网站JS路径、网站备案、网站下的技术支持等进行敏感信息查询</p>
+<h4 id="sec-source-code-leakage-c">C 社工方式收集</h4>
+<p>还可以在QQ群备注或介绍等，甚至混入企业qq工作群查找，这设计社工范畴了</p>
+<h4 id="sec-source-code-leakage-d">D 源码泄露利用工具</h4>
+<ul>
+<li>
+<p>.git源码泄露：***.com</p>
+</li>
+<li>
+<p>.DS_Store泄露：***.com</p>
+</li>
+<li>
+<p>.bzr、CVS、.svn、.hg源码泄露：***.com</p>
+</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-directory-admin-panel-scanning">
+<h2>目录&amp;后台扫描</h2>
+<p>常用工具</p>
+<ul>
+<li>7kbscan
+***.com</li>
+<li>DirMap
+***.com</li>
+<li>dirsearch
+***.com</li>
+<li>Fuzz-gobuster
+***.com</li>
+<li>Fuzz-dirbuster
+OWASP kali自带</li>
+<li>Fuzz-wfuzz
+***.com</li>
+<li>Test404轻量后台扫描器+v2.0</li>
+<li>御剑</li>
+<li>破壳Web极速扫描器</li>
+</ul>
+<p>个人比较喜欢使用Fuzz大法，不管是目录扫描、后台扫描、Web漏洞模糊测试都是非常灵活的。这几款fuzz工具都比较好用</p>
+<pre><code>基于Go开发：gobuster
+基于Java开发：dirbuster
+基于Python开发：wfuzz
+</code></pre>
+<h4 id="sec-directory-admin-panel-scanning-dirbusterwin">dirbuster(win)</h4>
+<p>功能介绍
+DirBuster是一款路径及网页暴力破解的工具,可以破解出一直没有访问过或者管理员后台的界面路径。
+部署指南：Java运行环境+DirBuster程序包</p>
+<p>详细教程参见：
+***.com
+***.com</p>
+<ul>
+<li>双击运行DirBuster.jar</li>
+<li>在URL中输入目标URL或者主机IP地址</li>
+<li>在file with list of dirs/files 栏后点击browse，选择破解的字典库为directory-list-2.3-small.txt</li>
+<li>将File extension中填入正确的文件后缀，默认为php，如果为jsp页面，需要填入jsp</li>
+<li>其他选项不变，点击右下角的start，启动目录查找</li>
+<li>观察返回结果，可点击右下角的report，生成目录报告</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>敏感目录发掘能力强</td>
+<td>程序运行线程小</td>
+</tr>
+<tr>
+<td>OWASP安全机构极力推荐</td>
+<td>探测目录依赖字典文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sec-directory-admin-panel-scanning-wfuzzpython">wfuzz(python)</h4>
+<p><img alt="" src="../images/a78265f4e7842ad3.png" /></p>
+<p>工具无论再多再好，没有一个好的字典一切都是空谈。强大字典是需要自己平时慢慢的积累。</p>
+</section>
+<section class="merged-article" id="sec-public-cloud-drive-leaks">
+<h2>公网网盘</h2>
+<p>公司员工可能把一些内部资料放在了公网网盘，然后被在线云网盘搜索的网站抓取了，我们就可以利用这个来对目标系统进行深入挖掘。</p>
+<p>可以利用云网盘搜索工具搜集敏感文件，一般直接输入厂商名字进行搜索</p>
+<h4 id="sec-public-cloud-drive-leaks-_2">凌风云搜索</h4>
+<p>地址：***.com</p>
+<p><img alt="" src="../images/83bbd0dfce7d059c.png" /></p>
+<h4 id="sec-public-cloud-drive-leaks-_3">小白盘搜索</h4>
+<ul>
+<li>地址：***.com</li>
+</ul>
+<h4 id="sec-public-cloud-drive-leaks-_4">大力盘搜索</h4>
+<ul>
+<li>地址：***.com</li>
+</ul>
+<h4 id="sec-public-cloud-drive-leaks-_5">小不点搜索（微盘）</h4>
+<ul>
+<li>地址：***.com</li>
+</ul>
+<p><img alt="" src="../images/399efc766cd36a07.png" /></p>
+<h4 id="sec-public-cloud-drive-leaks-_6">百度网盘爬取开源工具</h4>
+<ul>
+<li>地址：***.com</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-historical-asset-discovery">
+<h2>历史资产</h2>
+<h4 id="sec-historical-asset-discovery-wayback">wayback</h4>
+<p>wayback会记录网站版本更迭，可以获取到之前版本的网站，可能会找到一些后来删除的敏感资产信息，或者一些漏洞</p>
+<p>平台地址：***.com</p>
+<p>例如：腾讯2003.09.29的主页</p>
+<p><img alt="" src="../images/d043284ab9c74736.png" /></p>
+</section>
+<section class="merged-article" id="sec-fingerprint-waf-cdn-detection">
+<h2>指纹&amp;WAF&amp;CDN识别</h2>
+<p>Web指纹识别技术研究与优化实现：***.com  常见指纹检测的对象</p>
+<pre><code>
+1、CMS信息：比如大汉CMS、织梦、帝国CMS、phpcms、ecshop等；
+2、前端技术：比如HTML5、jquery、bootstrap、pure、ace等；
+3、Web服务器：比如Apache、lighttpd, Nginx, IIS等；
+4、应用服务器：比如Tomcat、Jboss、weblogic、websphere等；
+5、开发语言：比如PHP、Java、Ruby、Python、C#等；
+6、操作系统信息：比如linux、win2k8、win7、kali、centos等；
+7、CDN信息：是否使用CDN，如cloudflare、360cdn、365cyd、yunjiasu等；
+8、WAF信息：是否使用waf，如Topsec、Jiasule、Yundun等；
+9、IP及域名信息：IP和域名注册信息、服务商信息等；
+10、端口信息：有些软件或平台还会探测服务器开放的常见端口。
+</code></pre>
+</section>
+<section class="merged-article" id="sec-web-fingerprinting">
+<h2>指纹识别</h2>
+<p>[TOC]
+在漏洞挖掘中，对目标服务器进行指纹识别是相当有必要的，因为只有识别出相应的Web容器或者CMS，才能查找与其相关的漏洞，然后才能进行相应的渗透操作。</p>
+<p>CMS (Content Management System)又称整站系统或文章系统。常见的CMS有Dedecms (织梦)、Discuz、 PHPWEB、 PHPWind、PHPCMS、ECShop、 Dvbbs、 SiteWeaver、 ASPCMS、帝国、Z- Blog、WordPress等。</p>
+<h3 id="sec-web-fingerprinting-_2">第三方平台</h3>
+<ul>
+<li>云悉    </li>
+<li>TideFinger    </li>
+<li>BugScaner    </li>
+<li>数字观星    </li>
+</ul>
+<h3 id="sec-web-fingerprinting-_3">工具</h3>
+<p>常用指纹识别工具有：<code>御剑Web指纹识别</code>、<code>WhatWeb</code>、<code>Test404轻量CMS指纹识别+v2.1</code>、<code>椰树</code>等，可以快速识别一些主流CMS</p>
+<p>Github项目
+*   CMSeeK  <br />
+<em>   CMSmap  <br />
+</em>   ACMSDiscovery  <br />
+<em>   TideFinger  <br />
+</em>   AngelSword    </p>
+<p><img alt="" src="../images/e54637eb27eee0f3.png" /></p>
+<h3 id="sec-web-fingerprinting-_4">浏览器插件</h3>
+<p>通过Google、FireFox等插件的使用，收集网站结构信息</p>
+<h4 id="sec-web-fingerprinting-wappalyzer">Wappalyzer</h4>
+<p><img alt="" src="../images/5bf4275ab6629a9b.png" /></p>
+</section>
+<section class="merged-article" id="sec-waf-detection">
+<h2>WAF识别</h2>
+<p>识别网站使用的什么WAF，可以去找相应的绕过手段</p>
+<h4 id="sec-waf-detection-wafw00f">wafw00f</h4>
+<ul>
+<li>项目地址：***.com</li>
+</ul>
+<p><img alt="" src="../images/64bbbf79674d9b2b.png" /></p>
+</section>
+<section class="merged-article" id="sec-vulnerability-resources-social-engineering">
+<h2>漏洞资源和社工</h2>
+<p><a href="#sec-public-vulnerability-databases">漏洞公共资源库</a>
+<a href="#sec-social-engineering">社会工程</a></p>
+</section>
+<section class="merged-article" id="sec-public-vulnerability-databases">
+<h2>漏洞公共资源库</h2>
+<p>仔细分析，大胆验证，发散思维，对企业的运维、开发习惯了解绝对是有很大的帮助。可以把漏洞保存下来，进行统计，甚至炫一点可以做成词云展示给自己看，看着看着或者就知道会有什么漏洞。</p>
+<h3 id="sec-public-vulnerability-databases-_1">国内</h3>
+<ul>
+<li>国家信息安全漏洞库</li>
+<li>国家信息安全漏洞共享平台</li>
+<li>SeeBug</li>
+<li>信息安全漏洞门户 VULHUB</li>
+<li>数字观星</li>
+<li>NSFOCUS绿盟科技</li>
+<li>BugScan--漏洞插件社区</li>
+<li>漏洞列表 | 教育行业漏洞报告平台（Beta）</li>
+<li>工控系统行业漏洞库平台</li>
+<li>exp库-打造中文最大exploit库</li>
+<li>乌云漏洞库</li>
+<li>漏洞银行：***.com </li>
+<li>360补天：***.com</li>
+</ul>
+<h3 id="sec-public-vulnerability-databases-_2">国外</h3>
+<ul>
+<li>Exploit-db</li>
+<li>Sploitus | Exploit &amp; Hacktool Search Engine</li>
+<li>packetstorm</li>
+<li>SecurityFocus</li>
+<li>cxsecurity</li>
+<li>rapid7 Vulnerability &amp; Exploit Database</li>
+<li>Most recent entries - CVE-Search</li>
+<li>CVE security vulnerability database. Security vulnerabilities, exploits</li>
+<li>CVE mitre - Search CVE List</li>
+<li>美国官方工控数据库 ICS-CERT Landing | CISA</li>
+<li>路由器漏洞搜索 Routerpwn - One click exploits, generators, tools, news, vulnerabilities, poc</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-social-engineering">
+<h2>社会工程</h2>
+<h3 id="sec-social-engineering-shegongku">SheGongKu</h3>
+<p>You should know：TG、AnWang</p>
+<pre><code>***.com
+
+***.com
+
+***.com
+
+***.com
+
+TG-Robot:@shegongkubot
+</code></pre>
+<h3 id="sec-social-engineering-userregistrationinformation">UserRegistrationInformation</h3>
+<p>通过用户的一些信息（Mail、Name、ID、Tel）查询用户注册过哪些应用</p>
+<ul>
+<li>REG007</li>
+<li>检查160个社交网络上的注册情况 Check Usernames - Social Media Username Availability</li>
+<li>检查用户名注册情况在500个主流网站上 KnowEm用户名搜索：社交媒体，域名和商标</li>
+<li>检查用户名注册情况，同时检查注册过哪些域名 Namechk | Username, Domain, and Trademark Search | Username Registration</li>
+</ul>
+<h3 id="sec-social-engineering-ipinformation">IPInformation</h3>
+<p>通过IP地址获取位置信息</p>
+<ul>
+<li>IP地址查询chaipip</li>
+<li>高精度IP定位</li>
+<li>IP查询IPIP.NET</li>
+<li>ip2location</li>
+<li>maxmind</li>
+<li>ip138</li>
+<li>***.com</li>
+</ul>
+<h3 id="sec-social-engineering-someprojects">SomeProjects</h3>
+<ul>
+<li>social-engineer-toolkit</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-asset-inventory">
+<h2>资产梳理</h2>
+<p>有了庞大的域名，接下来就是帮助SRC梳理资产了。域名可以先判断存活，活着的继续进行确定IP环节。根据IP的分布，确定企业的公网网段。这其实是一项不小的工程，精准度比较难以拿捏。不过通过不断实战，肯定可以琢磨出一些东西，所以有人称白帽子可能会比企业的运维更了解资产信息。资产梳</p>
+</section>
+<section class="merged-article" id="sec-useful-penetration-testing-platforms">
+<h2>各种对渗透有帮助的平台</h2>
+<h3 id="sec-useful-penetration-testing-platforms-5">5.各种对渗透有帮助的平台</h3>
+<h4 id="sec-useful-penetration-testing-platforms-src">SRC众测平台</h4>
+<p>国际漏洞提交平台 ***.com
+BugX区块链漏洞平台 ***.com
+Gsrc瓜子src ***.com
+区块链安全响应中心 ***.com
+CNVD国家信息安全漏洞平台 ***.com
+漏洞银行：***.com
+360补天：***.com
+教育行业漏洞报告平台（Beta）***.com</p>
+<h4 id="sec-useful-penetration-testing-platforms-_1">国内平台</h4>
+<p>知道创宇Seebug漏洞平台 ***.com
+工控系统行业漏洞平台 ***.com
+打造中文最大exploit库 ***.com
+为数不多的漏洞管理插件收集平台 ***.com
+一家管理漏洞收集的平台 ***.com</p>
+<h4 id="sec-useful-penetration-testing-platforms-_2">国外平台</h4>
+<p>国际漏洞提交平台 ***.com
+xss poc ***.com
+oday漏洞库 ***.com
+路由器漏洞库 ***.com
+cve漏洞平台 ***.com</p>
+<h4 id="sec-useful-penetration-testing-platforms-_3">威胁情报</h4>
+<p>安全数据交流平台 ***.com
+华为安全情报 ***.com
+威胁情报共享平台 ***.com
+被黑站点统计 ***.com</p>
+<h4 id="sec-useful-penetration-testing-platforms-_4">社工库</h4>
+<p>微信伪造 ***.com
+任意邮箱发送 ***.com和***.com
+临时邮箱 ***.com
+邮箱池群 ***.com
+社工库 ***.com</p>
+</section></div></article><nav class="pager"><a class="pg prev" href="../black-market/"><span>上一篇</span><b>黑产研究</b></a><a class="pg next" href="../subdomain-enumeration-tools/"><span>下一篇</span><b>工具枚举</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kali Linux | 烟雨黑帽</title>
+<meta name="description" content="官网下载地址：***.com Installing Kali VMware on Apple Silicon Mac Device 官方有专门教程，自己整一台kali少折腾本机系统。 ***.com 前提：VMware Fusion &gt;= 13.x.x，好消息是VMware现在已经Free for …">
+<meta name="keywords" content="Kali Linux, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Kali Linux">
+<meta property="og:description" content="官网下载地址：***.com Installing Kali VMware on Apple Silicon Mac Device 官方有专门教程，自己整一台kali少折腾本机系统。 ***.com 前提：VMware Fusion &gt;= 13.x.x，好消息是VMware现在已经Free for …">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kali Linux">
+<meta name="twitter:description" content="官网下载地址：***.com Installing Kali VMware on Apple Silicon Mac Device 官方有专门教程，自己整一台kali少折腾本机系统。 ***.com 前提：VMware Fusion &gt;= 13.x.x，好消息是VMware现在已经Free for …">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Kali Linux"}]}, {"@type": "TechArticle", "headline": "Kali Linux", "description": "官网下载地址：***.com Installing Kali VMware on Apple Silicon Mac Device 官方有专门教程，自己整一台kali少折腾本机系统。 ***.com 前提：VMware Fusion >= 13.x.x，好消息是VMware现在已经Free for …", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1 active"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Kali Linux</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Kali Linux</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#installing-kali-vmware-on-apple-silicon-mac-device">Installing Kali VMware on Apple Silicon Mac Device</a>
+</li>
+<li><a href="#_1">高频使用命令</a>
+<ul>
+<li><a href="#kalidocker">Kali安装Docker</a>
+</li>
+<li><a href="#kalidocker-compose">Kali安装Docker Compose</a>
+<ul>
+<li><a href="#docker">Docker常用命令</a>
+</li>
+<li><a href="#docker_1">修改Docker镜像源为国内源</a>
+</li>
+</ul>
+</li>
+<li><a href="#msf">msf的初始化操作</a>
+</li>
+<li><a href="#_2">冷知识</a>
+<ul>
+<li><a href="#ali-linux">下载ali Linux历史壁纸</a>
+</li>
+</ul>
+</li>
+<li><a href="#kali-purple-document">Kali Purple Document</a>
+<ul>
+<li><a href="#elastic-stack-installation">Elastic stack installation</a>
+</li>
+</ul>
+</li>
+<li><a href="#1arp">1.ARP探测内网存活主机</a>
+</li>
+</ul>
+</li>
+<li><a href="#_3">常见问题处理集合</a>
+<ul>
+<li><a href="#1-kali-2020">1. kali 2020 忘记密码</a>
+</li>
+<li><a href="#2-kali-linux">2. kali linux不同版本的默认密码</a>
+</li>
+<li><a href="#3-kali-20211-pippip3">3. kali 2021.1 安装 pip和pip3</a>
+</li>
+<li><a href="#4-dirsearch">4. 安装dirsearch</a>
+</li>
+<li><a href="#5-dirmap">5. 安装dirmap</a>
+</li>
+<li><a href="#5">5. 设置系统禁止休眠</a>
+</li>
+<li><a href="#6-kalisnmp">6. kali开启snmp服务</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#kalisnmpwalk-windows">在kali上用Snmpwalk 命令测试 Windows 主机</a>
+<ul>
+<li><a href="#_4">其它安装问题：</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>官网下载地址：***.com</p>
+<h3 id="installing-kali-vmware-on-apple-silicon-mac-device">Installing Kali VMware on Apple Silicon Mac Device</h3>
+<p>官方有专门教程，自己整一台kali少折腾本机系统。
+***.com</p>
+<p>前提：VMware Fusion &gt;= 13.x.x，好消息是VMware现在已经Free for Personal了。</p>
+<h3 id="_1">高频使用命令</h3>
+<h4 id="kalidocker">Kali安装Docker</h4>
+<ul>
+<li>Installing Docker on Kali Linux</li>
+</ul>
+<p>先确保Kali能正常联网，同时国内的话建议先换好国内源。</p>
+<pre><code class="language-shell">sudo apt update
+sudo apt install -y ***.com        # 安装
+
+# 可选操作
+sudo docker version  # 检查安装版本
+sudo systemctl enable docker --now   # 设置开机启动
+sudo usermod -aG docker $USER        # 将当前用户（$USER）添加到docker用户组中
+</code></pre>
+<h4 id="kalidocker-compose">Kali安装Docker Compose</h4>
+<p>因为Kali最新版目前都自带python2和python3环境，所以可以使用pip3安装Docker Compose</p>
+<pre><code class="language-shell">pip3 install docker-compose
+
+docker-compose version  # check version
+</code></pre>
+<p>也可以直接下载编译好的版本来用：</p>
+<ul>
+<li>How To Install Docker Compose on Linux</li>
+</ul>
+<h5 id="docker">Docker常用命令</h5>
+<p>docker-compose的命令参考官方：***.com</p>
+<pre><code>高频使用命令：
+docker-compose build      # 根据Dockerfile和docker-compose.yml下载镜像和构建容器环境
+docker-compose up -d      # 以守护进程模式运行加-d，启动docker-compose环境
+docker-compose down       # 删除环境恢复初始状态，连镜像都清了
+docker ps                 # 查看运行的docker容器对象
+docker ps -a              # 查看所有docker容器对象
+docker images             # 查看所有镜像
+docker rmi IMAGE_ID       # 删除指定镜像
+
+docker-compose命令的的一些其它用法docker ref
+***.com
+***.com
+
+docker-compose的使用步骤：
+1、创建一个空目录
+2、定义 Dockerfile，方便迁移到任何地方
+3、编写 docker-compose.yml 文件
+4、运行 docker-compose up 启动服务（如果没有先docker-compose build，此时会先build）
+</code></pre>
+<h5 id="docker_1">修改Docker镜像源为国内源</h5>
+<pre><code class="language-shell">vim /etc/docker/daemon.json
+
+{
+&quot;registry-mirrors&quot;: [&quot;***.com
+}
+
+重启docker
+sudo systemctl restart docker
+</code></pre>
+<h4 id="msf">msf的初始化操作</h4>
+<p>虽然直接执行msfconsole也可以使用metasploit进行渗透测试，但是因为这总情况下没有数据库配合，无法快速调用数据，也无法保存渗透测试过程中产生的数据，所以并不适合在真实环境中使用。
+metasploit支持用PostgreSQL数据库存储数据，使用前需要做初始化操作。</p>
+<pre><code class="language-shell"># 1.配置PostgreSQL
+# 检查 postgresql状态
+systemctl status postgresql
+
+# 启动 postgresql
+systemctl start postgresql
+
+# 2.初始化msfdb
+
+└─# msfdb init
+[+] Starting database
+[+] Creating database user 'msf'
+[+] Creating databases 'msf'
+[+] Creating databases 'msf_test'
+[+] Creating configuration file '/usr/share/metasploit-framework/config/database.yml'
+[+] Creating initial database schema
+
+数据库配置信息见：/usr/share/metasploit-framework/config/database.yml , 有 development production test 三种配置
+cat /usr/share/metasploit-framework/config/database.yml
+
+
+查看数据库状态
+└─# msfdb status
+● postgresql.service - PostgreSQL RDBMS
+     Loaded: loaded (/lib/systemd/system/postgresql.service; disabled; vendor preset: disabled)
+     Active: active (exited) since Wed 2022-04-20 22:05:30 EDT; 1 day 6h ago
+    Process: 14749 ExecStart=/bin/true (code=exited, status=0/SUCCESS)
+   Main PID: 14749 (code=exited, status=0/SUCCESS)
+        CPU: 10ms
+
+# 3.在msfconsole中链接数据库
+db_status
+
+&gt; db_status
+[*] Connected to msf. Connection type: postgresql.
+
+&gt; db_status                                           
+[*] postgresql selected, no connection         
+
+db_disconnect
+&gt; db_disconnect
+Successfully disconnected from the data service: local_db_service.
+
+db_connect
+&gt; db_connect msf:nn5lHAPlWBbtelGQwz1/cwaqxxxxxxxxxxI=@localhost:5432/msf_test
+[*] Connected to Postgres data service: localhost/msf_test
+
+db_connect -y /usr/share/metasploit-framework/config/database.yml
+
+# msf导入nmap的扫描结果report.xml
+&gt; db_import /xxx/xxx/nmap_report.xml
+
+# 导入成功的话可以通过services命令来验证是否已经导入扫描结果，查看数据库中的服务信息
+&gt; services
+
+# 查看当前数据库中存储的主机信息
+&gt; hosts
+
+如果之前配置过数据库，下次可以使用命令：msfdb run 来启动数据库
+</code></pre>
+<h4 id="_2">冷知识</h4>
+<h5 id="ali-linux">下载ali Linux历史壁纸</h5>
+<pre><code>sudo apt update &amp;&amp; sudo apt -y install kali-wallpapers-legacy
+</code></pre>
+<h4 id="kali-purple-document">Kali Purple Document</h4>
+<p>***.com</p>
+<h5 id="elastic-stack-installation">Elastic stack installation</h5>
+<p>***.com</p>
+<h4 id="1arp">1.ARP探测内网存活主机</h4>
+<pre><code class="language-shell">arp-scan -l
+</code></pre>
+<p>利用ARP探测内网存活主机IP和MAC。可结合grep使用。</p>
+<h3 id="_3">常见问题处理集合</h3>
+<h4 id="1-kali-2020">1. kali 2020 忘记密码</h4>
+<h4 id="2-kali-linux">2. kali linux不同版本的默认密码</h4>
+<pre><code>kali 2020.1 安装后很多用户还是直接使用之前的默认root账户
+
+账户：root  密码：toor
+
+但是最新的kali 2020.1 已经改变安全策略，默认的账户名和密码如下：
+
+账户名：kali
+
+密码：kali
+
+如果想切换为root账户模式，建议使用以下命令操作
+
+sudo su
+
+然后输入默认密码kali就切换到root账户了
+</code></pre>
+<h4 id="3-kali-20211-pippip3">3. kali 2021.1 安装 pip和pip3</h4>
+<p>kali 2021.1默认安装python和python3，但是没有装pip，需要自己手动安装下，操作很简单。</p>
+<p>一般来说，多是先装pip，再安装pip3。顺序反过来有没有问题我也不确定，你感兴趣可以试试。</p>
+<pre><code>pip2：
+wget ***.com
+python get-pip.py
+
+pip3:
+apt-get python3-pip
+</code></pre>
+<h4 id="4-dirsearch">4. 安装dirsearch</h4>
+<p>因为Kali 2021自带的dirbuster用户体验欠佳。所以还是找了个命令行工具（御剑官方貌似没Linux版本）。</p>
+<p>dirsearch扫Web Path挺方便的，边扫描边出结果。不过非Kali自带，需要手动安装下。安装方式如下：</p>
+<pre><code class="language-shell">git clone ***.com
+cd dirsearch
+pip3 install -r requirements.txt
+python3 dirsearch.py -u &lt;URL&gt; -e &lt;EXTENSIONS&gt;
+
+e.g.
+python3 dirsearch.py -u ***.com
+python3 dirsearch.py -u ***.com ./db
+
+其实主要还是看字典是否给力，字典放在 db/ 目录下
+</code></pre>
+<h4 id="5-dirmap">5. 安装dirmap</h4>
+<p>这个的字典很强，虽然已经很长时间没更新了，但是用起来也不错。扫描完成后统一出结果。支持，多ip扫路径。</p>
+<pre><code class="language-shell">git clone ***:TesterCC/dirmap.git
+or
+git clone ***.com
+
+pip3 install -r requirement.txt -i ***.com
+
+python3 dirmap.py -i ***.com -lcf
+</code></pre>
+<h4 id="5">5. 设置系统禁止休眠</h4>
+<p>不知道是何原因，平时虚拟机开Kali2021待机黑屏后，第二天再来总是无法正常唤醒，故决定直接设置系统禁止休眠。</p>
+<p>Settings 搜 Power Manager，设置如下：</p>
+<p><img alt="Kali2021禁止休眠" src="***.com" /></p>
+<h4 id="6-kalisnmp">6. kali开启snmp服务</h4>
+<pre><code class="language-shell"># 安装相关包
+sudo apt-get install snmpd snmp
+
+安装完成后，编辑 /etc/snmp/snmpd.conf 配置文件来进行相关配置，例如设置community_name等。
+
+配置文件样例（仅参考）：
+
+# 注释掉或移除以下行:
+# com2sec notConfigUser  default       public
+com2sec readonly  default       your_community_string
+com2sec execute   default       your_community_string
+group MyROGroup v1         readonly
+group MyROGroup v2c        readonly
+group MyROGroup usm        readonly
+group MyRWGroup v1         execute
+group MyRWGroup v2c        execute
+group MyRWGroup usm        execute
+view all    included  .1                               80
+access MyROGroup &quot;&quot;      any       noauth    exact  all    none   none
+access MyRWGroup &quot;&quot;      any       noauth    exact  all    all    context
+
+
+EXT:
+community_name 的作用是用于对 SNMP 访问进行基本的身份验证和权限控制。具有正确 community_name 的请求才能获取或修改相应的管理信息。
+一般使用时，客户端在发送 SNMP 请求时需要提供正确的 community_name 才能与服务器进行通信和获取数据。
+
+# 启动snmpd
+sudo systemctl start snmpd
+
+# 设置自启动
+sudo systemctl enable snmpd
+</code></pre>
+<p>ref:
+kali Linux部署SNMP服务</p>
+<p>用Windows 10部署启动snmp服务，在kali上确认可通（即使Windows 10防火墙默认禁ping）</p>
+<h2 id="kalisnmpwalk-windows">在kali上用Snmpwalk 命令测试 Windows 主机</h2>
+<p>snmpwalk -c public 192.168.80.128 -v 2c</p>
+<h3 id="_4">其它安装问题：</h3>
+<p>centos7 安装pypcap： 主要是需要的包名和ubuntu不一致：</p>
+<pre><code>yum install update
+
+# 按它的官方文档的话，应该是这2个包吧 ref: ***.com
+# 如果是python2 就是 python-devel  主要是ubuntu和centos的包名问题
+
+yum install -y gcc libpcap-devel python3-devel   
+
+pip3 install pypcap
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../pentest-term/"><span>上一篇</span><b>术语</b></a><a class="pg next" href="../red-team/"><span>下一篇</span><b>红队</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

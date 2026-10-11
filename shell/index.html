@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shell | 烟雨黑帽</title>
+<meta name="description" content="查看并发请求数和TCP状态 netstat -n | awk &#x27;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#x27; 批量kill掉包含某个关键字的进程 搜索关键词为 sign_v ps -ef | grep sign_v | grep -v grep…">
+<meta name="keywords" content="Shell, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Shell">
+<meta property="og:description" content="查看并发请求数和TCP状态 netstat -n | awk &#x27;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#x27; 批量kill掉包含某个关键字的进程 搜索关键词为 sign_v ps -ef | grep sign_v | grep -v grep…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shell">
+<meta name="twitter:description" content="查看并发请求数和TCP状态 netstat -n | awk &#x27;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#x27; 批量kill掉包含某个关键字的进程 搜索关键词为 sign_v ps -ef | grep sign_v | grep -v grep…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Shell"}]}, {"@type": "TechArticle", "headline": "Shell", "description": "查看并发请求数和TCP状态 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 批量kill掉包含某个关键字的进程 搜索关键词为 sign_v ps -ef | grep sign_v | grep -v grep…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1 active"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Shell</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Shell</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#tcp">查看并发请求数和TCP状态</a>
+</li>
+<li><a href="#kill">批量kill掉包含某个关键字的进程</a>
+</li>
+<li><a href="#_2">显示目录下所有一级目录和文件</a>
+</li>
+<li><a href="#_3">批量查找某个目下文件的包含的内容</a>
+</li>
+<li><a href="#linux">Linux批量查找并替换文件夹下所有文件的（文字）内容</a>
+</li>
+<li><a href="#_4">批量查找并替换任意文件夹下的文件内容</a>
+</li>
+<li><a href="#linuxnginx">Linux查看Nginx进程数</a>
+</li>
+<li><a href="#linuxhttpd">Linux查看httpd进程数</a>
+</li>
+<li><a href="#dirname-0">dirname $0 的用法</a>
+</li>
+<li><a href="#cp">cp命令</a>
+</li>
+<li><a href="#zshbash">zsh和bash</a>
+</li>
+<li><a href="#shbash">sh和bash的区别</a>
+</li>
+<li><a href="#_5">新增普通用户</a>
+</li>
+<li><a href="#_6">删除普通用户</a>
+</li>
+<li><a href="#sudoers">sudoers文件相关</a>
+</li>
+<li><a href="#_7">查看系统版本信息</a>
+</li>
+<li><a href="#shellmongodb">通过shell脚本对MongoDB进行自动化操作</a>
+</li>
+<li><a href="#cpu">查看CPU型号</a>
+</li>
+<li><a href="#cpu_1">查看物理CPU个数</a>
+</li>
+<li><a href="#cpucore">查看每个物理CPU中core的个数(即核数)</a>
+</li>
+<li><a href="#cpucpu">查看逻辑CPU个数（最常用，即通常的CPU核心数）</a>
+</li>
+<li><a href="#cpu_2">直接查看格式化的cpu信息（自己不想算的话）</a>
+<ul>
+<li><a href="#_8">其它参考</a>
+</li>
+</ul>
+</li>
+<li><a href="#ip">查询IP</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="tcp">查看并发请求数和TCP状态</h2>
+<pre><code class="language-bash">netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+</code></pre>
+<h2 id="kill">批量kill掉包含某个关键字的进程</h2>
+<pre><code class="language-bash">搜索关键词为 sign_v 
+
+ps -ef | grep sign_v | grep -v grep | cut -c 9-15 | xargs kill -9
+
+下面将这条命令作一下简单说明：
+
+管道符&quot;|&quot;用来隔开两个命令，管道符左边命令的输出会作为管道符右边命令的输入。
+
+&quot;ps -ef&quot; 是linux里查看所有进程的命令。这时检索出的进程将作为下一条命令&quot;grep sign_v&quot;的输入。
+
+&quot;grep sign_v&quot; 的输出结果是，所有含有关键字&quot;sign_v&quot;的进程。
+
+&quot;grep -v grep&quot; 是在列出的进程中去除含有关键字&quot;grep&quot;的进程。
+
+&quot;cut -c 9-15&quot; 是截取输入行的第9个字符到第15个字符，而这正好是进程号PID。
+
+&quot;xargs kill -9&quot; 中的 xargs 命令是用来把前面命令的输出结果（PID）作为&quot;kill -9&quot;命令的参数，并执行该命令。&quot;kill -9&quot;会强行杀掉指定进程。
+</code></pre>
+<pre><code class="language-bash">搜索关键词为 sign_v 
+ps x | grep sign_v | grep -v grep | awk '{print $1}' | xargs kill -9
+</code></pre>
+<h2 id="_2">显示目录下所有一级目录和文件</h2>
+<pre><code class="language-bash">tree -L l -FC -I &quot;*.pyc&quot;
+</code></pre>
+<h2 id="_3">批量查找某个目下文件的包含的内容</h2>
+<pre><code class="language-bash">grep -rn &quot;要找查找的文本&quot; ./
+</code></pre>
+<h2 id="linux">Linux批量查找并替换文件夹下所有文件的（文字）内容</h2>
+<pre><code class="language-bash">sed -i &quot;s/要找查找的文本/替换后的文本/g&quot; `grep -rl &quot;要找查找的文本&quot; ./`
+</code></pre>
+<p>e.g.:</p>
+<pre><code class="language-bash">sed -i &quot;s/中国建设银行/中国银行/g&quot; `grep -rl &quot;中国建设银行&quot; ./`
+</code></pre>
+<h2 id="_4">批量查找并替换任意文件夹下的文件内容</h2>
+<pre><code class="language-bash">sed -i &quot;s/要找查找的文本/替换后的文本/g&quot; `grep -rl &quot;要找查找的文本&quot; /任意文件夹`
+</code></pre>
+<h2 id="linuxnginx">Linux查看Nginx进程数</h2>
+<pre><code class="language-bash">ps -ef | grep nginx | wc -l
+</code></pre>
+<h2 id="linuxhttpd">Linux查看httpd进程数</h2>
+<pre><code class="language-bash">ps -ef | grep httpd | wc -l
+</code></pre>
+<h2 id="dirname-0">dirname $0 的用法</h2>
+<pre><code class="language-bash">$0                # 当前Shell程序的文件名
+
+dirname $0        # 获取当前Shell程序的路径
+
+cd `dirname $0`   # 进入当前Shell程序的目录
+</code></pre>
+<h2 id="cp">cp命令</h2>
+<pre><code class="language-shell">cp -a    # 保留原文件属性的前提下复制文件 
+
+cp -r dirname（源文件） destdi（目标文件）
+</code></pre>
+<h2 id="zshbash">zsh和bash</h2>
+<pre><code class="language-shell">chsh -s /bin/zsh
+
+chsh -s /bin/bash
+</code></pre>
+<h2 id="shbash">sh和bash的区别</h2>
+<pre><code>因为bash是sh的增强版本，bash是一个超集sh更优雅的语法和更多的功能，在我们平常实地操作的时候如果sh这个命令不灵了我们应当使用bash。
+注：在某些环境中，sh 是 bash。sh --version。
+</code></pre>
+<h2 id="_5">新增普通用户</h2>
+<pre><code>useradd [option] username
+[option]:
+-d&lt; 登入目录&gt; 指定用户登入时的目录。
+-g&lt; 群组&gt; 初始群组。
+-G&lt; 群组&gt; 非初始群组。
+-m 自动创建用户的家目录。
+-M 不要创建用户的家目录。
+-N 不要创建以用户名称为名的群组。
+-s 指定用户登入后所使用的shell。
+</code></pre>
+<pre><code class="language-shell">adduser centos
+passwd centos
+
+cat /etc/passwd | grep centos
+
+Case 1: 创建一个带有家目录并且可以登录 bash 的用户
+$ sudo useradd -m -s /bin/bash tester1
+
+Case 2: 指定创建用户家目录的路径
+$ sudo useradd -m -d /home/xxx tester2
+/home/xxx目录会被创建。
+
+Case 3: 创建一个没有家目录且不能登录的用户
+$ sudo useradd -s /sbin/nologin tester3
+
+Case 4: 创建时把用户加入不同的用户组
+$ sudo useradd -m -G xxx,sudo tester4
+</code></pre>
+<h2 id="_6">删除普通用户</h2>
+<pre><code class="language-shell">userdel pentest
+</code></pre>
+<h2 id="sudoers">sudoers文件相关</h2>
+<pre><code class="language-shell">whereis sudoers   # 查找sudoers文件路径
+
+ls -l /etc/sudoers
+
+sudo -V           # 查看sudo版本
+sudo --version    # 查看sudo版本
+
+# kali切换root用户
+sudo - su
+</code></pre>
+<h2 id="_7">查看系统版本信息</h2>
+<pre><code class="language-shell">### 通用
+cat /proc/version
+
+Linux version 5.4.0-64-generic
+ubuntu 20.04
+sudo version 1.8.31
+
+root模式下新建普通用户即可
+
+
+### Ubuntu
+
+lsb_release -a
+</code></pre>
+<h2 id="shellmongodb">通过shell脚本对MongoDB进行自动化操作</h2>
+<pre><code class="language-shell">mongo --eval &quot;rs.initiate({'_id':'crmset','members':[{'_id':0,'host':'localhost.localdomain:27017','priority':100},{'_id':1,'host':'localhost.localdomain:27018','priority':90},{'_id':2,'host':'localhost.localdomain:27019','priority':80}]});rs.isMaster()&quot;
+</code></pre>
+<p>虽然回显不够明确，但是只要不报错， 命令是能够正常执行的</p>
+<h2 id="cpu">查看CPU型号</h2>
+<pre><code class="language-shell"># cat /proc/cpuinfo | grep name | sort | uniq
+
+model name  : Intel(R) Core(TM) i5-10400 CPU @ 2.90GHz
+</code></pre>
+<h2 id="cpu_1">查看物理CPU个数</h2>
+<pre><code class="language-shell"># cat /proc/cpuinfo | grep &quot;physical id&quot; | sort | uniq | wc -l
+2
+</code></pre>
+<h2 id="cpucore">查看每个物理CPU中core的个数(即核数)</h2>
+<pre><code class="language-shell"># cat /proc/cpuinfo | grep &quot;core id&quot; | sort | uniq | wc -l
+2
+
+# cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq
+cpu cores   : 2
+</code></pre>
+<h2 id="cpucpu">查看逻辑CPU个数（最常用，即通常的CPU核心数）</h2>
+<pre><code class="language-shell"># cat /proc/cpuinfo | grep &quot;processor&quot; | sort | uniq | wc -l
+4
+</code></pre>
+<p>计算CPU个数的公式：</p>
+<pre><code class="language-shell">总核数 = 物理CPU个数 X 每颗物理CPU的核数 
+总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
+</code></pre>
+<h2 id="cpu_2">直接查看格式化的cpu信息（自己不想算的话）</h2>
+<pre><code class="language-shell">lscpu
+
+lscpu | grep &quot;CPU(s):&quot;
+</code></pre>
+<p><img alt="" src="***.com" /></p>
+<h3 id="_8">其它参考</h3>
+<pre><code>processor　：系统中逻辑处理核的编号。对于单核处理器，则课认为是其CPU编号，对于多核处理器则可以是物理核、或者使用超线程技术虚拟的逻辑核
+vendor_id　：CPU制造商
+cpu family　：CPU产品系列代号
+model　　　：CPU属于其系列中的哪一代的代号
+model name：CPU属于的名字及其编号、标称主频
+stepping　 ：CPU属于制作更新版本
+cpu MHz　 ：CPU的实际使用主频
+cache size ：CPU二级缓存大小
+physical id ：单个CPU的标号
+siblings ：单个CPU逻辑物理核数
+core id ：当前物理核在其所处CPU中的编号，这个编号不一定连续
+cpu cores ：该逻辑核所处CPU的物理核数
+apicid ：用来区分不同逻辑核的编号，系统中每个逻辑核的此编号必然不同，此编号不一定连续
+fpu ：是否具有浮点运算单元（Floating Point Unit）
+fpu_exception ：是否支持浮点计算异常
+cpuid level ：执行cpuid指令前，eax寄存器中的值，根据不同的值cpuid指令会返回不同的内容
+wp ：表明当前CPU是否在内核态支持对用户空间的写保护（Write Protection）
+flags ：当前CPU支持的功能
+bogomips ：在系统内核启动时粗略测算的CPU速度（Million Instructions Per Second）
+clflush size ：每次刷新缓存的大小单位
+cache_alignment ：缓存地址对齐单位
+address sizes ：可访问地址空间位数
+</code></pre>
+<h2 id="ip">查询IP</h2>
+<pre><code>ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d &quot;addr:&quot;
+
+命令解释
+ ifconfig -a  　　　　 和window下执行此命令一样道理，返回本机所有ip信息
+ grep inet               　   截取包含ip的行
+ grep -v 127.0.0.1      去掉本地指向的那行
+ grep -v inet6             去掉包含inet6的行
+ awk { print $2}         $2 表示默认以空格分割的第二组 同理 $1表示第一组​
+ tr -d &quot;addr:               删除&quot;addr:&quot;这个字符串
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../sre/"><span>上一篇</span><b>SRE</b></a><a class="pg next" href="../syslog/"><span>下一篇</span><b>syslog</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

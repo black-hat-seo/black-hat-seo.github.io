@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rust | 烟雨黑帽</title>
+<meta name="description" content="Rust是一门系统编程语言，专注于安全，尤其是并发安全，支持函数式和命令式以及泛型等编程范式的多范式语言。 (P.S:虽然Rust的好大家都知道，但是目前2021年在国内大概还是需要另外学一门语言来谋生orz，但目前的岗位需求已经比2020年好一些了) 常用框架 Actix - Rust Web后端…">
+<meta name="keywords" content="Rust, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Rust">
+<meta property="og:description" content="Rust是一门系统编程语言，专注于安全，尤其是并发安全，支持函数式和命令式以及泛型等编程范式的多范式语言。 (P.S:虽然Rust的好大家都知道，但是目前2021年在国内大概还是需要另外学一门语言来谋生orz，但目前的岗位需求已经比2020年好一些了) 常用框架 Actix - Rust Web后端…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rust">
+<meta name="twitter:description" content="Rust是一门系统编程语言，专注于安全，尤其是并发安全，支持函数式和命令式以及泛型等编程范式的多范式语言。 (P.S:虽然Rust的好大家都知道，但是目前2021年在国内大概还是需要另外学一门语言来谋生orz，但目前的岗位需求已经比2020年好一些了) 常用框架 Actix - Rust Web后端…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Rust"}]}, {"@type": "TechArticle", "headline": "Rust", "description": "Rust是一门系统编程语言，专注于安全，尤其是并发安全，支持函数式和命令式以及泛型等编程范式的多范式语言。 (P.S:虽然Rust的好大家都知道，但是目前2021年在国内大概还是需要另外学一门语言来谋生orz，但目前的岗位需求已经比2020年好一些了) 常用框架 Actix - Rust Web后端…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1 active"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Rust</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Rust</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">常用框架</a>
+</li>
+<li><a href="#install">Install</a>
+</li>
+<li><a href="#quickstart">QuickStart</a>
+</li>
+<li><a href="#_2">书籍推荐</a>
+<ul>
+<li><a href="#1the-rust-programming-language">1.首推荐官方的The Rust Programming Language</a>
+</li>
+<li><a href="#2">2.推荐国人写的，毕竟有母语学习优势，后面熟悉了可以直接啃英文文档。</a>
+</li>
+<li><a href="#3rust">3.Rust标准库文档</a>
+</li>
+</ul>
+</li>
+<li><a href="#_3">关于编译</a>
+</li>
+<li><a href="#rust_1">Rust新功能历程</a>
+</li>
+<li><a href="#cargo">Cargo</a>
+<ul>
+<li><a href="#crate">crate概念</a>
+</li>
+<li><a href="#package">package概念</a>
+</li>
+<li><a href="#module">Module 模块概念</a>
+</li>
+<li><a href="#path">Path 路径</a>
+</li>
+<li><a href="#use">use 引用路径</a>
+</li>
+<li><a href="#private-vs-public">可见性 Private vs Public</a>
+</li>
+<li><a href="#create-project">Create Project</a>
+</li>
+<li><a href="#cargo_1">cargo常用命令</a>
+</li>
+<li><a href="#_4">推荐阅读</a>
+</li>
+<li><a href="#cargorust">使用Cargo的Rust项目结构</a>
+</li>
+<li><a href="#cargotoml">Cargo.toml</a>
+</li>
+</ul>
+</li>
+<li><a href="#_5">社区</a>
+</li>
+<li><a href="#_6">计划的学习路线</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>Rust是一门系统编程语言，专注于安全，尤其是并发安全，支持函数式和命令式以及泛型等编程范式的多范式语言。</p>
+<p>(P.S:虽然Rust的好大家都知道，但是目前2021年在国内大概还是需要另外学一门语言来谋生orz，但目前的岗位需求已经比2020年好一些了)</p>
+<h2 id="_1">常用框架</h2>
+<ul>
+<li>Actix - Rust Web后端常用框架  ***.com</li>
+</ul>
+<h2 id="install">Install</h2>
+<p>其实除了windows系统外，其他系统在联网环境下都可以通过脚本进行安装。</p>
+<p>参考官网，一句条命令可完成。</p>
+<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf ***.com | sh -v  
+</code></pre>
+<p>环境变量配置参考安装后的提示。</p>
+<pre><code class="language-bash">To get started you may need to restart your current shell.
+This would reload your PATH environment variable to include
+Cargo's bin directory ($HOME/.cargo/bin).    # zsh用这个
+
+To configure your current shell, run:
+source $HOME/.cargo/env           # 默认bash用这个
+</code></pre>
+<p>验证安装是否成功</p>
+<pre><code>[root@localhost ~]# rustc -V
+rustc 1.52.1 (9bc8c42bb 2021-05-09)
+[root@localhost ~]# rustup -V
+rustup 1.24.2 (755e2b07e 2021-05-12)
+info: This is the version for the rustup toolchain manager, not the rustc compiler.
+info: The currently active `rustc` version is `rustc 1.52.1 (9bc8c42bb 2021-05-09)`
+</code></pre>
+<h2 id="quickstart">QuickStart</h2>
+<ul>
+<li>Tour of Rust -- Rust 语言之旅</li>
+<li>类似 Tour of Go 的 Rust语法入门在线练习项目，且有中文翻译</li>
+<li>Rust Playground</li>
+<li>方便在线运行Rust代码</li>
+</ul>
+<h2 id="_2">书籍推荐</h2>
+<h4 id="1the-rust-programming-language">1.首推荐官方的The Rust Programming Language</h4>
+<p>如果本地已安装好rust,可以使用这个命令在本地查看官方文档：</p>
+<pre><code class="language-shell">rustup docs --book
+</code></pre>
+<p>备注：虽然实体书目前已经出了中文版《Rust权威指南》，但是该实体书是基于18年的rust版本编写的，所以建议还是直接查看官方最新文档。</p>
+<h4 id="2">2.推荐国人写的，毕竟有母语学习优势，后面熟悉了可以直接啃英文文档。</h4>
+<ul>
+<li><code>深入浅出Rust</code> -- 据说适合初学者。</li>
+<li><code>Rust编程之道</code> -- 据说原理讲解清晰。</li>
+</ul>
+<p>为什么是<strong>据说</strong>？因为我现在正忙着学Go，目前的确没精力同时学习Rust了，后面再来填这个坑，阅读简评以后会发到我的读书雷达</p>
+<h4 id="3rust">3.Rust标准库文档</h4>
+<h2 id="_3">关于编译</h2>
+<p>hello world程序可以使用rustc，但是工程级rust项目官方建议使用<code>cargo</code>。</p>
+<h2 id="rust_1">Rust新功能历程</h2>
+<pre><code>RFC(Request For Comments) -&gt; Nightly -&gt; Beta -&gt; Stable
+</code></pre>
+<h2 id="cargo">Cargo</h2>
+<p>Cargo 是 Rust 的构建系统和包管理工具。</p>
+<p>主要负责三个工作：</p>
+<pre><code>构建build代码。
+下载你代码 依赖dependencies 的 包装箱crate。
+编译 你的源码 和 包装箱crate。
+</code></pre>
+<p>检查Cargo是否正常安装可以用这句'cargo --version'</p>
+<h3 id="crate">crate概念</h3>
+<p>crate是组织和共享代码的基本构件块。</p>
+<ul>
+<li>binary crate：可执行的，需有main函数</li>
+<li>library crate：没有main函数，无法执行。定义一些功能，可共享使用。</li>
+</ul>
+<p>crate入口点
+- binary crate：src/main.rs
+- library crate：src/lib.rs</p>
+<h3 id="package">package概念</h3>
+<p>package是由1个或多个crates组成，包含Cargo.toml文件（描述如何构建这些crates）</p>
+<ul>
+<li>可有多个binary crates</li>
+<li>最多只能有1个library crate</li>
+<li>至少得有1个crate</li>
+</ul>
+<h3 id="module">Module 模块概念</h3>
+<p>将代码组织成更小、更易管理的单元的方法</p>
+<ul>
+<li>使用mod声明</li>
+<li>可有子模块</li>
+<li>路径 path</li>
+<li>public vs private</li>
+<li>引用 use</li>
+</ul>
+<h3 id="path">Path 路径</h3>
+<ul>
+<li>绝对路径：从crate模块开始</li>
+<li>相对路径：从所在模块开始，使用super往上找，或使用self从当前位置向下找</li>
+</ul>
+<h3 id="use">use 引用路径</h3>
+<ul>
+<li>function：引用到父模块</li>
+<li>struct、enum...：引用完整路径</li>
+<li>但如果引用的项目同名：1.可以加上父级模块引用 2.使用as关键字给引用起个别名</li>
+</ul>
+<h3 id="private-vs-public">可见性 Private vs Public</h3>
+<ul>
+<li>所有function、method、modules、enums等默认对父模块是private私有的</li>
+<li>父模块中的项不能使用子模块中的私有项</li>
+<li>子模块中的项可以使用其祖先模块中的项</li>
+<li>使用pub关键字可以让其变为public公有的</li>
+<li>相对路径可使用super、self关键字</li>
+<li>struct需要struct本身和各字段单独设置pub</li>
+<li>enum只要本身是pub，那么所有变体都是pub的</li>
+</ul>
+<h3 id="create-project">Create Project</h3>
+<pre><code class="language-shell">cargo new project1
+
+cargo new project_lib --lib
+</code></pre>
+<h3 id="cargo_1">cargo常用命令</h3>
+<pre><code class="language-shell">cargo doc --open  # 查看项目文档
+
+cargo add serde  # 新增第三方库，serde是第三方库的名称
+or
+# 在Cargo.toml文件的[dependencies]增加（rustrover会自动搜索补全）
+</code></pre>
+<h3 id="_4">推荐阅读</h3>
+<ul>
+<li>rust cargo使用</li>
+</ul>
+<h3 id="cargorust">使用Cargo的Rust项目结构</h3>
+<pre><code>project_name
+|-  src                     // 放置源文件的目录
+    |- main.rs / lib.rs     // 源文件
+|-  Cargo.toml              // Cargo的配置文件
+</code></pre>
+<p>要使用cargo工具，必须在项目的根目录下建有其配置文件。(注意: Cargo.toml的C是大写)</p>
+<h3 id="cargotoml">Cargo.toml</h3>
+<p>TOML（Tom’s Obvious Minimal Language）格式。简单理解就是ini的进化版。</p>
+<h2 id="_5">社区</h2>
+<ul>
+<li>Rust语言中文社区 -- 虽然设计十分简约，还是挺活跃的</li>
+<li>Rust 招聘 -- 大概，目前全国能找的大部分Rust岗位需求都在这里了吧</li>
+</ul>
+<h2 id="_6">计划的学习路线</h2>
+<ol>
+<li>
+<p>入门</p>
+</li>
+<li>
+<p>Rust 编程语言教程 with RustRover -- 2025，根据官方文档更新，零基础入门推荐。***.com</p>
+</li>
+</ol>
+<p>-《The Rust Programming Language》，中文出版物是《Rust权威指南》。</p>
+<ul>
+<li>
+<p>Rust Beginners Learning Camp (Data Structures and Algorithms) -- 新开课程，前期打基础，后面会讲数据结构和算法。</p>
+</li>
+<li>
+<p>推荐配合 B站 令狐一冲 的讲解视频。（从入门到进阶到网络编程到异步， 而且也参考Rust死灵书做了视频）</p>
+</li>
+</ul>
+<p>或者找点其他教程，主要是熟悉语法。</p>
+<ol>
+<li>
+<p>进阶</p>
+</li>
+<li>
+<p>Zero To Production In Rust An introduction to backend development - 内容不错，推荐看看，已有中文版《从零构建Rust生产级服务》。</p>
+</li>
+<li>该书源码zero-to-production</li>
+</ol>
+<p>国内已出版：张老师的《Rust编程之道》和范老师的《深入浅出Rust》。（个人觉得时间有限的2选1，前者极客时间也有配套学习视频）</p>
+<p>必读资料：</p>
+<ul>
+<li>
+<p>《Rust By Example》，这本书可以当精简手册来查询，提供了很多的Example。</p>
+</li>
+<li>
+<p>std - Rust 、《The Reference》、《Rust Compiler Error Index 》：标准库、语法手册、编译错误示例，这三大件几乎是日常必备的资料需要时常翻阅和查询，</p>
+</li>
+<li>
+<p>提高</p>
+</li>
+</ul>
+<p>《The Rustonomicon》又翻译为《Rust死灵书》，但是一直没写有写完。但要能建立起对Rust的深入理解，这本书必不可少。 B站 令狐一冲的视频</p>
+<p>Writing an OS in Rust 这一系列博客是你最好的学习材料。</p></div></article><nav class="pager"><a class="pg prev" href="../go/"><span>上一篇</span><b>Golang</b></a><a class="pg next" href="../rabbitmq/"><span>下一篇</span><b>RabbitMQ</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

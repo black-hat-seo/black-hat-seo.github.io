@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>导航列表 | 烟雨黑帽</title>
+<meta name="description" content="安全研究栏目汇总页，汇集了安全研究方向的核心笔记，并整合了漏洞挖掘、GPT安全(GPTSec)、样本分析、安全研究威胁情报、安全研究代码审计、DDoS和Botnet、数据安全、物联网安全、云原生安全、区块链安全、Android安全、浏览器安全、API安全、Python安全、JS安全、C语言等16篇相关短篇笔记。">
+<meta name="keywords" content="导航列表, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="导航列表">
+<meta property="og:description" content="安全研究栏目汇总页，汇集了安全研究方向的核心笔记，并整合了漏洞挖掘、GPT安全(GPTSec)、样本分析、安全研究威胁情报、安全研究代码审计、DDoS和Botnet、数据安全、物联网安全、云原生安全、区块链安全、Android安全、浏览器安全、API安全、Python安全、JS安全、C语言等16篇相关短篇笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="导航列表">
+<meta name="twitter:description" content="安全研究栏目汇总页，汇集了安全研究方向的核心笔记，并整合了漏洞挖掘、GPT安全(GPTSec)、样本分析、安全研究威胁情报、安全研究代码审计、DDoS和Botnet、数据安全、物联网安全、云原生安全、区块链安全、Android安全、浏览器安全、API安全、Python安全、JS安全、C语言等16篇相关短篇笔记。">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "导航列表"}]}, {"@type": "TechArticle", "headline": "导航列表", "description": "安全研究栏目汇总页，汇集了安全研究方向的核心笔记，并整合了漏洞挖掘、GPT安全(GPTSec)、样本分析、安全研究威胁情报、安全研究代码审计、DDoS和Botnet、数据安全、物联网安全、云原生安全、区块链安全、Android安全、浏览器安全、API安全、Python安全、JS安全、C语言等16篇相关短篇笔记。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1 active"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>导航列表</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>导航列表</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">研究导航</a>
+</li>
+<li><a href="#blog">Blog推荐</a>
+</li>
+<li><a href="#_2">国内安全实验室</a>
+</li>
+<li><a href="#sec-exploit">漏洞挖掘</a></li>
+<li><a href="#sec-gpt-sec">GPT安全(GPTSec)</a></li>
+<li><a href="#sec-sample-analysis">样本分析</a></li>
+<li><a href="#sec-sec-research-threat-intelligence">安全研究威胁情报</a></li>
+<li><a href="#sec-sec-research-code-audit">安全研究代码审计</a></li>
+<li><a href="#sec-botnet">DDoS和Botnet</a></li>
+<li><a href="#sec-data-sec">数据安全</a></li>
+<li><a href="#sec-iot-sec">物联网安全</a></li>
+<li><a href="#sec-cloud-sec">云原生安全</a></li>
+<li><a href="#sec-block-chain-sec">区块链安全</a></li>
+<li><a href="#sec-android-sec">Android安全</a></li>
+<li><a href="#sec-browser-sec">浏览器安全</a></li>
+<li><a href="#sec-api-sec">API安全</a></li>
+<li><a href="#sec-python-sec">Python安全</a></li>
+<li><a href="#sec-js-sec">JS安全</a></li>
+<li><a href="#sec-c">C语言</a></li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>除开亲自挖CVE的高手，大部分小伙伴还是得知CVE编号后才开始研究对应的漏洞，所以，这里先更新下追踪CVE的渠道。</p>
+<ul>
+<li>Search CVE List -- 官方查询，不知道的面壁3天</li>
+<li>NVD - NIST --  National Vulnerability Database (NVD) Announcement and Discussion Lists</li>
+<li>CNNVD -- 国家信息安全漏洞库，有英文阅读障碍的小伙伴可以参考这里的信息。</li>
+</ul>
+<h2 id="_1">研究导航</h2>
+<p>虽然文档导航已经很快了，但有这个目录会更加清晰明确。</p>
+<ul>
+<li><a href="#sec-exploit">漏洞相关</a></li>
+<li><a href="#sec-sample-analysis">样本分析</a></li>
+<li><a href="../black-market/">黑产研究</a></li>
+<li><a href="../binary-sec/">二进制安全</a></li>
+<li><a href="../ic-sec/">工控安全</a></li>
+<li><a href="#sec-iot-sec">物联网安全</a></li>
+<li><a href="#sec-block-chain-sec">区块链安全</a></li>
+<li><a href="#sec-android-sec">Android安全</a></li>
+<li><a href="#sec-browser-sec">浏览器安全</a></li>
+<li><a href="#sec-sec-research-code-audit">代码审计</a></li>
+<li><a href="#sec-python-sec">Python安全</a></li>
+</ul>
+<h2 id="blog">Blog推荐</h2>
+<ul>
+<li>飞花堂 -- 四哥的blog，日常笔记</li>
+<li>离别歌 -- phith0n 的blog，虽然更新频率不高，但都是干货</li>
+<li>netxfly的随笔 -- 和P神一样是安全研发大佬</li>
+<li>riusksk's blog -- 漏洞挖掘方向</li>
+<li>PansLabyrinth -- 漏洞挖掘方向</li>
+<li>网络安全面试指南 -- 吴飞飞的blog</li>
+</ul>
+<h2 id="_2">国内安全实验室</h2>
+<p>以正规公司的安全研究实验室为主，排名不分先后。</p>
+<table>
+<thead>
+<tr>
+<th>实验室名称</th>
+<th>研究方向</th>
+<th>所属公司</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>星舆实验室</td>
+<td>车联网漏洞挖掘</td>
+<td>奇安信</td>
+<td>***.com</td>
+</tr>
+<tr>
+<td>A-TEAM</td>
+<td>网络实战攻击研究、攻防安全研究、黑灰产对抗研究</td>
+<td>奇安信</td>
+<td></td>
+</tr>
+<tr>
+<td>Z-TEAM</td>
+<td>实战攻防演习，组织实施渗透攻击的队伍</td>
+<td>奇安信</td>
+<td></td>
+</tr>
+<tr>
+<td>盘古实验室</td>
+<td>移动系统和应用漏洞挖掘</td>
+<td>奇安信</td>
+<td></td>
+</tr>
+<tr>
+<td>代码安全实验室</td>
+<td>源代码与二进制漏洞挖掘</td>
+<td>奇安信</td>
+<td></td>
+</tr>
+<tr>
+<td>观星实验室</td>
+<td>互联网应用漏洞挖掘，包括实网攻防、WEB应用安全漏洞挖掘、应急响应与攻击溯源，<br>以及安全工具研发（ThreatHunting工具）</td>
+<td>奇安信</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>ref:
+***.com
+***.com
+***.com</p>
+<section class="merged-article" id="sec-exploit">
+<h2>漏洞挖掘</h2>
+
+<p>其实有很多细节的东西，在这里逐步增补内容吧！</p>
+<h3 id="sec-exploit-_1">三座大山</h3>
+<ul>
+<li>漏洞分析</li>
+<li>漏洞利用</li>
+<li>漏洞挖掘</li>
+</ul>
+<h4 id="sec-exploit-_2">漏洞分析</h4>
+<h4 id="sec-exploit-_3">漏洞利用</h4>
+<h4 id="sec-exploit-_4">漏洞挖掘</h4>
+<h3 id="sec-exploit-fuzzing">Fuzzing 模糊测试</h3>
+<p><a href="../fuzzing/">详见Fuzzing模糊测试笔记</a></p>
+<h3 id="sec-exploit-ref">REF</h3>
+<ul>
+<li>漫谈漏洞挖掘</li>
+<li>技术人的修炼之道：从业余到专业</li>
+<li>信安之路入坑指南</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-gpt-sec">
+<h2>GPT安全(GPTSec)</h2>
+
+<p>算是AI Security的子集，因为可以预见以后这块更新会很频繁，所以单独分一个页面记录。</p>
+<h3 id="sec-gpt-sec-terms">Terms</h3>
+<ul>
+<li>GPT: Generative Pre-trained Transformer 生成式预训练Transformer</li>
+<li>AIGC: Artificial Intelligence Generated Content  人工智能生成的内容</li>
+<li>LLM: Large Language Model 大型语言模型</li>
+<li>Embedding: 是一种专业术语，大致的意思是将某个数据内容向量化的过程。</li>
+</ul>
+<pre><code>实质上，Embedding就是一串多个具有特殊意义的浮点数组成的数组。如[0.2,0.5]和[0.6,0.8,0.9,...,0.6]等，因前者数组有两个元素，因此也叫二维Embedding，后者有多个元素，也叫多维Embedding。
+</code></pre>
+<h3 id="sec-gpt-sec-todo">TODO</h3>
+<ul>
+<li>我是如何用GPT自动化生成Nuclei的POC</li>
+<li>ChatGPT+Langchain+Nuclei Chat automates Nuclei template generation</li>
+<li>从0实现网络安全“小”模型.md</li>
+</ul>
+<h3 id="sec-gpt-sec-ref">REF</h3>
+<ul>
+<li>GPTSecurity 一个开源分享的项目</li>
+<li>security-tools-datasets</li>
+<li>Awesome Security Prompts</li>
+<li>Security Tools</li>
+<li>如何用GPT自动化生成Nuclei的POC</li>
+</ul>
+<h3 id="sec-gpt-sec-gradioai">使用Gradio构建生成式AI应用</h3>
+<ul>
+<li>使用Gradio构建生成式AI应用2：NLP 任务接口</li>
+<li>精华笔记 - 吴恩达 x Hugging Face《使用Gradio构建生成式AI应用》</li>
+<li>基于Gradio的快速搭建AI算法可视化Web界面部署教程</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-sample-analysis">
+<h2>样本分析</h2>
+
+<p>记录下威胁情报和攻击数据的样本分析通用方法，以便自己随时复习。</p>
+<h3 id="sec-sample-analysis-_2">主要分析思路</h3>
+<h4 id="sec-sample-analysis-_3">木马类</h4>
+<p>木马是一类很特别的软件，初步分析时没必要搞清楚它所有的细节。(但想深入分析肯定得搞清楚得)</p>
+<h5 id="sec-sample-analysis-_4">木马哪些地方特别有价值</h5>
+<ul>
+<li>木马的“三无”：<code>无进程，无文件，无网络连接</code></li>
+<li>对应技术：<code>木马的启动技术，存储方式，传输技术</code>，即是说<code>搞清楚木马的启动方式，花式存活方式，如何突破网络限制连接C2。</code></li>
+</ul>
+<h5 id="sec-sample-analysis-_5">病毒木马的初始化操作步骤</h5>
+<p>大多数病毒木马在成功植入用户计算机之后，在执行恶意代码之前，会进行初始化操作。</p>
+<p>主要为3个技术点：<code>运行单一实例</code>、<code>DLL延迟加载</code>、<code>资源释放</code>。</p>
+<h4 id="sec-sample-analysis-web">Web类</h4>
+<p>思考题：没有POC、没有EXP的时候如何挖掘漏洞？</p>
+<h5 id="sec-sample-analysis-_6">代码对比(对比官方的源码改动)</h5>
+<h5 id="sec-sample-analysis-_7">代码审计</h5>
+<p>1.语言基础</p>
+<p>2.常用的第三方审计工具
+- Java：Fortify、Checkmarx
+- PHP：Seay源代码审计系统</p>
+<h5 id="sec-sample-analysis-_8">污点追踪</h5>
+<p>深入漏洞挖掘避不开这个，但需要打好二进制基础</p>
+<h3 id="sec-sample-analysis-_9">一般信息</h3>
+<h4 id="sec-sample-analysis-1ip">1.常用查IP地址归属地</h4>
+<p>由于运营商原因，ip归属地应当对比。</p>
+<ul>
+<li>***.com</li>
+<li>***.com</li>
+<li>ping.pe/ping.php - 瓦工推荐IP检测，备用</li>
+</ul>
+<h4 id="sec-sample-analysis-2">2.各机构辅助查询</h4>
+<ul>
+<li>微步在线</li>
+<li>微步云沙箱</li>
+<li>奇安信ALPHA威胁分析平台</li>
+<li>virustotal</li>
+<li>virscan</li>
+</ul>
+<h3 id="sec-sample-analysis-_10">推荐书目</h3>
+<ul>
+<li>Windows黑客编程技术详解 - 有讲解病毒和木马的各类实现技术</li>
+</ul>
+<h3 id="sec-sample-analysis-_11">推荐线上资源</h3>
+<ul>
+<li>恶意代码分析基础技能表</li>
+</ul>
+<h3 id="sec-sample-analysis-_12">各种分析参考</h3>
+<ul>
+<li>分析：Linux watchdogs感染性隐藏挖矿病毒入侵还原</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-sec-research-threat-intelligence">
+<h2>安全研究威胁情报</h2>
+
+<h3 id="sec-sec-research-threat-intelligence-_2">举例</h3>
+<ul>
+<li>威胁快讯：Log4j漏洞已经被用来组建botnet，针对Linux设备</li>
+</ul>
+<h3 id="sec-sec-research-threat-intelligence-term">Term</h3>
+<h4 id="sec-sec-research-threat-intelligence-ioc">IoC</h4>
+<p>IOC, Indicators of Compromise, 感染指标，也叫IOC情报。</p>
+<h3 id="sec-sec-research-threat-intelligence-_3">情报来源</h3>
+<p>国内外各大安全机构都有自己的威胁情报引擎，对于普通安全研究人员来说是信息收集的首选。</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threat-intelligence</td>
+<td>专注于收集会释放威胁情报的网站</td>
+</tr>
+<tr>
+<td>APTnotes</td>
+<td>公开的APT报告，涵盖08到19年，近年来未更新</td>
+</tr>
+<tr>
+<td>微步在线</td>
+<td>微步在线威胁情报社区</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="merged-article" id="sec-sec-research-code-audit">
+<h2>安全研究代码审计</h2>
+
+<h3 id="sec-sec-research-code-audit-java">Java代码审计</h3>
+<p>0.配置环境是第一道坎儿
+- 如何利用Maven构建项目？
+- 如何把项目部署到Tomcat中然后启动？
+- 如何反编译JAR包看源码？
+- 如何进行动态调试？</p>
+<p>1.大量复现并分析已经曝出的漏洞，<code>高质量的漏洞分析是提升自己技能的最简单、最直接的方式</code>。</p>
+<ul>
+<li>Java代码审计注重知识的积累，建议多分析大型的开源项目漏洞，如：Struts2、Jenkins、FastJson等。</li>
+<li>学习利用链，如分析要ysoserial中的反序列化利用链、JNDI利用流程等。</li>
+<li>分析过程中多问为什么，尽力解释清楚整个漏洞的调用链，尝试动手写出自己的poc。</li>
+<li>进行大量漏洞分析时，要让自己的思路跳出过于细节的执行流程，从整体层面去思考框架是如何实现这个流程的，这个过程在框架中到底发生了什么，自己能否将执行流的每个步骤都解释清楚。</li>
+</ul>
+<p>2.深入理解Java的运行机制和设计模式。</p>
+<p>重复上述过程，量变引起质变。</p>
+<h4 id="sec-sec-research-code-audit-struts2">经典漏洞Struts2</h4>
+<p>REF:</p>
+<ul>
+<li>
+<p>从零带你看struts2中ognl命令执行漏洞</p>
+</li>
+<li>
+<p>Struts2 漏洞exp从零分析</p>
+</li>
+</ul>
+<p>下面2个微信打开才能看到图片</p>
+<ul>
+<li>
+<p>S2-057（CVE-2018-11776）流程分析 </p>
+</li>
+<li>
+<p>浅析OGNL的攻防史</p>
+</li>
+</ul>
+<p>Struts2框架接收请求后的内部执行过程（一图胜千言）：
+<img alt="Struts2框架的内部执行过程_转载" src="***.com" /></p>
+<ul>
+<li>Struts2学习（1）：Struts2框架结构详解</li>
+<li>struts2请求过程源码分析</li>
+<li>struts2详解系列(6篇)</li>
+</ul>
+<h4 id="sec-sec-research-code-audit-java_1">Java代码审计</h4>
+<ul>
+<li>Java代码审计汇总系列(一)——SQL注入 -- 这个系列文章真的不错</li>
+<li>Spring Boot Vulnerability Exploit Check List -- SprintBoot打点必备</li>
+</ul>
+<h3 id="sec-sec-research-code-audit-php">PHP代码审计</h3>
+<h3 id="sec-sec-research-code-audit-python">Python代码审计</h3>
+<ul>
+<li>Python中从服务端模板注入到沙盒逃逸的源码探索 (一)</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-botnet">
+<h2>DDoS和Botnet</h2>
+
+<p>本来想分开写的，但考虑到实际分析中两者关系比较紧密，目前先记录到一起。</p>
+<h3 id="sec-botnet-botnet">Botnet僵尸网络</h3>
+<h4 id="sec-botnet-dga">DGA随机性</h4>
+<p>@宫一鸣</p>
+<pre><code>搞botnet的想必都知道DGA，已有的DGA实现基本都依赖日期这种变化但可预测的变量作为输入来生成域名，有时会结合种子，
+但我们跟了1年多的一个名为 #Orchard# 的botnet家族最近开始使用中本聪的创世比特币账号交易信息来作为DGA生成依据，这个因为交易的不确定跟日期比就很难预测了。
+这招算是DGA方面的一个小“创新”吧，我们文章里面做了详细分析，并且很厚道的给出了DGA算法原理和实现代码，感兴趣的可以戳戳： ***.com 
+文章有点长，需要点耐心，因为除了DGA，还介绍了这个 #Orchard 家族过去1年多的3个版本发展，当然还有跟其它维度数据的碰撞，全是干货。
+</code></pre>
+</section>
+<section class="merged-article" id="sec-data-sec">
+<h2>数据安全</h2>
+<h3 id="sec-data-sec-data-security">Data Security 数据安全</h3>
+<h3 id="sec-data-sec-_1">推荐阅读</h3>
+<p>其实各大厂在安全会议上的PPT是不错的学习材料。</p>
+<ul>
+<li>中华人民共和国数据安全法</li>
+<li>《数据安全架构设计与实战》 --  着重讲解数据安全设计的书籍，虽然先于<code>数据安全法</code>出版，但是依然值得阅读。</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-iot-sec">
+<h2>物联网安全</h2>
+
+<p>物联网（The Internet of Things，简称IOT）是指通过 各种信息传感器、射频识别技术、全球定位系统、红外感应器、激光扫描器等各种装置与技术，实时采集任何需要监控、 连接、互动的物体或过程，采集其声、光、热、电、力学、化 学、生物、位置等各种需要的信息，通过各类可能的网络接入，实现物与物、物与人的泛在连接，实现对物品和过程的智能化感知、识别和管理。</p>
+<h3 id="sec-iot-sec-_2">智能家庭设备</h3>
+<h3 id="sec-iot-sec-_3">车载网络</h3>
+<h3 id="sec-iot-sec-usb">USB设备开发</h3>
+<ul>
+<li>USB 设备开发：从入门到实践指南（一）</li>
+<li>USB 设备开发：从入门到实践指南（二）</li>
+<li>USB 设备开发：从入门到实践指南（三）</li>
+<li>USB 设备开发：从入门到实践指南（四）</li>
+</ul>
+<h3 id="sec-iot-sec-badusb">BadUSB</h3>
+<ul>
+<li>物理黑客工具 Bad USB 制作教程 - 用Raspberry Pi Pico制作BadUSB</li>
+<li>pico-ducky -- 制作教程</li>
+<li>文件下载地址 ***.com/u/hMLv3HQe</li>
+</ul>
+<h3 id="sec-iot-sec-ref">REF</h3>
+<ul>
+<li>物联网安全Wiki - Tide安全团队</li>
+<li>IoT安全测试指北</li>
+<li>RouterSploit</li>
+<li>一些经典IoT漏洞的分析与复现（新手向）</li>
+<li>从零开始复现 DIR-815 栈溢出漏洞</li>
+<li>物联网设备安全测试指南</li>
+<li>IoTSecurity101</li>
+<li>RTSP协议分析</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-cloud-sec">
+<h2>云原生安全</h2>
+
+<p>一般多指云原生安全（cloud native security）</p>
+<h3 id="sec-cloud-sec-_2">靶场</h3>
+<ul>
+<li>Red Team K8S Adversary Emulation Based on kubectl</li>
+<li>Metarget 主要用于快速、自动化搭建从简单到复杂的脆弱云原生靶机环境。Metarget的设计理念和技术目标</li>
+</ul>
+<h3 id="sec-cloud-sec-ref">REF</h3>
+<ul>
+<li>云原生安全白皮书中文版</li>
+<li>云原生安全：攻防实践与体系构建</li>
+<li>里应外合：借容器root提权</li>
+<li>k0otkit: Hack K8s in a K8s Way  备用连接</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-block-chain-sec">
+<h2>区块链安全</h2>
+
+<h3 id="sec-block-chain-sec-_1">常见术语</h3>
+<h3 id="sec-block-chain-sec-ref">REF</h3>
+<ul>
+<li>Knowledge Base 慢雾安全团队知识库</li>
+<li>区块链安全入门笔记</li>
+<li>区块链黑暗森林自救手册</li>
+<li>智能合约安全分析和审计指南</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-android-sec">
+<h2>Android安全</h2>
+
+<h3 id="sec-android-sec-_1">学习路线</h3>
+<ul>
+<li>Android安全学习建议</li>
+</ul>
+<h3 id="sec-android-sec-_2">推荐书籍</h3>
+<ol>
+<li>丰生强的《Android软件安全与逆向分析》</li>
+<li>姜维的《Android应用安全防护和逆向分析》</li>
+</ol>
+<h3 id="sec-android-sec-app">app测试</h3>
+<h4 id="sec-android-sec-adb">adb常用指令</h4>
+<pre><code># 连接夜神模拟器
+adb connect 127.0.0.1:62001
+
+# 连接逍遥模拟器
+adb connect 127.0.0.1:21503
+
+# 查看连接设备
+adb devices
+
+# 进入shell （未root的设备可能会没有权限）
+adb shell
+
+# 从移动设备上下载文件到本地电脑
+adb pull /tmp/a.txt c:\Downloads\a.txt
+
+# 上传本地电脑文件到移动设备
+adb push c:\Downloads\b.txt /data/b.txt
+</code></pre>
+<h3 id="sec-android-sec-_3">推荐视频</h3>
+<ul>
+<li>app与小程序安全测试</li>
+<li>安卓逆向这档事 - 52pj的，比较全面，有文章和视频配套</li>
+<li>Android逆向学习</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-browser-sec">
+<h2>浏览器安全</h2>
+
+<h3 id="sec-browser-sec-ref">REF</h3>
+<ul>
+<li>UAF之CVE-2012-4969漏洞分析  推荐学习，这个复现流程和报告模板都很好。</li>
+<li>v8漏洞学习之issue1195777&amp;issue1196683</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-api-sec">
+<h2>API安全</h2>
+<h3 id="sec-api-sec-api-security-api">API Security API安全</h3>
+<h3 id="sec-api-sec-_1">推荐阅读</h3>
+<ul>
+<li>API安全技术与实战</li>
+<li>如何利用API对AI发动攻击？</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-python-sec">
+<h2>Python安全</h2>
+
+<p>Python因为简单易学的原因，使用者众多（虽然其中使用Python开发黑客工具写PoC/Exp的比例更大），日常关注度很高。</p>
+<p>而近年来，Python内置库和基于Python开发的框架都爆出过不少漏洞，值得关注和学习。</p>
+<h3 id="sec-python-sec-_1">资讯</h3>
+<ul>
+<li>Python Security -- Python官方记录安全问题修复的参考</li>
+</ul>
+<h3 id="sec-python-sec-cve">CVE</h3>
+<p>CVE-2020-26116: http.client: HTTP Header Injection in the HTTP method</p>
+</section>
+<section class="merged-article" id="sec-js-sec">
+<h2>JS安全</h2>
+<h3 id="sec-js-sec-js">js逆向</h3>
+<h3 id="sec-js-sec-tools">Tools</h3>
+<ul>
+<li>AST Explorer</li>
+</ul>
+<h3 id="sec-js-sec-ref">ref</h3>
+<ul>
+<li>《反爬虫AST原理与还原混淆实战》总结</li>
+</ul>
+</section>
+<section class="merged-article" id="sec-c">
+<h2>C语言</h2>
+
+<p>以前是没概念，现在才知道在安全开发领域，C语言的压倒性地位。</p>
+<p>日常Linux开发，但偶尔也要在Windows上调试，故留此笔记备用。</p>
+<h3 id="sec-c-_1">常见问题</h3>
+<h4 id="sec-c-linuxwindows">linux平台交叉编译Windows程序</h4>
+<p>ref: linux平台交叉编译Windows程序</p>
+<p>文章编译测试环境是Ubuntu18.04，本人实际用Kali2022.2也是正常可以做交叉编译的。</p>
+<p>1.安装相关工具</p>
+<pre><code class="language-shell">sudo apt-get update
+
+sudo apt-get install mingw-w64 mingw-w64-tools mingw-w64-i686-dev mingw-w64-x86-64-dev 
+</code></pre>
+<p>2.装完之后写个简单的helloword.c测试是否能正常交叉编译</p>
+<pre><code class="language-shell">i686-w64-mingw32-gcc -o hello.exe hello.c
+</code></pre>
+<p>已试过将exe放到windows能正常运行。</p>
+<p>3.安装wine以便能在Linux上运行.exe</p>
+<pre><code class="language-shell"># 现在默认安装的是wine64
+apt-get install wine 
+
+# 要安装wine32需要执行这个语句 
+dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32:i386
+PS：安装完执行还是报错orz
+</code></pre>
+</section></div></article><nav class="pager"><a class="pg prev" href="../cl-snort/"><span>上一篇</span><b>源码学习之Snort3</b></a><a class="pg next" href="../ai-sec/"><span>下一篇</span><b>人工智能安全(AISec)</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
