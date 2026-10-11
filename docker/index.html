@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docker | 烟雨黑帽</title>
+<meta name="description" content="Docker在渗透测试中的应用 对于渗透测试人员而言，在docker未普及前可谓是苦环境搭建久矣。 而随着docker普及，各种漏洞复现已经变的容易许多，不过自己掌握 构建 Docker image 和 编写Dockerfile 的能力还是必要的。 如果是复杂环境构建，说不定有人还会用上K8s。 之…">
+<meta name="keywords" content="Docker, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Docker">
+<meta property="og:description" content="Docker在渗透测试中的应用 对于渗透测试人员而言，在docker未普及前可谓是苦环境搭建久矣。 而随着docker普及，各种漏洞复现已经变的容易许多，不过自己掌握 构建 Docker image 和 编写Dockerfile 的能力还是必要的。 如果是复杂环境构建，说不定有人还会用上K8s。 之…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="Docker在渗透测试中的应用 对于渗透测试人员而言，在docker未普及前可谓是苦环境搭建久矣。 而随着docker普及，各种漏洞复现已经变的容易许多，不过自己掌握 构建 Docker image 和 编写Dockerfile 的能力还是必要的。 如果是复杂环境构建，说不定有人还会用上K8s。 之…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Docker"}]}, {"@type": "TechArticle", "headline": "Docker", "description": "Docker在渗透测试中的应用 对于渗透测试人员而言，在docker未普及前可谓是苦环境搭建久矣。 而随着docker普及，各种漏洞复现已经变的容易许多，不过自己掌握 构建 Docker image 和 编写Dockerfile 的能力还是必要的。 如果是复杂环境构建，说不定有人还会用上K8s。 之…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1 active"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Docker</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Docker</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#docker_1">Docker在渗透测试中的应用</a>
+</li>
+<li><a href="#_1">相关概念</a>
+<ul>
+<li><a href="#dockerfile">Dockerfile</a>
+</li>
+<li><a href="#docker_2">Docker挂载本地目录</a>
+</li>
+<li><a href="#docker-compose">Docker Compose</a>
+<ul>
+<li><a href="#docker-compose_1">Docker Compose 使用的三个步骤</a>
+</li>
+<li><a href="#dockerfile-and-docker-compose-install-flask">Dockerfile and docker-compose install Flask</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#docker_3">Docker高频命令</a>
+<ul>
+<li><a href="#docker-container">查看docker container</a>
+</li>
+<li><a href="#docker-container_1">进入运行中的 docker container</a>
+</li>
+<li><a href="#docker_4">上传宿主机文件到 docker容器中</a>
+</li>
+<li><a href="#docker_5">下载docker容器中的文件到 宿主机</a>
+</li>
+<li><a href="#_2">设置容器自启动</a>
+<ul>
+<li><a href="#_3">容器未启动时</a>
+</li>
+<li><a href="#_4">容器启动时</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#docker_6">使用Docker构建环境</a>
+<ul>
+<li><a href="#docker-install-mysql">Docker install MySQL</a>
+</li>
+<li><a href="#docker-install-mongo">Docker install Mongo</a>
+</li>
+<li><a href="#docker-install-redis">Docker install Redis</a>
+</li>
+<li><a href="#docker-install-php">Docker install PHP</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<h2 id="docker_1">Docker在渗透测试中的应用</h2>
+<p>对于渗透测试人员而言，在docker未普及前可谓是苦环境搭建久矣。</p>
+<p>而随着docker普及，各种漏洞复现已经变的容易许多，不过自己掌握<code>构建 Docker image</code>和<code>编写Dockerfile</code>的能力还是必要的。</p>
+<p>如果是复杂环境构建，说不定有人还会用上K8s。</p>
+<p>之间无意中看到的一个用docker搭建渗透测试可以看看：***.com</p>
+<h2 id="_1">相关概念</h2>
+<h3 id="dockerfile">Dockerfile</h3>
+<p>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
+<h3 id="docker_2">Docker挂载本地目录</h3>
+<p>Docker容器启动的时候，如果要挂载宿主机的一个目录，可以用-v参数指定。 
+- 比如启动一个CentOS容器，宿主机的 /test 目录挂载到容器的/soft目录，可通过以下方式指定：<code>docker run -it -v /test:/soft centos /bin/bash</code> (冒号":"前面的目录是宿主机目录，后面的目录是容器内目录。)
+- 这样在容器启动后，容器内会自动创建 /soft 的目录。</p>
+<p>注意： 
+- 容器目录不可以为相对路径，必须以下斜线“/”开头。宿主机的目录最好也是绝对路径。 
+- 挂载宿主机已存在目录后，在容器内对其进行操作，报“Permission denied”。
+- 可通过指定–privileged参数来解决：<code>docker run -it --privileged=true -v /test:/soft centos /bin/bash</code></p>
+<h3 id="docker-compose">Docker Compose</h3>
+<p>Docker Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。
+然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
+<p>docker-compose.yml包含 <strong>version、services、networks</strong> 3大部分</p>
+<p>REF:
+docker-compose.yml的使用</p>
+<h4 id="docker-compose_1">Docker Compose 使用的三个步骤</h4>
+<pre><code class="language-markdown">1.使用 Dockerfile 定义应用程序的环境。
+
+2.使用 docker-compose.yml 定义构成应用程序的服务，这样它们可以在隔离环境中一起运行。
+
+3.最后，执行 docker-compose up 命令来启动并运行整个应用程序。(up前会执行 docker-compose build)
+</code></pre>
+<pre><code>Dockerfile 用于构建自定义镜像，并未直接生成容器。仅可在运行镜像时运行容器而已。
+docker-compose.yml 用于容器编排以部署环境，可能会需要用到 Dockerfile 。
+</code></pre>
+<h4 id="dockerfile-and-docker-compose-install-flask">Dockerfile and docker-compose install Flask</h4>
+<p>代码示例: ***.com
+看Docker官网的应用例子，这个是参考官网的
+参考</p>
+<p>项目结构：</p>
+<pre><code class="language-markdown">➜  composetest git:(master) tree
+.
+├── Dockerfile
+├── README.md
+├── app.py
+├── docker-compose.yml
+├── requirements.txt
+├── static
+└── templates
+</code></pre>
+<p>Dockerfile内容:</p>
+<pre><code class="language-markdown">FROM python:3.7-alpine
+MAINTAINER MFC
+WORKDIR /code
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+CMD [&quot;flask&quot;, &quot;run&quot;]
+</code></pre>
+<p>docker-compose.yml内容：</p>
+<pre><code class="language-markdown">version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - &quot;5555:5000&quot;
+  redis:
+    image: &quot;redis:alpine&quot;
+</code></pre>
+<p>该 Compose 文件定义了两个服务：web 和 redis。</p>
+<ul>
+<li>web：该 web 服务使用从 Dockerfile 当前目录中构建的镜像。然后，它将容器和主机绑定到暴露的端口 5000。此示例服务使用 Flask Web 服务器的默认端口 5000 。</li>
+<li>redis：该 redis 服务使用 Docker Hub 的公共 Redis 映像。</li>
+<li>"5555:5000"  映射端口(HOST:CONTAINER)，即是将 宿主机的5555端口 和 容器的5000端口 绑定。</li>
+</ul>
+<p>构建项目</p>
+<pre><code class="language-shell">docker-compose up
+</code></pre>
+<p>如果你想在后台执行该服务可以加上 -d 参数：</p>
+<pre><code class="language-shell">docker-compose up -d
+</code></pre>
+<p>按依赖关系顺序停止服务:</p>
+<pre><code class="language-shell">docker-compose stop
+</code></pre>
+<h2 id="docker_3">Docker高频命令</h2>
+<h3 id="docker-container">查看docker container</h3>
+<p>查看正在运行中的 docker container</p>
+<pre><code>docker ps
+</code></pre>
+<p>查看docker中所有的container</p>
+<pre><code>docker ps -a
+</code></pre>
+<h3 id="docker-container_1">进入运行中的 docker container</h3>
+<p>进入运行中的docker容器（container_id: b6a105b4f51f），指定/bin/bash</p>
+<pre><code>docker exec -it b6a105b4f51f /bin/bash
+</code></pre>
+<h3 id="docker_4">上传宿主机文件到 docker容器中</h3>
+<p>上传本地 /tmp/tp/ 目录 到 docker容器 b6a105b4f51f 的 /var/www/ 目录中</p>
+<pre><code>docker cp /tmp/tp/ b6a105b4f51f:/var/www/
+</code></pre>
+<h3 id="docker_5">下载docker容器中的文件到 宿主机</h3>
+<p>下载 docker 容器中的 /var/www/ 目录 到 宿主机 /tmp/tp/ 目录下</p>
+<pre><code>docker cp b6a105b4f51f:/var/www/ /tmp/tp/
+</code></pre>
+<h3 id="_2">设置容器自启动</h3>
+<h4 id="_3">容器未启动时</h4>
+<pre><code class="language-shell">docker run --restart=always
+</code></pre>
+<h4 id="_4">容器启动时</h4>
+<p>--restart参数介绍</p>
+<pre><code>--restart参数=
+    no
+        默认策略，在容器退出时不重启容器
+    on-failure
+        在容器非正常退出时（退出状态非0），才会重启容器
+    on-failure:3
+        在容器非正常退出时重启容器，最多重启3次
+    always
+        在容器退出时总是重启容器
+
+#开机自启
+    unless-stopped
+        在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器
+
+# 一般推荐使用always参数
+    --restart=always
+</code></pre>
+<pre><code class="language-shell">docker update --restart=always &lt;CONTAINER ID&gt;
+
+# 取消容器自启动
+docker update --restart=no &lt;CONTAINER ID&gt;
+</code></pre>
+<h2 id="docker_6">使用Docker构建环境</h2>
+<ul>
+<li>Dockerfile -- ***.com</li>
+<li>ref</li>
+</ul>
+<h3 id="docker-install-mysql">Docker install MySQL</h3>
+<pre><code class="language-shell"># get docker image
+docker pull mysql:5.7.36
+
+# launch docker container
+docker run -itd --name mysql-5.7.36 -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123 mysql:5.7.36
+# 参数说明：
+# -p 3307:3306 ：映射宿主机的 3307 端口到容器服务的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。
+# MYSQL_ROOT_PASSWORD=abc123：设置 MySQL 服务 root 用户的密码。
+
+# test database connection
+mysql -h 127.0.0.1 -P 3307 -uroot -p
+# 参数说明
+# -h 指定主机
+# -P 指定端口
+# -u 指定登录用户
+# -p 连接时使用密码
+</code></pre>
+<p>ref: ***.com</p>
+<h3 id="docker-install-mongo">Docker install Mongo</h3>
+<pre><code class="language-shell"># get docker image
+docker pull mongo
+# or
+docker pull mongo:4.4.11-rc0
+
+# launch docker container
+docker run -itd --name mongo -p 27017:27017 mongo
+
+# enter container
+docker exec -it mongo
+</code></pre>
+<p>ref: ***.com</p>
+<h3 id="docker-install-redis">Docker install Redis</h3>
+<pre><code class="language-shell"># get docker image
+docker pull redis
+# or
+docker pull redis:5.0
+
+# launch docker container
+docker run -itd --name redis -p 6379:6379 redis
+# 参数说明：
+# -p hostPort:containerPort
+# -p 6379:6379：宿主机的 6379 端口到容器服务的 6379 端口到。外部可以直接通过宿主机ip:6379 访问到 Redis 的服务。
+
+# enter container  通过 redis-cli 连接测试使用 redis 服务。
+docker exec -it redis /bin/bash
+# or
+docker exec -it 5ecd60 /bin/bash
+</code></pre>
+<h3 id="docker-install-php">Docker install PHP</h3>
+<p>Build on MacOS</p>
+<pre><code class="language-shell">todo
+</code></pre>
+<p>ref: ***.com</p></div></article><nav class="pager"><a class="pg prev" href="../devops-learn-guide/"><span>上一篇</span><b>DevOps学习指南</b></a><a class="pg next" href="../k8s/"><span>下一篇</span><b>Kubernetes</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

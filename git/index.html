@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git | 烟雨黑帽</title>
+<meta name="description" content="(branch_name统一指代分支名称，个人根据自己的分支名称需要做替换，不能直接写&quot;branch_name&quot;这个字符串) 在线练习 在线练习使用Git 如何撤销Git操作 参考阅读 Git飞行规则(Flight Rules) git多账号配置 场景：在同一台机器上配置多个Git帐号（比如：Git…">
+<meta name="keywords" content="Git, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Git">
+<meta property="og:description" content="(branch_name统一指代分支名称，个人根据自己的分支名称需要做替换，不能直接写&quot;branch_name&quot;这个字符串) 在线练习 在线练习使用Git 如何撤销Git操作 参考阅读 Git飞行规则(Flight Rules) git多账号配置 场景：在同一台机器上配置多个Git帐号（比如：Git…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Git">
+<meta name="twitter:description" content="(branch_name统一指代分支名称，个人根据自己的分支名称需要做替换，不能直接写&quot;branch_name&quot;这个字符串) 在线练习 在线练习使用Git 如何撤销Git操作 参考阅读 Git飞行规则(Flight Rules) git多账号配置 场景：在同一台机器上配置多个Git帐号（比如：Git…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Git"}]}, {"@type": "TechArticle", "headline": "Git", "description": "(branch_name统一指代分支名称，个人根据自己的分支名称需要做替换，不能直接写\"branch_name\"这个字符串) 在线练习 在线练习使用Git 如何撤销Git操作 参考阅读 Git飞行规则(Flight Rules) git多账号配置 场景：在同一台机器上配置多个Git帐号（比如：Git…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1 active"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Git</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Git</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">在线练习</a>
+</li>
+<li><a href="#_2">参考阅读</a>
+</li>
+<li><a href="#git_1">git多账号配置</a>
+</li>
+<li><a href="#git-bash">git bash设置代理</a>
+</li>
+<li><a href="#0git-clone">0.git clone</a>
+</li>
+<li><a href="#0git-log">0.git log</a>
+</li>
+<li><a href="#1git-merge">1.git merge</a>
+</li>
+<li><a href="#2git-commit-squash-branch_name">2.git commit --squash branch_name</a>
+</li>
+<li><a href="#3git-commit-amend">3.git commit --amend</a>
+</li>
+<li><a href="#4git-stash">4.git stash</a>
+<ul>
+<li><a href="#git-stash">git stash</a>
+</li>
+<li><a href="#git-stash-pop">git stash pop</a>
+</li>
+<li><a href="#git-stash-list">git stash list</a>
+</li>
+<li><a href="#git-stash-apply">git stash apply</a>
+</li>
+<li><a href="#git-stash-show">git stash show</a>
+</li>
+<li><a href="#git-stash_1">git stash清理</a>
+</li>
+</ul>
+</li>
+<li><a href="#5git-branch">5.git branch</a>
+<ul>
+<li><a href="#git-branch">git branch</a>
+</li>
+<li><a href="#git-branch-d-branch_name">git branch -D BRANCH_NAME</a>
+</li>
+<li><a href="#git-branch-m-new_branch_name">git branch -m NEW_BRANCH_NAME</a>
+</li>
+</ul>
+</li>
+<li><a href="#6git-remote">6.git remote</a>
+<ul>
+<li><a href="#git-remote-v">git remote -v</a>
+</li>
+</ul>
+</li>
+<li><a href="#7git-checkout">7.git checkout</a>
+<ul>
+<li><a href="#git-checkout-track">git checkout --track</a>
+</li>
+</ul>
+</li>
+<li><a href="#8git-tag">8.git tag</a>
+<ul>
+<li><a href="#tag">在本地打标签tag</a>
+</li>
+<li><a href="#tag_1">推送标签tag到远程仓库</a>
+</li>
+<li><a href="#_3">删除本地和远程标签</a>
+<ul>
+<li><a href="#_4">删除本地标签</a>
+</li>
+<li><a href="#_5">删除远程仓库标签</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#9git-revert">9.git revert</a>
+</li>
+<li><a href="#10git-reset">10.git reset</a>
+</li>
+<li><a href="#11git-rm">11.git rm</a>
+</li>
+<li><a href="#12">12.撤销当前分支的变化</a>
+</li>
+<li><a href="#13git-cherry-pick">13.git cherry-pick</a>
+</li>
+<li><a href="#14git-rebase-i">14.git rebase -i</a>
+</li>
+<li><a href="#15git-blame">15.git blame</a>
+</li>
+<li><a href="#16git-remote">16.git remote操作</a>
+<ul>
+<li><a href="#remote-repo">本地仓库新增 remote repo</a>
+</li>
+<li><a href="#origin">删除远端origin仓库绑定</a>
+</li>
+<li><a href="#git-repogit-repo">从旧git repo迁移到新git repo</a>
+</li>
+<li><a href="#_6">如果是本地某分支要和远端某分支挂钩，可以这样设置</a>
+</li>
+<li><a href="#github">github同步源仓库代码</a>
+</li>
+</ul>
+</li>
+<li><a href="#17git-add">17.git add操作的恢复</a>
+</li>
+<li><a href="#18git-worktree">18.git worktree</a>
+<ul>
+<li><a href="#181">18.1 列出所有工作树（包括默认工作树）</a>
+</li>
+<li><a href="#182">18.2 添加新工作树</a>
+</li>
+<li><a href="#183">18.3 在新工作树中查看分支状态</a>
+</li>
+<li><a href="#184">18.4 移除工作树</a>
+</li>
+<li><a href="#185">18.5 移动或重命名工作树</a>
+</li>
+<li><a href="#186">18.6 临时工作树（实验性开发）</a>
+</li>
+<li><a href="#187">18.7 清理过期工作树</a>
+</li>
+<li><a href="#git-worktree">git worktree高级用法与注意事项</a>
+<ul>
+<li><a href="#1">1.工作树与分支的关联</a>
+</li>
+<li><a href="#2">2.跨工作树的文件冲突</a>
+</li>
+<li><a href="#3git-worktree-git-clone">3.git worktree 与 git clone 的区别</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#git-ssh">服务器上的 Git - 生成 SSH 公钥</a>
+</li>
+<li><a href="#windows10-git-bash">Windows10 git bash使用代理</a>
+</li>
+<li><a href="#git-forkpr">Git Fork项目后，向开源项目提交PR流程</a>
+</li>
+<li><a href="#_7">同步开源项目最新源码到自己的开发分支</a>
+</li>
+<li><a href="#git-fetch-git-pull">git fetch 和 git pull 的区别</a>
+</li>
+<li><a href="#_8">其他</a>
+</li>
+<li><a href="#_9">常见错误处理</a>
+<ul>
+<li><a href="#git-basherror-could-not-fork-child-process-there-are-no-available-terminals-1">git bash报错Error: Could not fork child process: There are no available terminals (-1).</a>
+</li>
+</ul>
+</li>
+<li><a href="#github-2fa">GitHub 2FA认证（双重身份验证）</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>(branch_name统一指代分支名称，个人根据自己的分支名称需要做替换，不能直接写"branch_name"这个字符串)</p>
+<h2 id="_1">在线练习</h2>
+<p>在线练习使用Git</p>
+<p>如何撤销Git操作</p>
+<h2 id="_2">参考阅读</h2>
+<ul>
+<li>Git飞行规则(Flight Rules)</li>
+</ul>
+<h2 id="git_1">git多账号配置</h2>
+<p>场景：在同一台机器上配置多个Git帐号（比如：Github，Gitlab，Gitee等）</p>
+<ol>
+<li>移除全局配置(可选，没有设置的可以不用移除)</li>
+</ol>
+<pre><code class="language-shell"># 移除全局配置账户
+
+git config --global --unset user.name
+
+#查看全局用户名
+
+git config --global user.name
+
+# 移除全局配置邮箱
+
+git config --global --unset user.email
+
+# 查看全局邮箱
+
+git config --global user.email
+
+
+# 移除全局密码
+
+git config --global --unset user.password
+
+# 查看全局密码
+
+git config --global user.password
+
+备注：如下，笔者实践中，没有设置全局密码，所以只进行以下操作。
+
+# 设置全局用户和邮件
+
+git config --global user.name &quot;tester&quot;
+git config --global user.email &quot;***&quot;
+</code></pre>
+<p>检查时可使用<code>git config -l</code>命令查看全局配置。</p>
+<ol>
+<li>生成公私钥文件</li>
+</ol>
+<pre><code class="language-shell">ssh-keygen -t rsa -C ***
+
+参数说明：
+-t 要生成的秘钥的类型
+-c 用于识别这个秘钥的注释
+</code></pre>
+<p>执行命令后，会提示输入要保存key的文件路径，密码(Enter passphrase)。如果是初次设置，都可以直接回车，不输入。</p>
+<p>但配置多个的时候，文件路径需要变化（比如我设置的test，实际上公私钥文件都是test命名开头的）。</p>
+<p>如果还是默认回车，会提示你是否要覆盖。</p>
+<p><img alt="gen-ssh-key" src="***.com" /></p>
+<p>如图，新生成了 <code>gitlabyx.pub</code> 文件，执行 <code>cat gitlabyx.pub</code>，将公钥内容通过对应git平台的“SSH Keys”添加。</p>
+<p><img alt="add-ssh-key" src="***.com" /></p>
+<p>ref:
+- 生成新 SSH 密钥并添加到 ssh-agent</p>
+<ol>
+<li>添加config文件</li>
+</ol>
+<p>在上述<code>~/.ssh/</code>目录下，手动新增一个 config 文本文件,为每个账号配置一个Host节点。</p>
+<p>主要配置项说明：</p>
+<pre><code class="language-shell">填写说明：
+
+Host    　　    主机别名
+HostName　      服务器真实地址
+IdentityFile　　私钥文件路径
+PreferredAuthentications　认证方式
+User　用户名(例如：Github/Gitlab/Gitee帐号)
+</code></pre>
+<p>config文件的内容</p>
+<pre><code class="language-shell">Host fspt    # 可以自定义，但是使用时要注意，也可以不写
+HostName ***.com
+IdentityFile ~/.ssh/test
+User git     # 这个默认会用全局设置
+
+# gitlab
+Host ***.com
+HostName 10.0.0.8
+IdentityFile ~/.ssh/gitlabyx
+PreferredAuthentications publickey  # 用ssh建议设置上
+User ***
+</code></pre>
+<ol>
+<li>测试多端配置</li>
+</ol>
+<pre><code class="language-sheel">github的账号
+$ ssh -T fspt
+Hi GitHub Username! You've successfully authenticated, but GitHub does not provide shell access.
+
+gitlab的账号测试：
+
+cd ~/test_project/
+git init .
+git remote add origin ***:xxx/xxx.git
+git add -A
+git commit -m &quot;1st commit&quot;
+git push -u origin dev
+</code></pre>
+<p>能顺利完成配置说明操作成功，如果配置了全局username，email，这是的提交者依然是全局的。</p>
+<ol>
+<li>为不同项目设置不同的用户名和邮箱</li>
+</ol>
+<p>找到项目所在目录下的<code>.git/</code> 文件夹，进入.git/文件夹，然后执行如下命令分别设置用户名和邮箱。</p>
+<pre><code>git config user.name &quot;yanxi&quot;
+git config user.email &quot;***&quot;
+</code></pre>
+<p>然后在<code>.git/</code>目录下执行命令查看config文件：<code>cat config</code></p>
+<p><img alt="local_variables" src="***.com" /></p>
+<p>发现里面多了刚才配置的用户名和邮箱信息，即成功为该项目单独设置了用户名和邮箱。</p>
+<p>ref: 在同一台机器上配置多个Git帐号</p>
+<h2 id="git-bash">git bash设置代理</h2>
+<p>因为众所周知的原因，有时访问访问ssh git会timeout，这里给出命令行解决方案。</p>
+<p>以Windows下的配置为例，打开git bash，输入<code>vim ~/.ssh/config</code> 进行编辑，内容如下所示，保存后退出生效。（若没有.ssh/config文件，则自行创建）</p>
+<pre><code>#Windows用户，注意替换你的端口号和connect.exe的路径  路径中有空格，所以要用引号 1080为代理用的端口，根据实际情况替换；
+ProxyCommand &quot;C:\Program Files\Git\mingw64\bin\connect.exe&quot; -S 127.0.0.1:1080 -a none %h %p
+
+#MacOS用户用下方这条命令，注意替换你的端口号
+#ProxyCommand nc -v -x 127.0.0.1:端口 %h %p
+
+Host ***.com
+  User git
+  Port 22
+  Hostname ***.com
+  # 注意修改路径为你的路径
+  IdentityFile &quot;C:\Users\xxx\.ssh\id_ed25519&quot;
+  TCPKeepAlive yes
+
+Host ***.com
+  User git
+  Port 443
+  Hostname ***.com
+  # 注意修改路径为你的路径
+  IdentityFile &quot;C:\Users\xxx\.ssh\id_ed25519&quot;
+  TCPKeepAlive yes
+</code></pre>
+<h2 id="0git-clone">0.git clone</h2>
+<p>最基础的命令，把仓库拉取到本地。常用下面几个语句</p>
+<pre><code class="language-shell">git clone ***:xxx/abc.git
+将abc项目拉取到当前目录，项目目录为abc
+
+git clone ***:xxx/abc.git abc_v2
+将abc项目拉取到当前目录下的abc_v2目录，项目目录为abc_v2 (abc_v2目录下里面就是abc.git的内容)
+
+git clone --depth=1 ***:xxx/abc.git
+
+--depth 用来指定克隆的深度，1表示克隆最近的一次commit。
+这种方法克隆的项目只包含最近的一次commit的一个分支，体积很小。
+</code></pre>
+<h2 id="0git-log">0.git log</h2>
+<p>查看提交日志的基本命令，可以代参数。</p>
+<p>git log --online</p>
+<pre><code class="language-shell">7469f4d (HEAD -&gt; main, origin/main) update - gitignore
+3548704 update - gitignore
+1013873 update - daily update
+4900299 update - daily notes
+94ddc54 update - daily notes
+33d27b9 update - local notes
+</code></pre>
+<p>通常是要进行<code>git commit --squash</code>之前时使用，方便查看要合并哪些id。</p>
+<h2 id="1git-merge">1.git merge</h2>
+<p>合并分支</p>
+<p>先切换的到你的主分支上,然后合并其它分支的代码。</p>
+<pre><code class="language-shell">git checkout master
+git merge -m &quot;merge branch_name&quot; branch_name
+</code></pre>
+<p>这样就把branch_name分支的代码合并到master分支上了，且这一步的git commit 为 "merge branch_name"</p>
+<p>自己的项目这样也无妨，但是如果多人协作开发，这样提交会把你自己开发分支时的那些commit也都提交上去，看<code>git log</code>的时候很不友好。
+所以推荐使用<code>git commit --squash</code></p>
+<h2 id="2git-commit-squash-branch_name">2.git commit --squash branch_name</h2>
+<p>在branch_name分支上的，合并多个提交为一条。</p>
+<p>在某些情况下，我们应该优先选择使用--squash选项（比如在开源项目中提交PR一般都会要求这样操作。）</p>
+<p>举例：将fix_ftp_upload分支上的多个commit合并为一条，然后merge fix_ftp_upload分支到develop分支。</p>
+<pre><code class="language-shell">git checkout develop
+git merge --squash fix_ftp_upload
+git commit -m &quot;merge branch fix_ftp_upload&quot;
+git push origin develop
+</code></pre>
+<h2 id="3git-commit-amend">3.git commit --amend</h2>
+<p>修改刚刚未push的提交。
+注意，只要没push都可以通过这个修改本地仓库当前的commit。</p>
+<p>比如：
+修改git commit -m "xxx"写错了注释。可以操作如下：</p>
+<pre><code class="language-shell">git commit --amend
+
+进入编辑窗口，可以修改刚才写作的注释，然后wq!保存并退出
+</code></pre>
+<h2 id="4git-stash">4.git stash</h2>
+<h4 id="git-stash">git stash</h4>
+<p>保存当前分支上所做的修改, 用于处理已改动而未提交的工作目录状态。</p>
+<pre><code class="language-shell">&gt; git stash
+
+&gt; git status
+# On branch master
+nothing to commit, working directory clean
+</code></pre>
+<h4 id="git-stash-pop">git stash pop</h4>
+<p>将stash栈的第一个stash应用并移除，经常配合git stash使用</p>
+<h4 id="git-stash-list">git stash list</h4>
+<p>查看暂存栈会看到此次暂存的记录</p>
+<pre><code class="language-shell">git stash list
+stash@{0}: WIP on develop: 1e20335 update:PublisherInfo  （改动描述）
+stash@{1}: WIP on master: 286d74f before add debug tools
+stash@{2}: WIP on dev: 115f7c1 django transaction
+stash@{3}: WIP on master: 230437d modify js
+</code></pre>
+<h4 id="git-stash-apply">git stash apply</h4>
+<p>应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即stash@{0}</p>
+<h4 id="git-stash-show">git stash show</h4>
+<p>显示做了哪些改动，默认show第一个存储(stash@{0}),如果要显示其他存贮，后面加stash@{$num}，比如第二个 git stash show stash@{1}</p>
+<pre><code class="language-shell">git stash show stash@{3} -p  查看stash3所做的改动
+</code></pre>
+<h4 id="git-stash_1">git stash清理</h4>
+<p><strong>git stash clear</strong>    删除所有缓存的stash</p>
+<p>git stash drop stash@{$num}  移除指定的stash</p>
+<pre><code class="language-shell">git stash drop stash@{3} 
+
+&gt;git stash drop stash@{3}
+Dropped stash@{3} (9aa8aed27765104e44110e012238e2ed345a6d2f)
+</code></pre>
+<h2 id="5git-branch">5.git branch</h2>
+<h4 id="git-branch">git branch</h4>
+<p>查看当前git仓库在本地的所有分支</p>
+<h4 id="git-branch-d-branch_name">git branch -D BRANCH_NAME</h4>
+<p>删除本地制定的git分支，注意不能删除当前所在分支，故删除当前分支使用的分支之前需要先切换分支。</p>
+<h4 id="git-branch-m-new_branch_name">git branch -m NEW_BRANCH_NAME</h4>
+<p>将当前分支的名称修改为 NEW_BRANCH_NAME。请确保你当前处于要重命名的分支上。</p>
+<p>如果你想要重命名其他分支而不是当前分支，可以使用相同的命令，并在命令中指定要重命名的分支名称。
+例如：<code>git branch -m &lt;old-branch-name&gt; &lt;new-branch-name&gt;</code>
+这个命令会把分支名称为 <old-branch-name> 的分支重命名为 <new-branch-name>。</p>
+<p>注意：团队协作开发时，做重命名分支前一定要先和团队其他人员做确认。</p>
+<h2 id="6git-remote">6.git remote</h2>
+<h4 id="git-remote-v">git remote -v</h4>
+<p>查看远程地址</p>
+<h2 id="7git-checkout">7.git checkout</h2>
+<h4 id="git-checkout-track">git checkout --track</h4>
+<p>首先记住这两个git命令：</p>
+<pre><code>git checkout -b branch origin/branch
+
+git checkout --track origin/branch
+</code></pre>
+<p>其实，这两个命令具有相同的效果，使用不同名称的本地分支时会出现实际差异。具体如下：</p>
+<pre><code>git checkout -b mybranch origin/abranch    # 将创建本地mybranch和跟踪origin/abranch
+
+git checkout --track origin/abranch       # 将只创建本地'abranch'，而非具有不同名称的分支
+</code></pre>
+<p>e.g.<code>git checkout --track origin/feature/insert_event_v2</code></p>
+<p>更多讨论，参见此问题</p>
+<h2 id="8git-tag">8.git tag</h2>
+<p>当某一个大版本完成之后,需要打一个标签</p>
+<p>作用：
+- 记录大版本
+- 备份大版本代码</p>
+<h3 id="tag">在本地打标签tag</h3>
+<p>git tag -a 标签名 -m '标签描述'</p>
+<p>例：git tag -a v1.0 -m 'version 1.0'</p>
+<h3 id="tag_1">推送标签tag到远程仓库</h3>
+<p>git push origin 标签名</p>
+<p>例：git push origin v1.0</p>
+<h3 id="_3">删除本地和远程标签</h3>
+<h4 id="_4">删除本地标签</h4>
+<p>git tag -d 标签名</p>
+<h4 id="_5">删除远程仓库标签</h4>
+<p>git push origin --delete tag 标签名</p>
+<h2 id="9git-revert">9.git revert</h2>
+<p>提交代码以后，你突然意识到这个提交有问题，应该撤销掉，执行如下命令：</p>
+<p>git revert HEAD</p>
+<p>上面命令的原理是，在当前提交后面，新增一次提交，抵消掉上一次提交导致的所有变化。它不会改变过去的历史，所以是首选方式，没有任何丢失代码的风险。</p>
+<p>git revert 命令只能抵消上一个提交，如果想抵消多个提交，必须在命令行依次指定这些提交。比如，抵消前两个提交，要像下面这样写。</p>
+<pre><code class="language-shell">$ git revert [倒数第一个提交] [倒数第二个提交]
+</code></pre>
+<p>git revert命令还有两个参数:</p>
+<pre><code class="language-shell">--no-edit：执行时不打开默认编辑器，直接使用 Git 自动生成的提交信息。
+--no-commit：只抵消暂存区和工作区的文件变化，不产生新的提交。
+</code></pre>
+<h2 id="10git-reset">10.git reset</h2>
+<p>如果希望<strong>以前的提交在历史中彻底消失</strong>，而不是被抵消掉，可以使用git reset命令，丢弃掉某个提交之后的所有提交。</p>
+<p>git reset的原理: <strong>让最新提交的指针回到以前某个时点，该时点之后的提交都从历史中消失</strong>。</p>
+<h2 id="11git-rm">11.git rm</h2>
+<p>如果不小心把一个文件添加到暂存区，可以用下面的命令撤销。</p>
+<pre><code class="language-shell">git rm --cached [filename]
+</code></pre>
+<p>上面的命令不影响已经提交的内容。</p>
+<h2 id="12">12.撤销当前分支的变化</h2>
+<pre><code class="language-shell"># 新建一个 feature 分支，指向当前最新的提交
+# 注意，这时依然停留在当前分支
+$ git branch feature
+
+# 切换到这几次提交之前的状态
+$ git reset --hard [当前分支此前的最后一次提交]
+
+# 切换到 feature 分支
+$ git checkout feature
+</code></pre>
+<p>上面的操作等于是撤销当前分支的变化，将这些变化放到一个新建的分支。（然后切换到另一个分支，merge feature分支上的后面几次提交的内容。）</p>
+<h2 id="13git-cherry-pick">13.git cherry-pick</h2>
+<p><code>git cherry-pick</code>命令的作用，就是将指定的提交（commit）应用于其他分支。</p>
+<pre><code># 现在将 feature分支的提交f 应用到 master分支。
+# 先切换到 master 分支
+$ git checkout master
+
+# git cherry-pick 操作
+$ git cherry-pick f
+</code></pre>
+<p>上面的操作完成以后，代码库就变成了下面的样子。</p>
+<pre><code>a - b - c - d - f   Master
+     \
+       e - f - g    Feature
+</code></pre>
+<p>ref:
+git cherry-pick 教程</p>
+<h2 id="14git-rebase-i">14.git rebase -i</h2>
+<p>代码变更比较频繁，有时候想让前几次提交的合并为一次提交，这里可以使用git rebase -i 命令来完成</p>
+<pre><code>rebase为变基
+git rebase -i 命令可以压缩合并多次提交
+格式：git rebase -i [startpoint] [endpoint]
+
+其中-i的意思是–interactive，即弹出交互式的界面让用户编辑完成合并操作，
+
+// 合并从当前head到15f745b(commit id)
+$ git rebase -i 15f745b
+
+// 合并最近的两次提交
+$ git rebase -i HEAD~2
+</code></pre>
+<p>ref:git rebase -i合并多次提交</p>
+<h2 id="15git-blame">15.git blame</h2>
+<p>git blame 显示文件的每一行最后修改的版本和作者</p>
+<pre><code>//显示aaa/file.txt文件第11行和12行的修改记录
+git blame -L 11,12 aaa/file.txt
+
+-L 11,12 含义是该文件的第11行和12行的修改记录
+</code></pre>
+<h2 id="16git-remote">16.git remote操作</h2>
+<p>一般参考新建的git仓库可以看到提示。</p>
+<h4 id="remote-repo">本地仓库新增 remote repo</h4>
+<pre><code class="language-bash">git remote add origin ***.com
+git push -u origin master
+</code></pre>
+<h4 id="origin">删除远端origin仓库绑定</h4>
+<pre><code class="language-bash">git remote remove origin
+</code></pre>
+<h4 id="git-repogit-repo">从旧git repo迁移到新git repo</h4>
+<pre><code class="language-bash">git remote rename origin old-origin
+git remote add origin ***.com
+git push -u origin --all
+git push -u origin --tags
+</code></pre>
+<h4 id="_6">如果是本地某分支要和远端某分支挂钩，可以这样设置</h4>
+<pre><code class="language-bash"># If you wish to set tracking information for this branch you can do so with:
+
+git branch --set-upstream-to=&lt;remote&gt;/&lt;branch&gt; dev
+
+e.g.:
+git branch --set-upstream-to=origin/dev dev
+</code></pre>
+<h4 id="github">github同步源仓库代码</h4>
+<p>在github上fork了一个仓库后，自己的master分支为fork后的分支。
+如果要同步原作者的仓库，可以在远端增加 upstream 分支，分支源设置为 源代码作者的仓库，然后定期操作pull 和 merge，或者提交PR。</p>
+<pre><code class="language-bash">git remote add origin ***.com
+git remote add upstream ***.com
+</code></pre>
+<p>同步源仓库代码的命令：</p>
+<pre><code class="language-bash">git remote -v
+origin  ***:TesterCC/vulhub.git (fetch)
+origin  ***:TesterCC/vulhub.git (push)
+upstream    ***:vulhub/vulhub.git (fetch)
+upstream    ***:vulhub/vulhub.git (push)
+</code></pre>
+<pre><code class="language-bash"># 切到你想要合并代码的本地分支
+git checkout master
+
+# 从upstream仓库拉取最新代码
+git fetch upstream
+
+# 合并upstream的master分支代码到本地分支，要是你想合并的是upstream仓库的其他分支，将master替换成对应的分支名即可。
+git merge upstream/master
+# 完成操作后本地就是合并后的最新代码，可与用git log查看。
+
+# 将本地最新的merge的内容，同步到自己的orign/master分支上，这样就完成了upstream master到origin master的同步。
+git push origin master
+</code></pre>
+<h2 id="17git-add">17.git add操作的恢复</h2>
+<p>如果误操作将文件git add了，想要恢复文件到 git add 之前的状态。 可以使用 git reset 命令来完成。</p>
+<p>以下是恢复文件到 git add 之前状态的步骤：</p>
+<p>首先，运行 git status 命令检查当前修改的文件状态。</p>
+<p>确认需要恢复的文件，记录其路径和名称。</p>
+<p>运行以下命令，使用 git reset 取消文件的暂存状态：</p>
+<pre><code>git reset HEAD &lt;file_path&gt;
+
+# 将 `&lt;file_path&gt;` 替换为要恢复的文件的路径和名称。
+
+# e.g.如果要恢复名为 `example.txt` 的文件，可以执行：
+git reset HEAD example.txt
+
+# e.g.如果要恢复某个目录下所有.pcap文件，可以执行：
+git reset HEAD test_pcap/*.pcap
+</code></pre>
+<p>这将使文件回到尚未暂存的状态。</p>
+<p>注意区别：git reset 命令用于取消已暂存的更改，并将文件恢复到未暂存的状态。</p>
+<p>如果想撤销未暂存的修改并还原到最后一次提交的状态，可以使用 git checkout 命令。</p>
+<h2 id="18git-worktree">18.git worktree</h2>
+<p>据说是git 2.5之后才有的命令，正好看到有人演示使用。特别是要做hotfix的时候，比git stash好用一点，但还是看个人使用习惯。</p>
+<pre><code class="language-shell">git worktree --help
+
+NAME
+       git-worktree - Manage multiple working trees
+
+SYNOPSIS
+       git worktree add [-f] [--detach] [--checkout] [--lock [--reason &lt;string&gt;]]
+                          [-b &lt;new-branch&gt;] &lt;path&gt; [&lt;commit-ish&gt;]
+       git worktree list [-v | --porcelain [-z]]
+       git worktree lock [--reason &lt;string&gt;] &lt;worktree&gt;
+       git worktree move &lt;worktree&gt; &lt;new-path&gt;
+</code></pre>
+<h3 id="181">18.1 列出所有工作树（包括默认工作树）</h3>
+<pre><code class="language-shell">git worktree list
+
+/Users/user/project       (main)
+/Users/user/project-feat  (feature/new-feature)
+</code></pre>
+<h3 id="182">18.2 添加新工作树</h3>
+<pre><code class="language-shell"># 在当前仓库下创建新工作树到指定路径，并关联到指定分支
+git worktree add &lt;路径&gt; [&lt;分支名&gt;]
+
+# 示例：在当前目录下创建 worktree-foo 目录，关联到 feature/foo 分支
+git worktree add worktree-foo feature/foo
+
+# 若不指定分支，默认基于当前分支创建
+git worktree add worktree-bar
+</code></pre>
+<h3 id="183">18.3 在新工作树中查看分支状态</h3>
+<pre><code class="language-shell"># 进入新工作树目录，查看分支和文件状态
+cd worktree-foo
+git status  # 显示 feature/foo 分支的状态
+</code></pre>
+<h3 id="184">18.4 移除工作树</h3>
+<pre><code class="language-shell"># 移除指定路径的工作树
+git worktree remove &lt;路径&gt;
+
+# 示例：移除 worktree-foo 工作树
+git worktree remove worktree-foo
+</code></pre>
+<h3 id="185">18.5 移动或重命名工作树</h3>
+<pre><code class="language-shell"># 先移除原工作树，再添加到新路径
+git worktree remove old-path
+git worktree add new-path
+</code></pre>
+<h3 id="186">18.6 临时工作树（实验性开发）</h3>
+<pre><code class="language-shell"># 创建临时工作树（基于HEAD的分离HEAD状态）
+git worktree add -b temp-experiment --detach temp-dir
+</code></pre>
+<h3 id="187">18.7 清理过期工作树</h3>
+<pre><code class="language-shell">git worktree prune  # 清理无效的工作树
+</code></pre>
+<h3 id="git-worktree">git worktree高级用法与注意事项</h3>
+<h4 id="1">1.工作树与分支的关联</h4>
+<p>每个工作树默认关联一个分支，修改会直接反映到该分支。若需切换分支，需在工作树目录中使用 git checkout。</p>
+<h4 id="2">2.跨工作树的文件冲突</h4>
+<p>避免在不同工作树中同时修改同一文件，否则可能导致冲突（Git 不会自动阻止，但提交时会提示）。</p>
+<h4 id="3git-worktree-git-clone">3.git worktree 与 git clone 的区别</h4>
+<p>git worktree：共享 .git 目录，适合同一仓库的多分支开发，占用空间小。
+git clone：创建独立的 .git 目录，适合完全隔离的项目副本。</p>
+<h2 id="git-ssh">服务器上的 Git - 生成 SSH 公钥</h2>
+<p>ref: ***.com</p>
+<pre><code class="language-bash">$ ssh-keygen -o   # 没有特别需求的化，可以一路回车
+
+$ cd ~/.ssh
+$ ls
+authorized_keys2  id_rsa       known_hosts
+config            id_rsa.pub
+
+cat ~/.ssh/id_rsa.pub    # 里面的文本就是ssh key公钥
+</code></pre>
+<h2 id="windows10-git-bash">Windows10 git bash使用代理</h2>
+<pre><code>***.com 
+git http https设置代理
+
+windows ssh 加代理：
+***.com
+</code></pre>
+<h2 id="git-forkpr">Git Fork项目后，向开源项目提交PR流程</h2>
+<pre><code class="language-bash">1. 在github页面上, 点击fork按钮, 将B的项目拷贝一份到A自己的代码仓库中。
+即：A为你自己的仓库， B为你fork的开源仓库。
+
+2. 克隆A自己的代码仓库到本地.
+$ git clone ***.com
+
+3. 将B的项目作为最新代码的参考标准（upstream 是上游仓库的别名，别名随意命名）
+$ git remote add upstream ***.com
+
+4. 在本地更改代码（增删查等操作）
+
+5. 暂存已经编辑的目录和文件.
+$ git add .
+$ git stash
+
+6. 拉取B仓库的新代码
+$ git fetch upstream
+
+7. 将B新的部分合并到A的代码仓库中, 使A的代码仓库变成最新的代码.
+$ git rebase upstream/master origin/master
+
+8. 查看分支，确保在自己的本地分支上
+$ git branch
+
+9. 如果不在本地分支，则执行 git checkout master ，如果在则忽略此步骤
+
+10. 将刚刚暂存的代码合并到现在最新的代码中.
+$ git stash apply stash@{0}
+
+11. 本地提交代码.
+$ git add .
+$ git commit -m 提交代码的注释信息&quot;
+
+12. 将代码推送到A的github仓库
+$ git push -u origin/master
+
+13.在A的github仓库页面上，点击pull request向B发起PR请求
+
+14.当B仓库管理者通过你的PR请求，你的PR将会被合并到B的主分支上
+
+以上是第一次进行fork、克隆代码、创建关联、修改代码提交等操作；
+当再次本地修改代码提交时，执行步骤6-11即可。
+</code></pre>
+<h2 id="_7">同步开源项目最新源码到自己的开发分支</h2>
+<pre><code class="language-shell">git remote -v  # 一般设置开源项目源码在upstream分支
+git fetch upstream  # 从upstream仓库垃取最新的更新 # 把upstream仓库的更新拉取到本地了，但不强制合并代码
+git checkout mater  # 切换到本地master分支，也可以是其他非master分支
+git merge upstream/master  # 将upstream/master分支合并到本地master分支上
+git push origin master     # 将合并后的本地master推送到远端仓库master分支，这时 upstream/master 的最新代码就同步到 origin/master了
+</code></pre>
+<h2 id="git-fetch-git-pull">git fetch 和 git pull 的区别</h2>
+<ul>
+<li>
+<p>git fetch 是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。</p>
+</li>
+<li>
+<p>git pull 是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。</p>
+</li>
+</ul>
+<h2 id="_8">其他</h2>
+<pre><code>之前大佬教我用-i来做squash。 
+中间态的若干次提交均写上 WIP: *****
+然后做完一个功能， 把 WIP: ***.com squash掉。  
+用 git rebase -i
+
+P.S.: WIP（work in progress）
+</code></pre>
+<h2 id="_9">常见错误处理</h2>
+<h3 id="git-basherror-could-not-fork-child-process-there-are-no-available-terminals-1">git bash报错<code>Error: Could not fork child process: There are no available terminals (-1).</code></h3>
+<p>打开win的cmd或者powershell，执行如下命令：</p>
+<pre><code>(base) PS C:\Users\xx&gt; tasklist | findstr &quot;git-bash&quot;
+git-bash.exe                 18476 Console                    1      5,796 K
+(base) PS C:\Users\xx&gt; taskkill /pid 18476 -t -f
+成功: 已终止 PID 22436 (属于 PID 18476 子进程)的进程。
+成功: 已终止 PID 18476 (属于 PID 16332 子进程)的进程。
+(base) PS C:\Users\xx&gt;
+</code></pre>
+<p>如果这样kill后还是不能正常启动git bash，那么建议重启。</p>
+<h2 id="github-2fa">GitHub 2FA认证（双重身份验证）</h2>
+<p>虽然增加了安全性，但是确实有点麻烦，参考 GitHub 2FA认证</p></div></article><nav class="pager"><a class="pg prev" href="../regex/"><span>上一篇</span><b>正则表达式</b></a><a class="pg next" href="../git-flow/"><span>下一篇</span><b>Git Flow</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

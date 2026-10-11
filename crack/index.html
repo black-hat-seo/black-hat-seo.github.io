@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>破解 | 烟雨黑帽</title>
+<meta name="description" content="本来向合并在逆向的笔记里面，但是考虑后面笔记会可预见的增长，所以还是单独列一个分类出来做笔记。 虽然能自己破解软件自己用挺方便的，不过因为工作原因一直没什么机会折腾，直到某天跟着别人的教程改了一波撤回功能，开始入坑。 多快好省破解Mac版微信消息撤回功能 依葫芦画瓢破解QQ for Mac消息撤回功…">
+<meta name="keywords" content="破解, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="破解">
+<meta property="og:description" content="本来向合并在逆向的笔记里面，但是考虑后面笔记会可预见的增长，所以还是单独列一个分类出来做笔记。 虽然能自己破解软件自己用挺方便的，不过因为工作原因一直没什么机会折腾，直到某天跟着别人的教程改了一波撤回功能，开始入坑。 多快好省破解Mac版微信消息撤回功能 依葫芦画瓢破解QQ for Mac消息撤回功…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="破解">
+<meta name="twitter:description" content="本来向合并在逆向的笔记里面，但是考虑后面笔记会可预见的增长，所以还是单独列一个分类出来做笔记。 虽然能自己破解软件自己用挺方便的，不过因为工作原因一直没什么机会折腾，直到某天跟着别人的教程改了一波撤回功能，开始入坑。 多快好省破解Mac版微信消息撤回功能 依葫芦画瓢破解QQ for Mac消息撤回功…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "破解"}]}, {"@type": "TechArticle", "headline": "破解", "description": "本来向合并在逆向的笔记里面，但是考虑后面笔记会可预见的增长，所以还是单独列一个分类出来做笔记。 虽然能自己破解软件自己用挺方便的，不过因为工作原因一直没什么机会折腾，直到某天跟着别人的教程改了一波撤回功能，开始入坑。 多快好省破解Mac版微信消息撤回功能 依葫芦画瓢破解QQ for Mac消息撤回功…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1 active"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>破解</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>破解</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_2">课程内容</a>
+</li>
+<li><a href="#_3">课程笔记</a>
+<ul>
+<li><a href="#_4">一、破解到底是什么？</a>
+</li>
+<li><a href="#_5">学习破解的关键步骤</a>
+</li>
+<li><a href="#_6">二、怎么破解？</a>
+</li>
+<li><a href="#_7">三、如何找到验证的关键位置</a>
+</li>
+<li><a href="#_8">常用汇编指令记忆</a>
+</li>
+</ul>
+</li>
+<li><a href="#_9">工具使用</a>
+<ul>
+<li><a href="#ollydbg">OllyDBG</a>
+<ul>
+<li><a href="#ollydbg_1">OllyDBG常用快捷键</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>本来向合并在逆向的笔记里面，但是考虑后面笔记会可预见的增长，所以还是单独列一个分类出来做笔记。</p>
+<p>虽然能自己破解软件自己用挺方便的，不过因为工作原因一直没什么机会折腾，直到某天跟着别人的教程改了一波撤回功能，开始入坑。</p>
+<ul>
+<li>多快好省破解Mac版微信消息撤回功能</li>
+<li>依葫芦画瓢破解QQ for Mac消息撤回功能</li>
+</ul>
+<p>吃别人给的鱼当然不如自己学会渔，再加之虽然对于破解产业没兴趣，但个人对于破解一些工具还是有需求的，所以又踏上了自学自坑自乐的过程。</p>
+<h2 id="_2">课程内容</h2>
+<p>***.com的yyhd的新手友好向破解教程 《玩玩破解，写给新人看》系列教程，目前出到24集</p>
+<p>其它坛友录制了1-18课的视频，不过建议先看完原版教程再看这个。</p>
+<p>玩玩破解视频教程1-8
+玩玩破解视频教程9-18</p>
+<h2 id="_3">课程笔记</h2>
+<h3 id="_4">一、破解到底是什么？</h3>
+<p>破解的对象是软件的使用验证。</p>
+<pre><code>什么是软件的使用验证？
+
+举例：比如你花了一个月写了一个软件，你想让其他人花钱才可以用，你怎么办？
+
+当然要给你写好的软件再增加一个使用验证，就像你租房，你当然要先上锁，谁花钱租房，你就给他钥匙。
+
+锁就是房子使用的验证。
+</code></pre>
+<p>我们破解破的不是可用的软件，而是限制使用软件的那把锁。</p>
+<h3 id="_5">学习破解的关键步骤</h3>
+<ol>
+<li>第一步是学习如何找到关键位置；</li>
+<li>第二步是能够分析出验证机制。</li>
+</ol>
+<h3 id="_6">二、怎么破解？</h3>
+<p>工欲善其事必先利其器，首先准备工具。</p>
+<p>最基本的3个，当然现在也有更好的替换产品：</p>
+<ul>
+<li>PEID（查是否加壳，专门查壳）</li>
+<li>DIE64（Detect it Easy，查加的什么壳）</li>
+<li>OD（OllyDBG，找关键验证代码位置，但很老了，更推荐windbg）</li>
+</ul>
+<p>todo ***.com</p>
+<h3 id="_7">三、如何找到验证的关键位置</h3>
+<p>验证流程可分为三步：验证前、验证中、验证后。这三步，关键位置当然是验证中，这个位置是真假码的比较。
+如果能直接到达第二步当然是最好，可惜很难直接找到，因为一个程序里面有很多不同的判断。
+我们要找关键位置是不是必须依靠线索。最直接的线索就是验证后的不同结果。</p>
+<p>搞破解，最常用的办法就是通过验证后的结果来反查到关键位置。一种结果是有提示的字符串，比如“成功”“失败”等，我们的破解思路就在程序代码中先定位到这些字符串，然后往前找关键比较代码。如何定位这些字符串呢？OD里面有一个“中文搜索引擎”工具，可以用于查找定位。一种结果是弹出正确或者错误的对话框。你可以搜索对话框里面的字符串，你还可以在程序中定位弹出对话框的代码，然后再反查到关键位置。</p>
+<p>如何定位弹出对话框呢？编程中弹出对话框要用到一个命令，叫做MessageBox，你在这个函数上下断点，让程序暂停，然后再反查即可。通过结果来反查是我们最主要的做法，对于不同的结果，要用不同的办法。比如有提示字符串，有错误对话框，有窗口，让程序退出等等。最怕的是没有错误结果，那我们就需要从验证前的线索入手了。</p>
+<p>总结一下：
+1、破解软件的第一步就是要找出突破口，验证后的结果是最常用的。拿到一个软件后要先试着登陆一下，看看登陆验证后出现什么结果，是出现了字符串，还是信息框，还是其他，这些就是突破口。
+2、通过突破口找到验证后结果的代码位置后，找位置上面的跳转，然后修改跳转，目标就是“无论如何跳向成功，无论如何跳过失败”。
+3、关键跳转上面不远处就是验证中的关键代码位置，如果你要分析验证机制或者要找正确的账号密码就在那里。</p>
+<h3 id="_8">常用汇编指令记忆</h3>
+<pre><code>1.CALL指令, CALL是子程序的入口 
+(在OD里当指令执行到这个CALL的这一行语句时，用键盘上的F7就进去了。如果现在指令没有执行到CALL语句，你只是想看看CALL里面有什么？你可以把鼠标点到这一行，然后按回车键就可以进去浏览了。)
+
+2.JNZ、JMP指令,叫做跳转指令
+(程序不是按顺序一行一行往下执行的，会根据条件跳到不同的代码位置，跳转指令就是让代码能够跳来跳去的指令。跳转指令分为两种，一种是JMP，是无条件跳转，意思就是当代码执行到JMP语句，是无条件执行跳转的，跳到哪？就是跳到JMP后面的代码地址。另外一种是JZ、JNZ等，是有条件跳转，意思就是当代码执行到JZ、JNZ时，跳还是不跳要根据上面代码得到的结果来判断)
+(最常见的就是这样的，JE是一个条件跳转，它跳到了一个JMP下面一行，这是典型的条件判断编程语法。)
+
+3.EAX，叫做EAX寄存器
+(如果我们编程人员把某个CALL做为验证的子程序，这个CALL的作用就是进行真假码的比较，如果比较的结果是真，那么就返回数值1，如果结果是假，就返回数值0，那么返回值1或者0就放在EAX里面，然后下面的条件跳转命令JZ、JNZ就根据是1还是0这个结果来决定跳还是不跳，明白了吗？EAX的意义就在于此，它里面存放的数值会决定程序以后的执行流程。)
+(知道了EAX的意义又有什么用呢？你可以修改EAX的值，比如把0改成1就行了，在哪改呢？在CALL里面的代码的开头改成MOV EAX,1 ，下一句改成RETN。这样改的好处是什么呢？因为很多程序在验证的时候会在程序执行过程中多次进行验证，每次验证后都会有条件跳转指令，与其你改多个条件跳转指令，不如改一个验证CALL的返回值更省事。)
+
+</code></pre>
+<p>主要分为三类:</p>
+<pre><code>第一类是传送数据的指令，比如MOV、LEA、PUSH、POP等，它们的作用就是把数据从一个地址转移到另外一个地址，为什么要转移呢，目的是在程序执行中便于使用。那么对于我们破解来说，了解它们有什么用呢？用处就是你能够知道你感兴趣的数据存放在什么地方，你可以跟踪它的使用流程。你可能要问了，我怎么才能看到程序里面的数据呢？
+OD里面有一个窗口就叫做数据窗口，里面放的就是程序的数据。
+
+第二类汇编指令是比较判断指令，就是对两个数值进行比较，它往往放在验证CALL的下面，用于判断，比如CMP、TEST 指令。
+</code></pre>
+<h2 id="_9">工具使用</h2>
+<h3 id="ollydbg">OllyDBG</h3>
+<pre><code>OllyDBG 入门系列（一）－认识OllyDBG
+***.com
+
+OllyDBG 入门系列（二）－字串参考
+***.com
+
+OllyDBG 入门系列（三）－函数参考
+***.com
+
+OllyDBG 入门系列（四）－内存断点 
+***.com
+
+OllyDBG 入门系列（五）－消息断点及 RUN 跟踪 
+***.com
+
+OllyDBG 入门系列（七）－汇编功能
+***.com
+
+
+动态，OllyDebug，WinDebug，gdb
+静态，IDA pro
+
+官网：***.com
+</code></pre>
+<h4 id="ollydbg_1">OllyDBG常用快捷键</h4>
+<pre><code>OllyDBG 入门系列（一）－认识OllyDBG笔记
+
+F2：设置断点，只要在光标定位的位置（上图中灰色条）按F2键即可，再按一次F2键则会删除断点。（相当于 SoftICE 中的 F9）
+
+F8：单步步过。每按一次这个键执行一条反汇编窗口中的一条指令，遇到 CALL 等子程序不进入其代码。（相当于 SoftICE 中的 F10）
+
+F7：单步步入。功能同单步步过(F8)类似，区别是遇到 CALL 等子程序时会进入其中，进入后首先会停留在子程序的第一条指令上。（相当于 SoftICE 中的 F8）
+
+F4：运行到选定位置。作用就是直接运行到光标所在位置处暂停。（相当于 SoftICE 中的 F7）
+
+F9：运行。按下这个键如果没有设置相应断点的话，被调试的程序将直接开始运行。（相当于 SoftICE 中的 F5）
+
+CTR+F9：执行到返回。此命令在执行到一个 ret (返回指令)指令时暂停，常用于从系统领空返回到我们调试的程序领空。（相当于 SoftICE 中的 F12）
+
+ALT+F9：执行到用户代码。可用于从系统领空快速返回到我们调试的程序领空。（相当于 SoftICE 中的 F11）
+
+上面提到的几个快捷键对于一般的调试基本上已够用了。要开始调试只需设置好断点，找到你感兴趣的代码段再按 F8 或 F7 键来一条条分析指令功能就可以了。
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../capture-package/"><span>上一篇</span><b>抓包</b></a><a class="pg next" href="../nmap/"><span>下一篇</span><b>Nmap</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

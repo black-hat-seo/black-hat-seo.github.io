@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基础知识 | 烟雨黑帽</title>
+<meta name="description" content="这里仅做CTF术语和常识的记录，更多CTF相关知识见Blog CTF Tag。 不要觉得CTF很神秘，通俗的说法，你可以把CTF当作网络安全专业的奥赛。 CTF术语 CTF -- Capture the Flag, 中文译为“夺旗赛”，指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源…">
+<meta name="keywords" content="基础知识, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="基础知识">
+<meta property="og:description" content="这里仅做CTF术语和常识的记录，更多CTF相关知识见Blog CTF Tag。 不要觉得CTF很神秘，通俗的说法，你可以把CTF当作网络安全专业的奥赛。 CTF术语 CTF -- Capture the Flag, 中文译为“夺旗赛”，指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="基础知识">
+<meta name="twitter:description" content="这里仅做CTF术语和常识的记录，更多CTF相关知识见Blog CTF Tag。 不要觉得CTF很神秘，通俗的说法，你可以把CTF当作网络安全专业的奥赛。 CTF术语 CTF -- Capture the Flag, 中文译为“夺旗赛”，指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "基础知识"}]}, {"@type": "TechArticle", "headline": "基础知识", "description": "这里仅做CTF术语和常识的记录，更多CTF相关知识见Blog CTF Tag。 不要觉得CTF很神秘，通俗的说法，你可以把CTF当作网络安全专业的奥赛。 CTF术语 CTF -- Capture the Flag, 中文译为“夺旗赛”，指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1 active"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>基础知识</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>基础知识</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#ctf">CTF术语</a>
+</li>
+<li><a href="#ctf_1">CTF比赛题型</a>
+</li>
+<li><a href="#ctf_2">为什么要打CTF</a>
+</li>
+<li><a href="#ctf_3">如何入门CTF</a>
+</li>
+<li><a href="#ctf_4">CTF学习</a>
+<ul>
+<li><a href="#0">如何从0学习</a>
+</li>
+<li><a href="#web">如何学习Web</a>
+</li>
+<li><a href="#webawdattack-with-defence">Web选手如何去打AWD(Attack With Defence)</a>
+</li>
+</ul>
+</li>
+<li><a href="#ctf_5">CTF团队建设</a>
+<ul>
+<li><a href="#_2">需要什么？</a>
+</li>
+<li><a href="#_3">团队人员太多如何处理？</a>
+</li>
+<li><a href="#_4">如何选人？</a>
+</li>
+</ul>
+</li>
+<li><a href="#ctf_6">在线CTF练习</a>
+</li>
+<li><a href="#_5">靶机镜像获取</a>
+</li>
+<li><a href="#_6">阅读推荐</a>
+</li>
+<li><a href="#ctf_7">CTF常用技巧</a>
+</li>
+<li><a href="#_7">开源推荐</a>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>这里仅做CTF术语和常识的记录，更多CTF相关知识见Blog CTF Tag。</p>
+<p>不要觉得CTF很神秘，通俗的说法，你可以把CTF当作网络安全专业的奥赛。</p>
+<h2 id="ctf">CTF术语</h2>
+<ul>
+<li>
+<p><code>CTF</code> -- Capture the Flag, 中文译为“夺旗赛”，指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。</p>
+</li>
+<li>
+<p><code>Writeup</code> -- CTF比赛中题目的解答。</p>
+</li>
+<li>
+<p><code>AWD</code> -- Attack With Defence，一种CTF比赛模式，常见于CTF线下赛，比赛中每个队伍维护多台服务器，服务器中存在多个漏洞，利用漏洞攻击其他队伍可以进行得分，修复漏洞可以避免被其他队伍攻击失分。</p>
+</li>
+<li>
+<p><code>first blood</code> -- 一血，在CTF比赛中第一个解开某道题的人可称为拿到first blood，一般来说拿到first blood的积分加成会比后面解开此题的人得分更多。</p>
+</li>
+</ul>
+<h2 id="ctf_1">CTF比赛题型</h2>
+<ul>
+<li><code>Web</code> -- 常见的Web安全类题，但是题目不一定很简单。</li>
+<li><code>Crypto</code> -- 密码学相关知识，一般题目都具备一定难度。</li>
+<li><code>PWN</code> -- 对程序的逻辑分析，漏洞利用（常见windows, linux平台下）</li>
+<li><code>Misc</code> -- 俗称“杂项”，范围很广涉及计算机取证、数据恢复、社会工程学、大数据等，个别题目相当烧脑。</li>
+<li><code>Rerverse</code> -- 二进制，逆向分析、破解等相关，涵盖win、linux、Android等平台。</li>
+<li><code>Mobile</code> -- 移动端，涉及移动端apk解题等。</li>
+</ul>
+<h2 id="ctf_2">为什么要打CTF</h2>
+<p>练习常用基本技术、拓展渗透测试逻辑思维</p>
+<h2 id="ctf_3">如何入门CTF</h2>
+<p>作为一个CTF萌新，其实前言万语千言我只想说一句：兴趣是最好的老师！</p>
+<h2 id="ctf_4">CTF学习</h2>
+<p>根据分类概略介绍需要学习的知识，有了这些基础，以后深入学习便是水到渠成。</p>
+<ul>
+<li><code>PWN/RE</code> -- 汇编、指令集、C、C++、算法、IDA、OD、栈/堆溢出......</li>
+<li><code>WEB</code> -- 入门阶段：各类简单漏洞、burpsuite、php、python，深入阶段：Pwnweb、各类代码审计、系统提权，大型工具开发......</li>
+</ul>
+<p>据某战队队长评价：</p>
+<pre><code>WEB入门最简单
+学二进制觉得WEB很简单
+学RE的一定能学好二进制
+</code></pre>
+<h4 id="0">如何从0学习</h4>
+<p>1.题必须要坚持刷，并学会总结，从量变到质变。</p>
+<p>2.掌握基本准备思路。</p>
+<pre><code>出题人角度：
+1.以最新漏洞出题
+2.以最新发表的paper出题（特别是Crypto类的）
+3.上次碰到一个实际案例，正好拿来复现下（趋势明显）
+
+PS:一切以脑洞为原则的出题人都不是好出题人。
+</code></pre>
+<pre><code>做题人角度：
+1.功夫在平时，记得追踪最新漏洞
+2.不要期望出题人的点你都遇到过
+3.要有充足耐心，仔细观察每一个点
+
+PS:本地各种CTF工具记得提前准备好，以防线下赛断网（局域网）环境操作。
+</code></pre>
+<p>3.多参加CTF比赛，特别是高质量赛事</p>
+<p>国际赛事: <code>defcon、HITCON、0CTF、RWCTF等</code></p>
+<p>国内赛事: <code>护网杯，各类赛事(参与度好，题目不太难，但是质量参差不齐)</code></p>
+<p>4.保持良好的参赛心态</p>
+<ul>
+<li>一颗永不放弃的心</li>
+<li>平常积累一些trick（看大佬的blog和writeup,特别是CTFtime的wp，要善于学习他人的思路）</li>
+<li>不要期望出题人的出题点你都见过</li>
+<li>仔细观察每一个点</li>
+<li>学到东西才是关键</li>
+<li>日常不要仅限于看过，要尽量去复现</li>
+<li>有时候不是你不会，而是没有坚持研究下去</li>
+<li>多研究，以赛代练</li>
+<li>扩大知识面(理解常见漏洞原理，学习开发，复现题目代码等)</li>
+</ul>
+<h4 id="web">如何学习Web</h4>
+<pre><code>1.前期书籍+刷题
+2.巩固所学的各类基础漏洞知识
+3.尝试利用PHP、Python等语言去编写exp、工具、平台等
+4.真实漏洞的复现（各类CVE、CMS漏洞等）
+5.从做题人尝试转变为出题人
+</code></pre>
+<h4 id="webawdattack-with-defence">Web选手如何去打AWD(Attack With Defence)</h4>
+<ul>
+<li>AWD考察的是什么？</li>
+</ul>
+<pre><code>1.漏洞的审查能力
+2.快速编写脚本的能力
+3.权限维持的能力
+</code></pre>
+<ul>
+<li>WEB选手需要什么？</li>
+</ul>
+<pre><code>1.丰富的代码审计技巧
+2.熟练运用python
+3.一整套自己的权限维持流程
+</code></pre>
+<h2 id="ctf_5">CTF团队建设</h2>
+<p>虽然自娱自乐打CTF的老赛棍不乏一枝独秀，但若能组建一个相对稳定的CTF团队，无论是从学习还是参赛角度来说，那都是极好的。</p>
+<h4 id="_2">需要什么？</h4>
+<pre><code>1.一个灵魂人物（队长，技术最好别太差）
+2.团结一致
+3.学校、老师的支持
+4.定期的训练
+5.不气馁，相信自己以及队友
+6.定期总结分享
+7.可以使用看板工具辅助管理好任务
+</code></pre>
+<h4 id="_3">团队人员太多如何处理？</h4>
+<pre><code>0.确定好入团流程，严进
+1.定期筛选
+2.老选手的传承
+</code></pre>
+<h4 id="_4">如何选人？</h4>
+<pre><code>1.前期的定期培训
+2.内部选拔赛，选择有特长和技术全面的人
+3.面试注意：乐于分享；积极学习；可以傲但人品要好；不是一个利益选手
+
+PS:其实最重要的还是社长。社长肩负压力和责任，不一定技术能力最强，但是一定要有一颗为大家着想的心。
+</code></pre>
+<h2 id="ctf_6">在线CTF练习</h2>
+<ul>
+<li>攻防世界 -- 目前发现的最适合CTF新人入门且免费的平台，强烈推荐，优先把这上面的题刷完。</li>
+<li>i春秋CTF -- 虽然最近没怎么更新题库，但有不少比赛真题可以刷。</li>
+<li>CTFtime -- 要参与国际赛事建议习惯在这个平台刷题，熟悉英文出题模式，平台上也有很多国际比赛可以参与，部分操作需科学访问。（提高比刷）</li>
+<li>Bugku旧题库 -- 现在的新题库需要付费，旧题库还是有不少题可以刷刷的。</li>
+<li>***.com -- 有不少逆向题目，从初级到高级</li>
+<li>Hack The Box -- 这个不是专业CTF靶机，倒是考OSCP的用这个练习的比较多，复杂的综合性靶场，推荐练习。</li>
+</ul>
+<h2 id="_5">靶机镜像获取</h2>
+<ul>
+<li>Vulhub - 通过 docker-compose 来构建，更新稳定</li>
+<li>IoT-vulhub - IoT固件漏洞复现环境</li>
+<li>Vulfocus - 从dockerhub上拉取</li>
+<li>VulApps - 这个挺久没更新了</li>
+</ul>
+<h2 id="_6">阅读推荐</h2>
+<ul>
+<li>从0到1：CTFer成长之路 -- 书籍题目已经在 i春秋 上线，可以边学习边练手</li>
+<li>CTF特训营:技术详解、解题方法与竞赛技巧 -- 由国内老牌CTF战队FlappyPig撰写，值得阅读学习</li>
+<li>2021 CVVD首届车联网漏洞挖掘赛线下赛Write-Up</li>
+</ul>
+<h2 id="ctf_7">CTF常用技巧</h2>
+<p>熟能生巧，想要快速在比赛中拿到first blood的，熟练的基本操作必不可少。具体可以参考<a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></p>
+<h2 id="_7">开源推荐</h2>
+<ul>
+<li>CTF Wiki</li>
+<li>ctf-challenges</li>
+<li>CTF Tools</li>
+</ul></div></article><nav class="pager"><a class="pg prev" href="../nmap/"><span>上一篇</span><b>Nmap</b></a><a class="pg next" href="../env-config/"><span>下一篇</span><b>测试环境搭建</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

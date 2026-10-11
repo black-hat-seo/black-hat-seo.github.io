@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps学习指南 | 烟雨黑帽</title>
+<meta name="description" content="这个词其实行业内并没有公认度很高的中文翻译，故行业内都是用的DevOps这个英文组合词。 DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。 阅读推荐 凤凰计划 …">
+<meta name="keywords" content="DevOps学习指南, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="TesterCC">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="DevOps学习指南">
+<meta property="og:description" content="这个词其实行业内并没有公认度很高的中文翻译，故行业内都是用的DevOps这个英文组合词。 DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。 阅读推荐 凤凰计划 …">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DevOps学习指南">
+<meta name="twitter:description" content="这个词其实行业内并没有公认度很高的中文翻译，故行业内都是用的DevOps这个英文组合词。 DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。 阅读推荐 凤凰计划 …">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "DevOps学习指南"}]}, {"@type": "TechArticle", "headline": "DevOps学习指南", "description": "这个词其实行业内并没有公认度很高的中文翻译，故行业内都是用的DevOps这个英文组合词。 DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。 阅读推荐 凤凰计划 …", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1 active"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>DevOps学习指南</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>DevOps学习指南</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">阅读推荐</a>
+</li>
+<li><a href="#_2">查看本机进程及端口开发和连接情况</a>
+</li>
+<li><a href="#_3">系统日志删除</a>
+<ul>
+<li><a href="#docker">docker日志清理脚本</a>
+</li>
+<li><a href="#linux">Linux下清除系统日志方法</a>
+<ul>
+<li><a href="#_4">错误方法(不能用)</a>
+</li>
+<li><a href="#_5">正确方法</a>
+</li>
+</ul>
+</li>
+<li><a href="#ubuntu-1604">ubuntu 16.04 系统日志清理</a>
+</li>
+</ul>
+</li>
+<li><a href="#linux_1">Linux常用命令</a>
+<ul>
+<li><a href="#shell">shell</a>
+</li>
+<li><a href="#linux_2">Linux修改文件所有者和文件所在组</a>
+</li>
+<li><a href="#awk">awk</a>
+</li>
+<li><a href="#agawk">ag:比awk更好用的搜索工具</a>
+</li>
+</ul>
+</li>
+<li><a href="#killpid">命令行一次kill多个pid</a>
+</li>
+<li><a href="#find">find命令查找包含指定内容的文件</a>
+</li>
+<li><a href="#sslhttps">本机ssl创建https证书</a>
+</li>
+<li><a href="#ip">轻量级搞事IP应对策略</a>
+</li>
+<li><a href="#cicd">CI/CD框架选型</a>
+</li>
+<li><a href="#linux_3">Linux的命令常见问题</a>
+<ul>
+<li><a href="#1lessmore">1.less和more命令的区别</a>
+</li>
+</ul>
+</li>
+<li><a href="#_6">其它问题</a>
+<ul>
+<li><a href="#u">终端实用命令行找回U盘隐藏空间</a>
+<ul>
+<li><a href="#mac-os">Mac OS</a>
+</li>
+<li><a href="#windows">Windows</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body">
+<p>这个词其实行业内并没有公认度很高的中文翻译，故行业内都是用的DevOps这个英文组合词。</p>
+<ul>
+<li>DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。</li>
+</ul>
+<p><center>
+<img alt="quiz" src="../images/6337f0fc0e803dae.png" />
+</center></p>
+<h2 id="_1">阅读推荐</h2>
+<ul>
+<li><code>凤凰计划</code> - 作者是Gene Kim,Kevin Behr,George Spafford，小说体，其中提出的许多内容构成了DevOps的基础概念.</li>
+<li><code>DevOps实践指南</code> - 上面那本的姐妹篇，侧重讲解DevOps要解决的问题和解决问题的的基本步骤。</li>
+</ul>
+<h2 id="_2">查看本机进程及端口开发和连接情况</h2>
+<pre><code>Windows: 
+netstat -ano
+
+Linux: 
+netstat -anltup
+
+MacOS:
+# filter tcp connection
+netstat -anl -ptcp   
+</code></pre>
+<h2 id="_3">系统日志删除</h2>
+<h3 id="docker">docker日志清理脚本</h3>
+<p>1.shell script, script name "clear_all_docker_log.sh"</p>
+<pre><code class="language-shell">#!/bin/sh
+echo &quot;======== start clean docker containers logs ========&quot;
+logs=$(find /var/lib/docker/containers/ -name *-json.log)
+for log in $logs
+        do
+                echo &quot;clean logs : $log&quot;
+                cat /dev/null &gt; $log
+        done
+echo &quot;======== end clean docker containers logs ========&quot;
+</code></pre>
+<p>2.deploy</p>
+<pre><code>crontab -e
+
+# auto clear docker json log
+0 9  * * * /data/tools/clear_all_docker_log.sh &gt; /data/tools/clear_all_docker.log 2&gt;&amp;1
+
+wq!
+</code></pre>
+<h3 id="linux">Linux下清除系统日志方法</h3>
+<h4 id="_4">错误方法(不能用)</h4>
+<pre><code>rm -f xxx.log
+</code></pre>
+<p>原因</p>
+<pre><code>因为应用已经打开文件句柄，直接删除会造成：
+
+1.应用无法正确释放日志文件和写入
+
+2.显示磁盘空间未释放
+</code></pre>
+<p>补救措施</p>
+<pre><code>ps -ef | grep deleted
+
+查看并释放相关资源
+</code></pre>
+<h4 id="_5">正确方法</h4>
+<pre><code>echo &quot;&quot; &gt; /var/log/xxx.log  # 第一种方法
+
+cat  /dev/null &gt;  /var/log/xxx.log  #第二种方法   本人习惯用这个
+</code></pre>
+<h3 id="ubuntu-1604">ubuntu 16.04 系统日志清理</h3>
+<p>1.shell script  auto_clear_sys_log.sh</p>
+<pre><code>#!/bin/sh
+
+t=$(date)
+echo $t
+
+echo &quot;======== start clean linux sys logs ========&quot;
+
+sudo apt-get clean
+
+logs=$(find /var/log -name &quot;btmp*&quot;)
+for log in $logs
+        do
+                echo &quot;clean logs 1: $log&quot;
+                cat /dev/null &gt; $log
+        done
+
+logs=$(find /var/log -name &quot;auth*&quot;)
+for log in $logs
+        do
+                echo &quot;clean logs 2: $log&quot;
+                cat /dev/null &gt; $log
+        done
+
+echo &quot;======== end clean linux sys logs ========&quot;
+</code></pre>
+<p>2.deploy</p>
+<pre><code># clear root dir sys log
+0 0 0 */3 * echo &quot;rootpassword&quot;|sudo -S /data/tools/auto_clear_sys_log.sh &gt;&gt; /data/tools/auto_clear_sys_log.log 2&gt;&amp;1
+</code></pre>
+<h2 id="linux_1">Linux常用命令</h2>
+<h3 id="shell">shell</h3>
+<pre><code class="language-shell">wc -l #统计行数
+
+uniq -c #在输出行前面加上每行在输入文件里出现的次数
+
+uniq -u #仅显示不反复的行
+
+sort -nr
+-n：按照数值的大小排序
+-r：以相反的顺序来排序
+-k：按照哪一列进行排序
+
+head -3 #取前三名
+</code></pre>
+<h3 id="linux_2">Linux修改文件所有者和文件所在组</h3>
+<pre><code>chgrp   用户名  文件名  -R
+
+chown   用户名  文件名  -R
+
+-R表示递归目录下所有文件
+
+chown [-R] 账号名称      文件/目录
+chown [-R] 账号名称:组群  文件/目录
+</code></pre>
+<h3 id="awk">awk</h3>
+<p>awk使用和详解</p>
+<h3 id="agawk">ag:比awk更好用的搜索工具</h3>
+<p>搜索工具：the_silver_searcher，安装好后用命令 ag 使用
+***.com</p>
+<p>使用方法：</p>
+<pre><code class="language-shell">ag pattern    # 这里是正则匹配
+
+ag -Q .proto     # -Q 搜索字面值
+
+ag -G py$ import   # 搜索以py结尾的文件中包含import字符的内容
+
+ag -w proto     # -w 全词匹配，不然可能匹配protobuf这类结果
+
+ag --python import  # 搜索以py结尾的文件中包含import字符的内容
+
+ag --python import | grep time   # ag 配合 grep 使用
+</code></pre>
+<p>注意只要待搜索字符串包含大写字母，ag就会大小写敏感。</p>
+<h2 id="killpid">命令行一次kill多个pid</h2>
+<pre><code class="language-shell">
+打印包含'sign_v1'，且不含有关键字&quot;grep&quot;的进程的pid
+ps aux | grep sign_v1 | grep -v grep | awk '{print $2}'
+ps -ef | grep sign_v1 | grep -v grep | awk '{print $2}'
+
+批量删除包含'sign_v1'的进程，不含有关键字&quot;grep&quot;的进程
+ps aux | grep sign_v1 | grep -v grep | awk '{print $2}' | xargs kill -9
+ps -ef | grep sign_v1 | grep -v grep | awk '{print $2}' | xargs kill -9
+</code></pre>
+<h2 id="find">find命令查找包含指定内容的文件</h2>
+<p>查找系统当前目录下面的所有文件的内容中包含有<code>csv</code>字符串的文件列表。</p>
+<pre><code class="language-bash"># find ./ | xargs grep csv
+
+grep: ./: Is a directory
+grep: ./api: Is a directory
+./api/api_ca.py:        if format == 'csv':
+./api/api_ca.py:        if format == 'csv':
+</code></pre>
+<h2 id="sslhttps">本机ssl创建https证书</h2>
+<pre><code class="language-shell"># step 1
+# 生成根密钥，访问密码 XXXXXX (自己定义)
+
+openssl genrsa -des3 -out root.key 2048
+
+# 创建根证书申请文件root.csr
+openssl req -new -key root.key -out root.csr
+
+# 创建根证书root.crt
+openssl x509 -req -days 3650 -sha1 -extensions v3_ca -signkey root.key -in root.csr -out root.crt
+
+======================================================================================================================
+# step 2:
+
+# 创建服务器证书密钥 tmp.key
+openssl genrsa -out tmp.key 2048
+
+# 创建服务器证书的申请文件tmp.csr
+openssl req -new -key tmp.key -out tmp.csr
+
+# 创建服务器证书tmp.crt
+openssl x509 -req -days 3650 -sha1 -extensions v3_req -CA root.crt -CAkey root.key -CAserial root.srl -CAcreateserial -in tmp.csr -out tmp.crt
+
+# step 3:
+可以将 tmp.crt 和 tmp.key 复制到指定目录，供Nginx使用
+</code></pre>
+<h2 id="ip">轻量级搞事IP应对策略</h2>
+<pre><code>未待完续
+</code></pre>
+<h2 id="cicd">CI/CD框架选型</h2>
+<p>jenkins+sonarqube+docker+artifactory</p>
+<h2 id="linux_3">Linux的命令常见问题</h2>
+<h3 id="1lessmore">1.less和more命令的区别</h3>
+<pre><code>1.操作 more不可以回去,就是不可以向前,只能向后,况且只能使用Enter和Space向后翻动。 less使用vim中的j,k键盘可以上下翻动,还可以使用上下箭头。
+2.速度 less不必读整个文件,加载速度会比more更快。
+3.内容 less退出后shell不会留下刚显示的内容,而more退出后会在shell上留下刚显示的内容
+</code></pre>
+<h2 id="_6">其它问题</h2>
+<h3 id="u">终端实用命令行找回U盘隐藏空间</h3>
+<p>一般U盘制作系统盘后，总有很多空闲分区无法识别。</p>
+<p>而且U盘系统安装盘用完后，如果不需长期留用，自然是想恢复为普通U盘以便日常使用的。</p>
+<p>下面就记录下windows和mac os下通过终端恢复U盘隐藏空间的操作。</p>
+<h4 id="mac-os">Mac OS</h4>
+<pre><code>diskutil list    # 查看盘符列表，根据显示内容找到你要格式化的U盘
+
+# 这里假设：disk4是我们的U盘
+
+# 卸载该 U 盘挂载的所有分区/卷组
+diskutil unmountDisk /dev/disk4    # 卸载分区disk4
+提示：Unmount of all volumes on disk4 was successful
+
+# 对U盘进行擦除并格式化为 ExFAT 格式
+
+diskutil eraseDisk ExFAT udisk disk4
+
+# ExFAT 为 macOS 的扩展日志格式，你也可以格式为JHFS+等格式。
+
+# udisk为你格式化后的U盘名称，disk4 为目标物理磁盘。
+
+当执行完后有如下提示，说明操作成功。
+
+Mounting disk
+Finished erase on disk4
+</code></pre>
+<p>实测MacOS下处理其实还更方便一些，ExFAT格式在Windows和Mac下通用，推荐这个。</p>
+<h4 id="windows">Windows</h4>
+<p>流程大致上和Mac类似，区别是使用的命令和软件不同。</p>
+<pre><code>Win键+R调出运行，输入cmd，打开cmd窗口。
+
+diskpart
+
+diskpart&gt; list disk
+记住你要选择的U盘的编号，这里假定为disk 4
+
+diskpart&gt; select disk 4
+选择U盘编号，不放心的话选择后可以再执行一次list disk，会看到物理磁盘4前面有*，表示其已被选中
+
+diskpart&gt; clean
+执行后，U盘已清空为未格式化状态。但是这样还没有结束，需要重新为U盘分区，否则U盘无法使用。
+
+重新分区有两种方式，一种是命令行分区，一种是通过计算机管理给U盘分区。这里选择方便的命令行方式。
+
+在保持选中disk 4的基础上，创建卷
+diskpart&gt; create partition primary  
+
+diskpart&gt; list partition
+查看创建的卷
+
+diskpart&gt; select partition 1
+选中新建分区，不放心的可以执行 list partition 检查，分区前面有*，表示其已被选中
+
+diskpart&gt; format quick
+完成快速格式化
+
+如果这样格式化的U盘格式不是你想要的，可以在电脑上重新执行格式格式化一下。
+</code></pre></div></article><nav class="pager"><a class="pg prev" href="../cookie-pool/"><span>上一篇</span><b>Cookie池设计</b></a><a class="pg next" href="../docker/"><span>下一篇</span><b>Docker</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

