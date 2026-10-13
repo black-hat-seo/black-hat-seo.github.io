@@ -8,11 +8,13 @@
 <meta name="keywords" content="Middleware Parsing Vulnerabilities, 中间件解析漏洞, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/middleware-parsing-vulnerabilities/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Middleware Parsing Vulnerabilities">
 <meta property="og:description" content="[TOC] web中间件解析漏洞 常见的web中间为IIS,NGING,APACHE三个 一、IIS5.x 6.x解析漏洞： 使用iis5.x 6.x版本的服务器，大多为windows server 2003，网站比较古老，开发语句一般为asp；该解析漏洞也只能解析asp文件，而不能解析aspx文件。 …">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/middleware-parsing-vulnerabilities/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Middleware Parsing Vulnerabilities">
 <meta name="twitter:description" content="[TOC] web中间件解析漏洞 常见的web中间为IIS,NGING,APACHE三个 一、IIS5.x 6.x解析漏洞： 使用iis5.x 6.x版本的服务器，大多为windows server 2003，网站比较古老，开发语句一般为asp；该解析漏洞也只能解析asp文件，而不能解析aspx文件。 …">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "中间件解析漏洞"}]}, {"@type": "TechArticle", "headline": "Middleware Parsing Vulnerabilities", "alternativeHeadline": "中间件解析漏洞", "description": "[TOC] web中间件解析漏洞 常见的web中间为IIS,NGING,APACHE三个 一、IIS5.x 6.x解析漏洞： 使用iis5.x 6.x版本的服务器，大多为windows server 2003，网站比较古老，开发语句一般为asp；该解析漏洞也只能解析asp文件，而不能解析aspx文件。 …", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "web中间件漏洞", "item": "https://black-hat-seo.github.io/web-middleware-vulnerabilities/"}, {"@type": "ListItem", "position": 3, "name": "中间件解析漏洞"}]}, {"@type": "TechArticle", "headline": "Middleware Parsing Vulnerabilities", "alternativeHeadline": "中间件解析漏洞", "description": "[TOC] web中间件解析漏洞 常见的web中间为IIS,NGING,APACHE三个 一、IIS5.x 6.x解析漏洞： 使用iis5.x 6.x版本的服务器，大多为windows server 2003，网站比较古老，开发语句一般为asp；该解析漏洞也只能解析asp文件，而不能解析aspx文件。 …", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>中间件解析漏洞</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>中间件解析漏洞</h1><p class="cn-title">Middleware Parsing Vulnerabilities</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../web-middleware-vulnerabilities/">web中间件漏洞</a></li><li><span aria-current="page">中间件解析漏洞</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>中间件解析漏洞</h1><p class="cn-title">Middleware Parsing Vulnerabilities</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#web">web中间件解析漏洞</a><ul>
 <li><a href="#iis5x-6x">一、IIS5.x-6.x解析漏洞：</a><ul>

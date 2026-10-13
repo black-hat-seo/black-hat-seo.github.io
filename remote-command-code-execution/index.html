@@ -8,11 +8,13 @@
 <meta name="keywords" content="Remote Command and Code Execution, 远程命令和代码执行漏洞, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/remote-command-code-execution/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Remote Command and Code Execution">
 <meta property="og:description" content="远程命令/代码执行漏洞 一、远程命令执行原理： 很多应用系统从设计上需要给用户提供指定的远程命令操作的接口 比如很多网络设备的web管理界面上一般会有一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而如果设计者在完成该功能时，…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/remote-command-code-execution/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Remote Command and Code Execution">
 <meta name="twitter:description" content="远程命令/代码执行漏洞 一、远程命令执行原理： 很多应用系统从设计上需要给用户提供指定的远程命令操作的接口 比如很多网络设备的web管理界面上一般会有一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而如果设计者在完成该功能时，…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "远程命令和代码执行漏洞"}]}, {"@type": "TechArticle", "headline": "Remote Command and Code Execution", "alternativeHeadline": "远程命令和代码执行漏洞", "description": "远程命令/代码执行漏洞 一、远程命令执行原理： 很多应用系统从设计上需要给用户提供指定的远程命令操作的接口 比如很多网络设备的web管理界面上一般会有一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而如果设计者在完成该功能时，…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "远程命令执行与反序列化", "item": "https://black-hat-seo.github.io/rce-and-deserialization/"}, {"@type": "ListItem", "position": 3, "name": "远程命令和代码执行漏洞"}]}, {"@type": "TechArticle", "headline": "Remote Command and Code Execution", "alternativeHeadline": "远程命令和代码执行漏洞", "description": "远程命令/代码执行漏洞 一、远程命令执行原理： 很多应用系统从设计上需要给用户提供指定的远程命令操作的接口 比如很多网络设备的web管理界面上一般会有一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而如果设计者在完成该功能时，…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>远程命令和代码执行漏洞</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>远程命令和代码执行漏洞</h1><p class="cn-title">Remote Command and Code Execution</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../rce-and-deserialization/">远程命令执行与反序列化</a></li><li><span aria-current="page">远程命令和代码执行漏洞</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>远程命令和代码执行漏洞</h1><p class="cn-title">Remote Command and Code Execution</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#_1">远程命令/代码执行漏洞</a><ul>
 <li><a href="#_2">一、远程命令执行原理：</a></li>

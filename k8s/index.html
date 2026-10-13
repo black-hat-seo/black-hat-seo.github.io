@@ -8,11 +8,13 @@
 <meta name="keywords" content="Kubernetes, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="TesterCC">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/k8s/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Kubernetes">
 <meta property="og:description" content="什么是 Kubernetes? Kubernetes是谷歌开源的容器集群管理系统 可以简化应用程序的工作流，加快开发速度 为什么需要K8S? 真正的生产型应用会涉及多个容器 容器必须跨多个服务器主机进行部署 借助K8S构建跨多个容器的应用服务、跨集群调度、扩展这些容器 K8S的应用 跨多台主机进行容…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/k8s/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kubernetes">
 <meta name="twitter:description" content="什么是 Kubernetes? Kubernetes是谷歌开源的容器集群管理系统 可以简化应用程序的工作流，加快开发速度 为什么需要K8S? 真正的生产型应用会涉及多个容器 容器必须跨多个服务器主机进行部署 借助K8S构建跨多个容器的应用服务、跨集群调度、扩展这些容器 K8S的应用 跨多台主机进行容…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Kubernetes"}]}, {"@type": "TechArticle", "headline": "Kubernetes", "description": "什么是 Kubernetes? Kubernetes是谷歌开源的容器集群管理系统 可以简化应用程序的工作流，加快开发速度 为什么需要K8S? 真正的生产型应用会涉及多个容器 容器必须跨多个服务器主机进行部署 借助K8S构建跨多个容器的应用服务、跨集群调度、扩展这些容器 K8S的应用 跨多台主机进行容…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Kubernetes"}]}, {"@type": "TechArticle", "headline": "Kubernetes", "description": "什么是 Kubernetes? Kubernetes是谷歌开源的容器集群管理系统 可以简化应用程序的工作流，加快开发速度 为什么需要K8S? 真正的生产型应用会涉及多个容器 容器必须跨多个服务器主机进行部署 借助K8S构建跨多个容器的应用服务、跨集群调度、扩展这些容器 K8S的应用 跨多台主机进行容…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Kubernetes</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Kubernetes</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><span aria-current="page">Kubernetes</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Kubernetes</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#kubernetes">什么是 Kubernetes?</a>
 </li>

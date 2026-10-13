@@ -8,11 +8,13 @@
 <meta name="keywords" content="Reverse Shell, 反弹Shell, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="TesterCC">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/reverse-shell/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Reverse Shell">
 <meta property="og:description" content="什么是反弹shell reverse shell，一般称为反弹shell，实际应该成为 反向shell ，是指被控制的机器作为client主动连接到控制端的server，然后控制端的server就可以对被控端的client进行操作了。 就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/reverse-shell/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Reverse Shell">
 <meta name="twitter:description" content="什么是反弹shell reverse shell，一般称为反弹shell，实际应该成为 反向shell ，是指被控制的机器作为client主动连接到控制端的server，然后控制端的server就可以对被控端的client进行操作了。 就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "反弹Shell"}]}, {"@type": "TechArticle", "headline": "Reverse Shell", "description": "什么是反弹shell reverse shell，一般称为反弹shell，实际应该成为 反向shell ，是指被控制的机器作为client主动连接到控制端的server，然后控制端的server就可以对被控端的client进行操作了。 就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11", "alternativeHeadline": "反弹Shell"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "反弹Shell"}]}, {"@type": "TechArticle", "headline": "Reverse Shell", "description": "什么是反弹shell reverse shell，一般称为反弹shell，实际应该成为 反向shell ，是指被控制的机器作为client主动连接到控制端的server，然后控制端的server就可以对被控端的client进行操作了。 就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11", "alternativeHeadline": "反弹Shell"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>反弹Shell</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>反弹Shell</h1><p class="cn-title">Reverse Shell</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><span aria-current="page">反弹Shell</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>反弹Shell</h1><p class="cn-title">Reverse Shell</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#shell">什么是反弹shell</a>
 </li>

@@ -8,11 +8,13 @@
 <meta name="keywords" content="SQL Injection Steps, sql注入步骤, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/sql-injection-steps/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="SQL Injection Steps">
 <meta property="og:description" content="sql注入的准备工作 1. 确定 Web 应用程序所使用的技术 可以考察 Web 页面的页脚，查看错误页面，检查页面源代码，或者使用诸如 Nessus、AWVS、 APPSCAN 等工具来进行刺探。 2. 确定所有可能的输入方式 Web 应用的用户输入方式比较多，其中一些用户输入方式是很明显的，如 HT…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/sql-injection-steps/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SQL Injection Steps">
 <meta name="twitter:description" content="sql注入的准备工作 1. 确定 Web 应用程序所使用的技术 可以考察 Web 页面的页脚，查看错误页面，检查页面源代码，或者使用诸如 Nessus、AWVS、 APPSCAN 等工具来进行刺探。 2. 确定所有可能的输入方式 Web 应用的用户输入方式比较多，其中一些用户输入方式是很明显的，如 HT…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "sql注入步骤"}]}, {"@type": "TechArticle", "headline": "SQL Injection Steps", "alternativeHeadline": "sql注入步骤", "description": "sql注入的准备工作 1. 确定 Web 应用程序所使用的技术 可以考察 Web 页面的页脚，查看错误页面，检查页面源代码，或者使用诸如 Nessus、AWVS、 APPSCAN 等工具来进行刺探。 2. 确定所有可能的输入方式 Web 应用的用户输入方式比较多，其中一些用户输入方式是很明显的，如 HT…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "SQL注入", "item": "https://black-hat-seo.github.io/sql-injection/"}, {"@type": "ListItem", "position": 3, "name": "sql注入步骤"}]}, {"@type": "TechArticle", "headline": "SQL Injection Steps", "alternativeHeadline": "sql注入步骤", "description": "sql注入的准备工作 1. 确定 Web 应用程序所使用的技术 可以考察 Web 页面的页脚，查看错误页面，检查页面源代码，或者使用诸如 Nessus、AWVS、 APPSCAN 等工具来进行刺探。 2. 确定所有可能的输入方式 Web 应用的用户输入方式比较多，其中一些用户输入方式是很明显的，如 HT…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>sql注入步骤</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>sql注入步骤</h1><p class="cn-title">SQL Injection Steps</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../sql-injection/">SQL注入</a></li><li><span aria-current="page">sql注入步骤</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>sql注入步骤</h1><p class="cn-title">SQL Injection Steps</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#sql">sql注入的准备工作</a></li>
 <li><a href="#sql_1">手工检测 SQL 注入点</a></li>

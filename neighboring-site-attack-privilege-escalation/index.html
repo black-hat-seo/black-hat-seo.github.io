@@ -8,11 +8,13 @@
 <meta name="keywords" content="Neighboring Site Attack and Horizontal Privilege Escalation, 旁注和越权, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/neighboring-site-attack-privilege-escalation/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Neighboring Site Attack and Horizontal Privilege Escalation">
 <meta property="og:description" content="旁注、目录越权 旁注 在进行web站点架设的时候，很多时候由于成本等方面的原因，会在一个服务器上架设多个web站点，然后通过域名及端口对网站进行区分，使得可以通过不同域名访问到不同的web站点。 在对需要渗透的主域名无法完成的情况下，通过渗透同一个服务器的其他站点，拿到webshell或服务器权限，然后…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/neighboring-site-attack-privilege-escalation/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Neighboring Site Attack and Horizontal Privilege Escalation">
 <meta name="twitter:description" content="旁注、目录越权 旁注 在进行web站点架设的时候，很多时候由于成本等方面的原因，会在一个服务器上架设多个web站点，然后通过域名及端口对网站进行区分，使得可以通过不同域名访问到不同的web站点。 在对需要渗透的主域名无法完成的情况下，通过渗透同一个服务器的其他站点，拿到webshell或服务器权限，然后…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "旁注和越权"}]}, {"@type": "TechArticle", "headline": "Neighboring Site Attack and Horizontal Privilege Escalation", "alternativeHeadline": "旁注和越权", "description": "旁注、目录越权 旁注 在进行web站点架设的时候，很多时候由于成本等方面的原因，会在一个服务器上架设多个web站点，然后通过域名及端口对网站进行区分，使得可以通过不同域名访问到不同的web站点。 在对需要渗透的主域名无法完成的情况下，通过渗透同一个服务器的其他站点，拿到webshell或服务器权限，然后…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "WEB具体步骤", "item": "https://black-hat-seo.github.io/web-penetration-testing-steps/"}, {"@type": "ListItem", "position": 3, "name": "旁注和越权"}]}, {"@type": "TechArticle", "headline": "Neighboring Site Attack and Horizontal Privilege Escalation", "alternativeHeadline": "旁注和越权", "description": "旁注、目录越权 旁注 在进行web站点架设的时候，很多时候由于成本等方面的原因，会在一个服务器上架设多个web站点，然后通过域名及端口对网站进行区分，使得可以通过不同域名访问到不同的web站点。 在对需要渗透的主域名无法完成的情况下，通过渗透同一个服务器的其他站点，拿到webshell或服务器权限，然后…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>旁注和越权</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>旁注和越权</h1><p class="cn-title">Neighboring Site Attack and Horizontal Privilege Escalation</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../web-penetration-testing-steps/">WEB具体步骤</a></li><li><span aria-current="page">旁注和越权</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>旁注和越权</h1><p class="cn-title">Neighboring Site Attack and Horizontal Privilege Escalation</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#_1">旁注、目录越权</a><ul>
 <li><a href="#_2">旁注</a><ul>

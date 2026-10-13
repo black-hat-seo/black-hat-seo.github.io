@@ -8,11 +8,13 @@
 <meta name="keywords" content="MySQL Database Injection, MYSQL数据库注入, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/mysql-database-injection/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="MySQL Database Injection">
 <meta property="og:description" content="进行快照抓取，包括脚本出错页面，因此可利用搜索引擎查找网站的出错信息，从而获得网站的物理路径。可在 Google 或 百度 中搜索 “ mysql site: .com”或“warning site: .com,error site: .com.cn”等。这里使用“error site: .com”关键…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/mysql-database-injection/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MySQL Database Injection">
 <meta name="twitter:description" content="进行快照抓取，包括脚本出错页面，因此可利用搜索引擎查找网站的出错信息，从而获得网站的物理路径。可在 Google 或 百度 中搜索 “ mysql site: .com”或“warning site: .com,error site: .com.cn”等。这里使用“error site: .com”关键…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "MYSQL数据库注入"}]}, {"@type": "TechArticle", "headline": "MySQL Database Injection", "alternativeHeadline": "MYSQL数据库注入", "description": "进行快照抓取，包括脚本出错页面，因此可利用搜索引擎查找网站的出错信息，从而获得网站的物理路径。可在 Google 或 百度 中搜索 “ mysql site: .com”或“warning site: .com,error site: .com.cn”等。这里使用“error site: .com”关键…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "SQL注入", "item": "https://black-hat-seo.github.io/sql-injection/"}, {"@type": "ListItem", "position": 3, "name": "MYSQL数据库注入"}]}, {"@type": "TechArticle", "headline": "MySQL Database Injection", "alternativeHeadline": "MYSQL数据库注入", "description": "进行快照抓取，包括脚本出错页面，因此可利用搜索引擎查找网站的出错信息，从而获得网站的物理路径。可在 Google 或 百度 中搜索 “ mysql site: .com”或“warning site: .com,error site: .com.cn”等。这里使用“error site: .com”关键…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>MYSQL数据库注入</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>MYSQL数据库注入</h1><p class="cn-title">MySQL Database Injection</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../sql-injection/">SQL注入</a></li><li><span aria-current="page">MYSQL数据库注入</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>MYSQL数据库注入</h1><p class="cn-title">MySQL Database Injection</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#load_file">通过load_file函数读取文件内容</a></li>
 <li><a href="#webshell">写webshell</a></li>
