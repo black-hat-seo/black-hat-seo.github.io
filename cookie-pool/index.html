@@ -8,11 +8,13 @@
 <meta name="keywords" content="Cookie池设计, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="TesterCC">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/cookie-pool/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Cookie池设计">
 <meta property="og:description" content="爬虫开发笔记之cookies池系统设计 开发爬虫时，我们总希望目标网站反爬策略不足，一气呵成写好爬虫代码并部署运行，然而“理想很丰满，现实很骨感”，在爬虫大行其道的今日，稍微优质一点的信息类网站一般都会采取一定程度的反爬措施。不然小公司的服务器哪里扛得住各路爬虫orz.....不过，对于爬虫开发者来…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/cookie-pool/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cookie池设计">
 <meta name="twitter:description" content="爬虫开发笔记之cookies池系统设计 开发爬虫时，我们总希望目标网站反爬策略不足，一气呵成写好爬虫代码并部署运行，然而“理想很丰满，现实很骨感”，在爬虫大行其道的今日，稍微优质一点的信息类网站一般都会采取一定程度的反爬措施。不然小公司的服务器哪里扛得住各路爬虫orz.....不过，对于爬虫开发者来…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "Cookie池设计"}]}, {"@type": "TechArticle", "headline": "Cookie池设计", "description": "爬虫开发笔记之cookies池系统设计 开发爬虫时，我们总希望目标网站反爬策略不足，一气呵成写好爬虫代码并部署运行，然而“理想很丰满，现实很骨感”，在爬虫大行其道的今日，稍微优质一点的信息类网站一般都会采取一定程度的反爬措施。不然小公司的服务器哪里扛得住各路爬虫orz.....不过，对于爬虫开发者来…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Cookie池设计"}]}, {"@type": "TechArticle", "headline": "Cookie池设计", "description": "爬虫开发笔记之cookies池系统设计 开发爬虫时，我们总希望目标网站反爬策略不足，一气呵成写好爬虫代码并部署运行，然而“理想很丰满，现实很骨感”，在爬虫大行其道的今日，稍微优质一点的信息类网站一般都会采取一定程度的反爬措施。不然小公司的服务器哪里扛得住各路爬虫orz.....不过，对于爬虫开发者来…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "TesterCC"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>Cookie池设计</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Cookie池设计</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><span aria-current="page">Cookie池设计</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>Cookie池设计</h1><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#cookies">爬虫开发笔记之cookies池系统设计</a>
 <ul>

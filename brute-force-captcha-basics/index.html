@@ -8,11 +8,13 @@
 <meta name="keywords" content="Brute Force and CAPTCHA Basics, 爆破与验证码原理, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/brute-force-captcha-basics/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Brute Force and CAPTCHA Basics">
 <meta property="og:description" content="[TOC] 暴力破解 暴力猜解简单来说就是将密码进行逐个推算，直到找出真正的密码为止 1、暴力破解注意事项： 1. 破解前一定要有一个有效的字典； 2. 判断用户账号和网站情况 是否设置了复杂的密码、网站是否存在验证码、尝试登录的行为是否有限制、网站是否双因素认证、Token值等等。 有些公司内网服务的…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/brute-force-captcha-basics/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Brute Force and CAPTCHA Basics">
 <meta name="twitter:description" content="[TOC] 暴力破解 暴力猜解简单来说就是将密码进行逐个推算，直到找出真正的密码为止 1、暴力破解注意事项： 1. 破解前一定要有一个有效的字典； 2. 判断用户账号和网站情况 是否设置了复杂的密码、网站是否存在验证码、尝试登录的行为是否有限制、网站是否双因素认证、Token值等等。 有些公司内网服务的…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "爆破与验证码原理"}]}, {"@type": "TechArticle", "headline": "Brute Force and CAPTCHA Basics", "alternativeHeadline": "爆破与验证码原理", "description": "[TOC] 暴力破解 暴力猜解简单来说就是将密码进行逐个推算，直到找出真正的密码为止 1、暴力破解注意事项： 1. 破解前一定要有一个有效的字典； 2. 判断用户账号和网站情况 是否设置了复杂的密码、网站是否存在验证码、尝试登录的行为是否有限制、网站是否双因素认证、Token值等等。 有些公司内网服务的…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "验证码与暴力破解", "item": "https://black-hat-seo.github.io/captcha-and-brute-force/"}, {"@type": "ListItem", "position": 3, "name": "爆破与验证码原理"}]}, {"@type": "TechArticle", "headline": "Brute Force and CAPTCHA Basics", "alternativeHeadline": "爆破与验证码原理", "description": "[TOC] 暴力破解 暴力猜解简单来说就是将密码进行逐个推算，直到找出真正的密码为止 1、暴力破解注意事项： 1. 破解前一定要有一个有效的字典； 2. 判断用户账号和网站情况 是否设置了复杂的密码、网站是否存在验证码、尝试登录的行为是否有限制、网站是否双因素认证、Token值等等。 有些公司内网服务的…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>爆破与验证码原理</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>爆破与验证码原理</h1><p class="cn-title">Brute Force and CAPTCHA Basics</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../captcha-and-brute-force/">验证码与暴力破解</a></li><li><span aria-current="page">爆破与验证码原理</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>爆破与验证码原理</h1><p class="cn-title">Brute Force and CAPTCHA Basics</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#_1">暴力破解</a><ul>
 <li><a href="#1">1、暴力破解注意事项：</a></li>

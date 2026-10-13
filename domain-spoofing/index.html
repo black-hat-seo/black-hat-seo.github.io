@@ -8,11 +8,13 @@
 <meta name="keywords" content="Domain Spoofing, 域名欺骗, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/domain-spoofing/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="Domain Spoofing">
 <meta property="og:description" content="钓鱼域名试验： 在邮件钓鱼的过程中，邮件中不免会插入url让受害者点击，但是和真是网站差距太大的域名，很容易引起怀疑，可以采用的方法： 1. 用超链接,把元素内容改成想要仿冒的域名，在邮箱页面上，就会直接显示元素的内容，而不显示url域名 2. 可以使用一些与目标相似的域名。比如用0代替o，用1代替l，…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/domain-spoofing/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Domain Spoofing">
 <meta name="twitter:description" content="钓鱼域名试验： 在邮件钓鱼的过程中，邮件中不免会插入url让受害者点击，但是和真是网站差距太大的域名，很容易引起怀疑，可以采用的方法： 1. 用超链接,把元素内容改成想要仿冒的域名，在邮箱页面上，就会直接显示元素的内容，而不显示url域名 2. 可以使用一些与目标相似的域名。比如用0代替o，用1代替l，…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "域名欺骗"}]}, {"@type": "TechArticle", "headline": "Domain Spoofing", "alternativeHeadline": "域名欺骗", "description": "钓鱼域名试验： 在邮件钓鱼的过程中，邮件中不免会插入url让受害者点击，但是和真是网站差距太大的域名，很容易引起怀疑，可以采用的方法： 1. 用超链接,把元素内容改成想要仿冒的域名，在邮箱页面上，就会直接显示元素的内容，而不显示url域名 2. 可以使用一些与目标相似的域名。比如用0代替o，用1代替l，…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "社工、钓鱼、apt", "item": "https://black-hat-seo.github.io/social-engineering-phishing-apt/"}, {"@type": "ListItem", "position": 3, "name": "域名欺骗"}]}, {"@type": "TechArticle", "headline": "Domain Spoofing", "alternativeHeadline": "域名欺骗", "description": "钓鱼域名试验： 在邮件钓鱼的过程中，邮件中不免会插入url让受害者点击，但是和真是网站差距太大的域名，很容易引起怀疑，可以采用的方法： 1. 用超链接,把元素内容改成想要仿冒的域名，在邮箱页面上，就会直接显示元素的内容，而不显示url域名 2. 可以使用一些与目标相似的域名。比如用0代替o，用1代替l，…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>域名欺骗</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>域名欺骗</h1><p class="cn-title">Domain Spoofing</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../social-engineering-phishing-apt/">社工、钓鱼、apt</a></li><li><span aria-current="page">域名欺骗</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>域名欺骗</h1><p class="cn-title">Domain Spoofing</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#_1">钓鱼域名试验：</a><ul>
 <li><a href="#idn">什么是IDN？</a></li>

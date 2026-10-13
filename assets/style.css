@@ -251,14 +251,31 @@ img { max-width: 100%; height: auto; }
 .article { max-width: var(--maxw); margin: 0 auto; }
 
 .crumbs {
-  display: flex;
-  gap: 8px;
-  align-items: center;
   font-size: 13px;
   color: var(--text-mute);
   margin-bottom: 6px;
 }
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.crumbs li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.crumbs li + li::before {
+  content: "/";
+  color: var(--text-mute);
+}
 .crumbs a { color: var(--text-mute); }
+.crumbs a:hover { color: var(--brand); }
+.crumbs [aria-current="page"] { color: var(--text-soft); }
 
 .article h1 {
   font-size: clamp(26px, 4vw, 38px);

@@ -8,11 +8,13 @@
 <meta name="keywords" content="B/S Architecture Brute Force, BS架构暴力破解, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/bs-architecture-brute-force/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="B/S Architecture Brute Force">
 <meta property="og:description" content="BS架构暴力猜解 一般是对 web 应用程序中的高权限用户进行猜解，如网站的内容管理系统账户。一般针对 B/S 的暴力猜解，我们使用 Burp Suit 镜像表单爆破。 理解BurpSuit Intruder几种攻击方式，***.com 1967/p/7762…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/bs-architecture-brute-force/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="B/S Architecture Brute Force">
 <meta name="twitter:description" content="BS架构暴力猜解 一般是对 web 应用程序中的高权限用户进行猜解，如网站的内容管理系统账户。一般针对 B/S 的暴力猜解，我们使用 Burp Suit 镜像表单爆破。 理解BurpSuit Intruder几种攻击方式，***.com 1967/p/7762…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "BS架构暴力破解"}]}, {"@type": "TechArticle", "headline": "B/S Architecture Brute Force", "alternativeHeadline": "BS架构暴力破解", "description": "BS架构暴力猜解 一般是对 web 应用程序中的高权限用户进行猜解，如网站的内容管理系统账户。一般针对 B/S 的暴力猜解，我们使用 Burp Suit 镜像表单爆破。 理解BurpSuit Intruder几种攻击方式，***.com 1967/p/7762…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "验证码与暴力破解", "item": "https://black-hat-seo.github.io/captcha-and-brute-force/"}, {"@type": "ListItem", "position": 3, "name": "BS架构暴力破解"}]}, {"@type": "TechArticle", "headline": "B/S Architecture Brute Force", "alternativeHeadline": "BS架构暴力破解", "description": "BS架构暴力猜解 一般是对 web 应用程序中的高权限用户进行猜解，如网站的内容管理系统账户。一般针对 B/S 的暴力猜解，我们使用 Burp Suit 镜像表单爆破。 理解BurpSuit Intruder几种攻击方式，***.com 1967/p/7762…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>BS架构暴力破解</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>BS架构暴力破解</h1><p class="cn-title">B/S Architecture Brute Force</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../captcha-and-brute-force/">验证码与暴力破解</a></li><li><span aria-current="page">BS架构暴力破解</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>BS架构暴力破解</h1><p class="cn-title">B/S Architecture Brute Force</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#bs">BS架构暴力猜解</a><ul>
 <li><a href="#1">①基于表单的暴力破解</a></li>
