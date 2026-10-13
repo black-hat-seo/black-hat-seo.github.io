@@ -8,11 +8,13 @@
 <meta name="keywords" content="XXE: XML and DTD Basics, XXE之XML_DTD基础, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/xxe-xml-dtd-basics/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="XXE: XML and DTD Basics">
 <meta property="og:description" content="[TOC] XXE(XML External Entity Injection) 全称为 XML 外部实体注入 如果使用的php中libxml低于2.9.1，或设置了 libxml disable entity loader(FALSE) ，就会造成XXE漏洞 ﻿ 学习参考地址： ***.com…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/xxe-xml-dtd-basics/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="XXE: XML and DTD Basics">
 <meta name="twitter:description" content="[TOC] XXE(XML External Entity Injection) 全称为 XML 外部实体注入 如果使用的php中libxml低于2.9.1，或设置了 libxml disable entity loader(FALSE) ，就会造成XXE漏洞 ﻿ 学习参考地址： ***.com…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "XXE之XML_DTD基础"}]}, {"@type": "TechArticle", "headline": "XXE: XML and DTD Basics", "alternativeHeadline": "XXE之XML_DTD基础", "description": "[TOC] XXE(XML External Entity Injection) 全称为 XML 外部实体注入 如果使用的php中libxml低于2.9.1，或设置了 libxml disable entity loader(FALSE) ，就会造成XXE漏洞 ﻿ 学习参考地址： ***.com…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "XXE、SSRF、CSRF", "item": "https://black-hat-seo.github.io/xxe-ssrf-csrf/"}, {"@type": "ListItem", "position": 3, "name": "XXE之XML_DTD基础"}]}, {"@type": "TechArticle", "headline": "XXE: XML and DTD Basics", "alternativeHeadline": "XXE之XML_DTD基础", "description": "[TOC] XXE(XML External Entity Injection) 全称为 XML 外部实体注入 如果使用的php中libxml低于2.9.1，或设置了 libxml disable entity loader(FALSE) ，就会造成XXE漏洞 ﻿ 学习参考地址： ***.com…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>XXE之XML_DTD基础</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>XXE之XML_DTD基础</h1><p class="cn-title">XXE: XML and DTD Basics</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a></li><li><span aria-current="page">XXE之XML_DTD基础</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>XXE之XML_DTD基础</h1><p class="cn-title">XXE: XML and DTD Basics</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#xmldtd">XML和DTD知识</a><ul>
 <li><a href="#xml">XML基础知识</a></li>

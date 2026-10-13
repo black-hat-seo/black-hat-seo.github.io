@@ -8,11 +8,13 @@
 <meta name="keywords" content="XSS Cross-Site Scripting, xss跨站脚本攻击, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/xss-cross-site-scripting/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="XSS Cross-Site Scripting">
 <meta property="og:description" content="XSS Cross-Site Scripting — xss跨站脚本攻击. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/xss-cross-site-scripting/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="XSS Cross-Site Scripting">
 <meta name="twitter:description" content="XSS Cross-Site Scripting — xss跨站脚本攻击. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "xss跨站脚本攻击"}]}, {"@type": "TechArticle", "headline": "XSS Cross-Site Scripting", "alternativeHeadline": "xss跨站脚本攻击", "description": "XSS Cross-Site Scripting — xss跨站脚本攻击. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "xss跨站脚本攻击"}]}, {"@type": "TechArticle", "headline": "XSS Cross-Site Scripting", "alternativeHeadline": "xss跨站脚本攻击", "description": "XSS Cross-Site Scripting — xss跨站脚本攻击. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>xss跨站脚本攻击</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>xss跨站脚本攻击</h1><p class="cn-title">XSS Cross-Site Scripting</p><div class="article-body"><p><a href="../xss-principles-and-types/">xss原理和分类</a>
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><span aria-current="page">xss跨站脚本攻击</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>xss跨站脚本攻击</h1><p class="cn-title">XSS Cross-Site Scripting</p><div class="article-body"><p><a href="../xss-principles-and-types/">xss原理和分类</a>
 <a href="../xss-bypass-techniques/">xss绕过技巧</a>
 <a href="../xss-case-studies/">xss案例</a></p></div></article><nav class="pager"><a class="pg prev" href="../sqlmap-tutorial/"><span>上一篇</span><b>神器SQLmap</b></a><a class="pg next" href="../xss-principles-and-types/"><span>下一篇</span><b>xss原理和分类</b></a></nav>
         <footer class="site-foot">

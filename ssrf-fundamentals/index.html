@@ -8,11 +8,13 @@
 <meta name="keywords" content="SSRF Fundamentals, SSRF原理基础, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/ssrf-fundamentals/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="SSRF Fundamentals">
 <meta property="og:description" content="SSRF (Server Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成,由服务端发起请求的一个安全漏洞。 很多Web应用都提供了从其他服务器上获取数据的功能。使用用户指定的URL，Web应用可以获取url中的图片，下文件，读文件等。 攻击者可以利用存在缺陷的web…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/ssrf-fundamentals/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SSRF Fundamentals">
 <meta name="twitter:description" content="SSRF (Server Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成,由服务端发起请求的一个安全漏洞。 很多Web应用都提供了从其他服务器上获取数据的功能。使用用户指定的URL，Web应用可以获取url中的图片，下文件，读文件等。 攻击者可以利用存在缺陷的web…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "SSRF原理基础"}]}, {"@type": "TechArticle", "headline": "SSRF Fundamentals", "alternativeHeadline": "SSRF原理基础", "description": "SSRF (Server Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成,由服务端发起请求的一个安全漏洞。 很多Web应用都提供了从其他服务器上获取数据的功能。使用用户指定的URL，Web应用可以获取url中的图片，下文件，读文件等。 攻击者可以利用存在缺陷的web…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "XXE、SSRF、CSRF", "item": "https://black-hat-seo.github.io/xxe-ssrf-csrf/"}, {"@type": "ListItem", "position": 3, "name": "SSRF原理基础"}]}, {"@type": "TechArticle", "headline": "SSRF Fundamentals", "alternativeHeadline": "SSRF原理基础", "description": "SSRF (Server Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成,由服务端发起请求的一个安全漏洞。 很多Web应用都提供了从其他服务器上获取数据的功能。使用用户指定的URL，Web应用可以获取url中的图片，下文件，读文件等。 攻击者可以利用存在缺陷的web…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>SSRF原理基础</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>SSRF原理基础</h1><p class="cn-title">SSRF Fundamentals</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../xxe-ssrf-csrf/">XXE、SSRF、CSRF</a></li><li><span aria-current="page">SSRF原理基础</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>SSRF原理基础</h1><p class="cn-title">SSRF Fundamentals</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#_1">一、成因、用途、点位</a><ul>
 <li><a href="#ssrf">SSRF形成原因:</a></li>

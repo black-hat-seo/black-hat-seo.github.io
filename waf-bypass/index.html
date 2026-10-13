@@ -8,11 +8,13 @@
 <meta name="keywords" content="WAF Bypass, WAF绕过, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/waf-bypass/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="WAF Bypass">
 <meta property="og:description" content="WAF Bypass — WAF绕过. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/waf-bypass/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WAF Bypass">
 <meta name="twitter:description" content="WAF Bypass — WAF绕过. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "WAF绕过"}]}, {"@type": "TechArticle", "headline": "WAF Bypass", "alternativeHeadline": "WAF绕过", "description": "WAF Bypass — WAF绕过. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "WAF绕过"}]}, {"@type": "TechArticle", "headline": "WAF Bypass", "alternativeHeadline": "WAF绕过", "description": "WAF Bypass — WAF绕过. 系统讲解 Web 渗透测试与网络安全的实战手册，涵盖信息收集、资产梳理、漏洞扫描、SQL 注入、XSS、文件上传与包含、SSRF/CSRF/XXE、命令执行与反序列化、暴力破解、中间件与编辑器漏洞、代码审计、WAF 绕过、系统提权与内网横向渗透，并收录 SEO 优化、安全研发、安全研究与应急响应等专题，附工具用法、靶场实战与防御方案。内容仅供安全学习与研究使用。", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>WAF绕过</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>WAF绕过</h1><p class="cn-title">WAF Bypass</p><div class="article-body"><p><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a>
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><span aria-current="page">WAF绕过</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>WAF绕过</h1><p class="cn-title">WAF Bypass</p><div class="article-body"><p><a href="../waf-basics-cloud-waf/">WAF基础及云WAF</a>
 <a href="../waf-bypass-methods/">各种WAF绕过方法</a>
 <a href="../bypassing-waf-file-upload/">绕过WAF上传文件</a></p></div></article><nav class="pager"><a class="pg prev" href="../code-audit-tools/"><span>上一篇</span><b>代码审计工具</b></a><a class="pg next" href="../waf-basics-cloud-waf/"><span>下一篇</span><b>WAF基础及云WAF</b></a></nav>
         <footer class="site-foot">

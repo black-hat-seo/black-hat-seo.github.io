@@ -8,11 +8,13 @@
 <meta name="keywords" content="XSS Principles and Types, xss原理和分类, 网络安全, 渗透测试, web security, penetration testing, 白帽">
 <meta name="author" content="noahs">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://black-hat-seo.github.io/xss-principles-and-types/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="烟雨黑帽">
 <meta property="og:title" content="XSS Principles and Types">
 <meta property="og:description" content="[TOC] 一、 xss基础和分类 1 XSS的危害： 攻击者可以使用户在 浏览器中 执行其预定义的 恶意脚本 ，其导致的危害 可想而知 ，如劫持用户会话，插入 恶意内容 、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。 XSS 存在的 根本原因 是，对UR…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://black-hat-seo.github.io/xss-principles-and-types/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="XSS Principles and Types">
 <meta name="twitter:description" content="[TOC] 一、 xss基础和分类 1 XSS的危害： 攻击者可以使用户在 浏览器中 执行其预定义的 恶意脚本 ，其导致的危害 可想而知 ，如劫持用户会话，插入 恶意内容 、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。 XSS 存在的 根本原因 是，对UR…">
@@ -21,7 +23,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css?v=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/atom-one-dark.min.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "烟雨黑帽"}, {"@type": "ListItem", "position": 2, "name": "xss原理和分类"}]}, {"@type": "TechArticle", "headline": "XSS Principles and Types", "alternativeHeadline": "xss原理和分类", "description": "[TOC] 一、 xss基础和分类 1 XSS的危害： 攻击者可以使用户在 浏览器中 执行其预定义的 恶意脚本 ，其导致的危害 可想而知 ，如劫持用户会话，插入 恶意内容 、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。 XSS 存在的 根本原因 是，对UR…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://black-hat-seo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "xss跨站脚本攻击", "item": "https://black-hat-seo.github.io/xss-cross-site-scripting/"}, {"@type": "ListItem", "position": 3, "name": "xss原理和分类"}]}, {"@type": "TechArticle", "headline": "XSS Principles and Types", "alternativeHeadline": "xss原理和分类", "description": "[TOC] 一、 xss基础和分类 1 XSS的危害： 攻击者可以使用户在 浏览器中 执行其预定义的 恶意脚本 ，其导致的危害 可想而知 ，如劫持用户会话，插入 恶意内容 、重定向用户、使用恶意软件劫持用户浏览器、繁殖XSS蠕虫，甚至破坏网站、修改路由器配置信息等。 XSS 存在的 根本原因 是，对UR…", "inLanguage": "zh-CN", "author": {"@type": "Person", "name": "noahs"}, "isPartOf": {"@type": "Book", "name": "烟雨黑帽"}, "datePublished": "2026-10-11"}]}</script>
 </head>
 <body>
 <div class="searchbar">
@@ -46,7 +48,7 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <main class="content">
-<article class="article"><nav class="crumbs"><a href="../">烟雨黑帽</a><span>/</span><span>xss原理和分类</span></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>xss原理和分类</h1><p class="cn-title">XSS Principles and Types</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
+<article class="article"><nav class="crumbs" aria-label="面包屑导航"><ol><li><a href="../">首页</a></li><li><a href="../xss-cross-site-scripting/">xss跨站脚本攻击</a></li><li><span aria-current="page">xss原理和分类</span></li></ol></nav><a class="ad-banner" href="../knowledge/" aria-label="SEO专题推广"><img src="../assets/ad-seo.svg" alt="Web安全与SEO实战手册 — 搜索引擎优化(SEO)专题推广" width="970" height="90" loading="lazy"></a><h1>xss原理和分类</h1><p class="cn-title">XSS Principles and Types</p><details class="toc-box" open><summary>本页目录 / On this page</summary><div class="toc">
 <ul>
 <li><a href="#xss">一、 xss基础和分类</a><ul>
 <li><a href="#1-xss">1 XSS的危害：</a></li>
